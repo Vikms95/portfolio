@@ -1,9 +1,9 @@
 <script setup>
-    import HelloWorld from './components/HelloWorld.vue'
+    import ThreeCanvas from './components/ThreeCanvas.vue'
 </script>
 
 <template>
-    <HelloWorld msg="Vite + Vue" />
+    <ThreeCanvas id='scene' />
 </template>
 
 <style scoped>

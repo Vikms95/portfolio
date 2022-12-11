@@ -1,7 +1,11 @@
 <script setup>
+   const props = defineProps( {
+        id: String,
+    } );
 
 </script>
 
 <template>
-    <canvas id="scene"></canvas>
+  <canvas v-bind:id='props.id' ></canvas>
 </template>
+
