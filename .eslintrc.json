@@ -1,0 +1,43 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:vue/vue3-essential"
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "vue"
+    ],
+    "rules": {
+        "indent": [
+            1,
+            "tab"
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            1,
+            "single"
+        ],
+        "semi": 1,
+
+        "space-in-parens": [
+            "error",
+            "always"
+        ],
+        "space-before-function-paren": ["error", {
+          "anonymous": "always",
+          "named": "always",
+          "asyncArrow": "always"
+        }],
+        "space-before-blocks": "error"
+    }
+}

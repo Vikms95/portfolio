@@ -1,11 +1,11 @@
 <script setup>
 
-    import ThreeCanvas from './components/ThreeCanvas.vue'
+import ThreeCanvas from './components/ThreeCanvas.vue';
 
 </script>
 
 <template>
 
-    <ThreeCanvas id='scene' />
+  <ThreeCanvas id='scene' />
 
 </template>
