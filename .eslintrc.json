@@ -38,6 +38,9 @@
           "named": "always",
           "asyncArrow": "always"
         }],
-        "space-before-blocks": "error"
+        "space-before-blocks": "error",
+        "comma-spacing":"error",
+        "array-bracket-spacing": "error",
+        "key-spacing": "error"
     }
 }
