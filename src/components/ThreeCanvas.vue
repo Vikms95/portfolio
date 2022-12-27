@@ -1,6 +1,7 @@
 <style>
 
   canvas {
+    position: fixed;
     width: 100%;
     height: 100%;
   }
@@ -156,10 +157,11 @@ onMounted( () => {
 	renderer = new THREE.WebGLRenderer( {
 		canvas: experience.value,
 	} );
+  
 	renderer.setSize( width.value, height.value );
 	updateRenderer();
 	updateCamera();
-
+  
 	const controls = new OrbitControls( camera, renderer.domElement );
 	controls.update();
   
@@ -178,7 +180,7 @@ onMounted( () => {
 	const sunMat = new THREE.MeshBasicMaterial( {map: textureLoader.load( sunTexture )} );
 	sun = new THREE.Mesh( sunGeo, sunMat );
 	scene.add( sun );
-
+  
 	mercury = createPlanet( 3.2, mercuryTexture, 68 );
 	venus = createPlanet( 5.8, venusTexture, 90 );
 	earth = createPlanet( 6, earthTexture, 162 );
@@ -189,21 +191,26 @@ onMounted( () => {
 		outerRadius: 20,
 		texture: saturnRingTexture
 	} );
-
 	uranus = createPlanet( 7, uranusTexture, 776, {
 		innerRadius: 7,
 		outerRadius: 12,
 		texture: uranusRingTexture
 	} );
-
 	uranus.obj.rotation.x = 2;
-
 	neptune = createPlanet( 7, neptuneTexture, 1000 );
-
 	pluto = createPlanet( 2.8, plutoTexture, 1216 );
+	document.addEventListener( 'scroll', moveCamera );
 
 	animate();
 } );
+
+function moveCamera () {
+	const distance = document.body.getBoundingClientRect().top;
+	camera.position.z +=  distance * -0.00001 ;
+	// camera.position.setY( distance * -0.00002 );
+	// camera.position.setX( distance * -0.00002 );
+}
+
 
 </script>
 
