@@ -5,3 +5,12 @@ https://webflow.com/blog/web-design-portfolios?utm_source=google&utm_medium=sear
 
 Portfolio with text rotation
 https://nicoflorentin.github.io/
+
+---
+Content bio
+  Quick description with CTAs
+Content projects
+  Grid with miniatures of project linking to its site and Github, swift
+  description and tech used
+Content contributions
+  Libraries or accomplishments in code I have made

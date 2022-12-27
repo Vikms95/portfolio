@@ -3,7 +3,7 @@
     {
       column-gap: 2em;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       /* flex-wrap: wrap; */
       color: white;
@@ -14,12 +14,14 @@
     {
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
+      max-width: 100%;
     }
 
     img.profile
     {
+      justify-self: flex-start;
       height: 240px;
       width: auto;
       border-radius: 50%;
@@ -52,14 +54,19 @@
     {
       font-size: medium;
     }
+
+    #typewritter-text
+    {
+      max-width: 100%;
+    }
   </style>
+
 <script setup>
   import TypeWriter from 'typewriter-effect/dist/core';
   import { onMounted } from 'vue';
-
   onMounted( () =>
   {
-    const node = document.querySelector( '#typewriter-text' );
+    const node = document.querySelector( '.typewriter-text' );
     const typewriter = new TypeWriter( node, {
       autoStart: true,
       loop: true
@@ -91,10 +98,17 @@
 
       <div class='bio-social'>
         <a target='_blank' class='bio-link' href="https://github.com/Vikms95">
+          <img class='bio-social-icon' src="../../public/resume-icon.png"
+               alt="github icon">
+          <span> Download resume </span>
+        </a>
+
+        <a target='_blank' class='bio-link' href="https://github.com/Vikms95">
           <img class='bio-social-icon' src="../../public/github-icon.png"
                alt="github icon">
           <span> Check me </span>
         </a>
+
 
         <a target='_blank' class='bio-link'
            href="https://www.linkedin.com/in/v%C3%ADctor-mart%C3%ADn-serra-b4003487/">
@@ -113,13 +127,11 @@
 
       </div>
       <div class='bio-text'>
-        <h1 id='typewriter-text'>
-
-        </h1>
-
+        <h1 class='typewriter-text' />
         <h2>
           I build impactful websites that work.
         </h2>
+
       </div>
     </div>
 
