@@ -9,17 +9,18 @@
       width: 105ch;
       text-align: left;
       display: grid;
-      grid-template-rows: 1fr 1fr 1fr;
+      grid-template-rows: repeat(1fr, 2);
     }
 
     .content {
-      background-color: aquamarine;
+      display: grid;
+      grid-template-rows: repeat(1fr, 2);
     }
   </style>
 
 <script setup>
 
-  import ContentBio from './ContentBio.vue';
+  import PortfolioBio from './PortfolioBio.vue';
   import ContentProjects from './ContentProjects.vue';
   import ContentContributions from './ContentContributions.vue';
 
@@ -28,7 +29,7 @@
 <template>
 
   <main class='content-wrapper'>
-    <ContentBio />
+    <PortfolioBio />
 
     <section class='content'>
       <article class='projects'>

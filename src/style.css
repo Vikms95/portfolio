@@ -83,6 +83,12 @@ button:focus-visible {
   height: 100vh;
 }
 
+.section-title {
+  font-size: xx-large;
+  color: rgb(57, 72, 209);
+}
+
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

@@ -1,11 +1,13 @@
 <style scoped>
     .bio {
-      column-gap: 1em;
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
       color: white;
-
+      display: flex;
+      flex: 1 0 auto;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+      align-items: center;
+      column-gap: 1em;
+      margin-bottom: 5em;
     }
 
     .bio-content {
@@ -25,6 +27,11 @@
       max-width: 100%;
       font-size: xx-large;
       text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    }
+
+    .bio-text > h2,
+    .bio-text > h3 {
+      margin: 1.5em 0;
     }
 
     #typewritter-text {
@@ -52,7 +59,7 @@
       .typeString( 'Science enthusiast.' )
       .pauseFor( 200 )
       .deleteAll()
-      .typeString( 'Gamer.' )
+      .typeString( 'Books and cinema lover.' )
       .pauseFor( 200 )
       .deleteAll()
       .start();

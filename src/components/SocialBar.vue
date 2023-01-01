@@ -1,7 +1,7 @@
 <style scoped>
     .social {
-      position: absolute;
-      bottom: 10px;
+      position: fixed;
+      bottom: 40px;
       left: 40px;
       display: flex;
       flex-direction: column;
@@ -15,7 +15,7 @@
       width: 3px;
       height: 140px;
       margin: 0px auto;
-      background-color: rgb(36, 197, 197);
+      background-color: rgb(57, 72, 209);
       border-radius: 15px;
     }
 
@@ -29,9 +29,6 @@
     .social-icon {
       height: 30px;
     }
-
-
-
   </style>
 
 <script setup> </script>

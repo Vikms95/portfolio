@@ -1,5 +1,5 @@
 <template>
-  <h2>
+  <h4 class='section-title'>
     Contributions
-  </h2>
+  </h4>
 </template>
