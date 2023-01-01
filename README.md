@@ -24,3 +24,6 @@ https://itssharl.ee/fr
 https://brittanychiang.com/
 
 - Make the social media sidebar also look like the portfolio above and create some kind of futuristic layout as if you were an astronaut
+
+- Webpage for icons:
+https://www.flaticon.com/

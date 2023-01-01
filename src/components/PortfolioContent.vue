@@ -1,6 +1,5 @@
-<style>
-    .content {
-      background-color: rgba(128, 128, 128, 0.065);
+<style scoped>
+    .content-wrapper {
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
       padding: 2em 4em;
@@ -11,6 +10,10 @@
       text-align: left;
       display: grid;
       grid-template-rows: 1fr 1fr 1fr;
+    }
+
+    .content {
+      background-color: aquamarine;
     }
   </style>
 
@@ -23,9 +26,19 @@
 </script>
 
 <template>
-  <main class='content'>
+
+  <main class='content-wrapper'>
     <ContentBio />
-    <ContentProjects />
-    <ContentContributions />
+
+    <section class='content'>
+      <article class='projects'>
+        <ContentProjects />
+      </article>
+
+      <article class='contributions'>
+        <ContentContributions />
+      </article>
+
+    </section>
   </main>
 </template>

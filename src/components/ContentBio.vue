@@ -1,71 +1,43 @@
-<style>
-    .bio
-    {
-      column-gap: 2em;
+<style scoped>
+    .bio {
+      column-gap: 1em;
       display: flex;
-      justify-content: space-between;
+      justify-content: space-evenly;
       align-items: center;
-      /* flex-wrap: wrap; */
       color: white;
 
     }
 
-    .bio-content
-    {
+    .bio-content {
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      align-items: center;
-      max-width: 100%;
     }
 
-    img.profile
-    {
+    img.profile {
       justify-self: flex-start;
       height: 240px;
       width: auto;
       border-radius: 50%;
     }
 
-    .bio-social
-    {
-      width: 100%;
-      color: black;
-      display: flex;
-      align-content: center;
-      justify-content: space-between;
-      column-gap: 0.5em;
-    }
-
-    .bio-link
-    {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      column-gap: 5px;
-    }
-
-    .bio-social-icon
-    {
-      height: 40px;
-    }
-
-    .bio-text
-    {
-      font-size: medium;
-    }
-
-    #typewritter-text
-    {
+    .bio-text {
       max-width: 100%;
+      font-size: xx-large;
+      text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    }
+
+    #typewritter-text {
+      max-width: 100%;
+      padding: 0 2em;
     }
   </style>
 
 <script setup>
   import TypeWriter from 'typewriter-effect/dist/core';
   import { onMounted } from 'vue';
-  onMounted( () =>
-  {
+
+  onMounted( () => {
     const node = document.querySelector( '.typewriter-text' );
     const typewriter = new TypeWriter( node, {
       autoStart: true,
@@ -94,45 +66,13 @@
     <img class='profile' src="../assets/profile.jfif"
          alt="vikms looking at the camera">
 
-    <div class='bio-content'>
+    <div class='bio-text'>
+      <h2 class='typewriter-text' />
 
-      <div class='bio-social'>
-        <a target='_blank' class='bio-link' href="https://github.com/Vikms95">
-          <img class='bio-social-icon' src="../../public/resume-icon.png"
-               alt="github icon">
-          <span> Download resume </span>
-        </a>
+      <h3>
+        I build impactful websites that work.
+      </h3>
 
-        <a target='_blank' class='bio-link' href="https://github.com/Vikms95">
-          <img class='bio-social-icon' src="../../public/github-icon.png"
-               alt="github icon">
-          <span> Check me </span>
-        </a>
-
-
-        <a target='_blank' class='bio-link'
-           href="https://www.linkedin.com/in/v%C3%ADctor-mart%C3%ADn-serra-b4003487/">
-          <img class='bio-social-icon' src="../../public/linkedin-icon.png"
-               alt="linkedin icon">
-          <span> Hire me </span>
-        </a>
-
-        <a target='_blank' class='bio-link'
-           href="https://www.linkedin.com/in/v%C3%ADctor-mart%C3%ADn-serra-b4003487/">
-          <img class='bio-social-icon' src="../../public/email-icon.png"
-               alt="email icon">
-          <span> Contact me </span>
-        </a>
-
-
-      </div>
-      <div class='bio-text'>
-        <h1 class='typewriter-text' />
-        <h2>
-          I build impactful websites that work.
-        </h2>
-
-      </div>
     </div>
 
   </header>
