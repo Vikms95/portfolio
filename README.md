@@ -27,3 +27,5 @@ https://brittanychiang.com/
 
 - Webpage for icons:
 https://www.flaticon.com/
+
+- Add bluriness to the content div

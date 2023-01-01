@@ -6,7 +6,7 @@
       justify-content: space-evenly;
       flex-wrap: wrap;
       align-items: center;
-      column-gap: 1em;
+      column-gap: 2em;
       margin-bottom: 5em;
     }
 

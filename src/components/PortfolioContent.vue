@@ -15,7 +15,14 @@
     .content {
       display: grid;
       grid-template-rows: repeat(1fr, 2);
+      font-size: 15px;
+      backdrop-filter: blur(10px);
+      color: white;
+      border: 2px rgb(57, 72, 209) solid;
+      border-radius: 20px;
+      padding: 1em 2em;
     }
+
   </style>
 
 <script setup>
@@ -23,6 +30,7 @@
   import PortfolioBio from './PortfolioBio.vue';
   import ContentProjects from './ContentProjects.vue';
   import ContentContributions from './ContentContributions.vue';
+  import ContentTechnologies from './ContentTechnologies.vue';
 
 </script>
 
@@ -32,6 +40,10 @@
     <PortfolioBio />
 
     <section class='content'>
+      <article class='technologies'>
+        <ContentTechnologies />
+      </article>
+
       <article class='projects'>
         <ContentProjects />
       </article>

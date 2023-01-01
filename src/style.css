@@ -88,6 +88,12 @@ button:focus-visible {
   color: rgb(57, 72, 209);
 }
 
+.text-glow {
+  text-shadow:
+    0 0 80px rgb(192 219 255 / 75%),
+    0 0 32px rgb(65 120 255 / 24%);
+}
+
 
 @media (prefers-color-scheme: light) {
   :root {
