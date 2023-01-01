@@ -1,7 +1,6 @@
 <style>
-    .content
-    {
-      background-color: rgba(128, 128, 128, 0.765);
+    .content {
+      background-color: rgba(128, 128, 128, 0.065);
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
       padding: 2em 4em;
