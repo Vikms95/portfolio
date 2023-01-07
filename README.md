@@ -29,3 +29,6 @@ https://brittanychiang.com/
 https://www.flaticon.com/
 
 - Add bluriness to the content div
+
+- Tech icons
+https://devicon.dev/

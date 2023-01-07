@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@vueuse/core": "^9.6.0",
+    "devicon": "^2.15.1",
     "three": "^0.147.0",
     "typewriter-effect": "^2.19.0",
     "vue": "^3.2.45"

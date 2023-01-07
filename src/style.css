@@ -51,6 +51,12 @@ h1 {
   line-height: 1.1;
 }
 
+ul,
+li {
+  list-style: none;
+  display: flex;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -108,4 +114,24 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-track {
+  background: black;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(57, 72, 209);
+  border-radius: 50px;
+
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(57, 72, 209);
 }
