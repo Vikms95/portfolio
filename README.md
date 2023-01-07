@@ -15,6 +15,8 @@ Content contributions
 <!-- Ideas -->
 - Make camera move to a part of the solar system when looking at certain position
 
+- Give random lights to the Sun so it looks like plasma explosions
+
 - Make the bio float and the rest of the content rest on a semi-transparent div
 
 - Make some drawing follow your cursor as with:

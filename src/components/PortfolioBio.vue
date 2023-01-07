@@ -8,7 +8,7 @@
     flex-wrap: wrap;
     align-items: center;
     column-gap: 2em;
-    margin-bottom: 5em;
+    margin-bottom: 18em;
   }
 
   .bio-content {

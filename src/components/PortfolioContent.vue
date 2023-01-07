@@ -3,12 +3,15 @@
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     padding: 2em 4em;
+    /* margin-top: 5em; */
     position: absolute;
     top: 10em;
     left: 15vw;
     width: 105ch;
     text-align: left;
     display: grid;
+    justify-content: center;
+    align-items: center;
     grid-template-rows: repeat(1fr, 2);
   }
 
@@ -27,6 +30,7 @@
 <script setup>
 
   import PortfolioBio from './PortfolioBio.vue';
+  import ScrollAnimatedIcon from './ScrollAnimatedIcon.vue';
   import ContentProjects from './ContentProjects.vue';
   import ContentContributions from './ContentContributions.vue';
   import ContentTechnologies from './ContentTechnologies.vue';
@@ -36,7 +40,10 @@
 <template>
 
   <main class='content-wrapper'>
+
     <PortfolioBio />
+
+    <ScrollAnimatedIcon />
 
     <section class='content'>
       <article class='technologies'>

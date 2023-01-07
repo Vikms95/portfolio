@@ -15,39 +15,45 @@
 
 <script setup>
 
+  import { ref } from 'vue';
+  import git from '../../public/tech-icons/git-original.svg';
+  import bootstrap from '../../public/tech-icons/bootstrap-original.svg';
+  import mongo from '../../public/tech-icons/mongodb-original.svg';
+  import node from '../../public/tech-icons/nodejs-original.svg';
+  import postgre from '../../public/tech-icons/postgresql-original.svg';
+  import python from '../../public/tech-icons/python-original.svg';
+  import react from '../../public/tech-icons/react-original.svg';
+  import three from '../../public/tech-icons/threejs-original.svg';
+  import ts from '../../public/tech-icons/typescript-original.svg';
+  import vue from '../../public/tech-icons/vuejs-original.svg';
+  import redux from '../../public/tech-icons/redux-original.svg';
+
+  const links = ref( [
+    git,
+    bootstrap,
+    ts,
+    python,
+    react,
+    vue,
+    redux,
+    three,
+    node,
+    mongo,
+    postgre,
+  ] );
+
 </script>
 
 <template>
+
   <h4 class='section-title text-glow'>
     Technologies
   </h4>
+
   <ul class='tech-list'>
-    <li>
-      <img class='tech-icon' v-bind:src=' hi ' />
+    <li v-for='(          item, index          ) in links'>
+      <img class='tech-icon' :src=' item ' :alt=' index ' />
     </li>
-    <!-- <li>
-      <img class='tech-icon'
-           src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" />
-    </li>
-    <li>
-      <img class='tech-icon'
-           src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-plain.svg" />
-    </li>
-    <li>
-      <img class='tech-icon'
-           src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" />
-    </li>
-    <li>
-      <img class='tech-icon'
-           src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg" />
-    </li>
-    <li>
-      <img class='tech-icon'
-           src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" />
-    </li>
-    <li>
-      <img class='tech-icon'
-           src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" />
-    </li> -->
   </ul>
+
 </template>
