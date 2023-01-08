@@ -90,6 +90,7 @@ button:focus-visible {
 }
 
 .section-title {
+  margin: 3em 0;
   font-size: xx-large;
   color: rgb(57, 72, 209);
 }

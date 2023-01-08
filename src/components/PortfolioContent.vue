@@ -18,7 +18,7 @@
     display: grid;
     grid-template-rows: repeat(1fr, 2);
     font-size: 15px;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(15px);
     color: white;
     border-radius: 20px;
     padding: 1em 2em;
@@ -39,7 +39,6 @@
 <template>
 
   <main class='content-wrapper'>
-
     <PortfolioBio />
 
     <ScrollAnimatedIcon />

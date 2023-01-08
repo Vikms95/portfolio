@@ -2,7 +2,7 @@
   .logo {
     position: absolute;
     top: 10px;
-    left: 40px;
+    /* left: 20px; */
     z-index: 2;
     height: 6em;
   }

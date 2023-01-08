@@ -5,13 +5,15 @@
   import SocialBar from './components/SocialBar.vue';
   import PortfolioLogo from './components/PortfolioLogo.vue';
 
+  import { ref } from 'vue';
+
+  const isContentEnabled = ref( true );
+
 </script>
 
 <template >
   <PortfolioLogo />
   <SocialBar />
   <ThreeCanvas id='scene' />
-  <!-- Hide if the user chooses to see the experience -->
-  <PortfolioContent />
-  <!--  -->
+  <PortfolioContent v-if=' isContentEnabled ' />
 </template>

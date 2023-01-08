@@ -16,11 +16,10 @@ Content contributions
 - Make camera move to a part of the solar system when looking at certain position
 
 - Give random lights to the Sun so it looks like plasma explosions
-
-- Make the bio float and the rest of the content rest on a semi-transparent div
-
-- Make some drawing follow your cursor as with:
-https://itssharl.ee/fr
+    <!-- Gave it PointLights generated randomly -->
+    Need to give it animations on the Sun texture itself
+<!-- 
+- Make the bio float and the rest of the content rest on a semi-transparent div -->
 
 - I like the projects layout from this portfolio:
 https://brittanychiang.com/
@@ -30,7 +29,7 @@ https://brittanychiang.com/
 - Webpage for icons:
 https://www.flaticon.com/
 
-- Add bluriness to the content div
+<!-- - Add bluriness to the content div -->
 
 - Tech icons
 https://devicon.dev/
@@ -38,7 +37,7 @@ https://devicon.dev/
 - Logo 
 https://www.brandcrowd.com/
 
-- Add transparent background
+<!-- - Add transparent background -->
 https://www.adobe.com/es/express/feature/image/transparent-background
 
-- Make planets not start aligned
+<!-- - Make planets not start aligned -->
