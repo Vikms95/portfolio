@@ -11,5 +11,7 @@
   <PortfolioLogo />
   <SocialBar />
   <ThreeCanvas id='scene' />
+  <!-- Hide if the user chooses to see the experience -->
   <PortfolioContent />
+  <!--  -->
 </template>

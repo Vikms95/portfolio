@@ -121,7 +121,7 @@
 
 
   const createExplosion = () => {
-    const isExplosion = Math.random() >= 0.999 ? true : false;
+    const isExplosion = Math.random() >= 0.9991 ? true : false;
 
     if ( isExplosion ) {
       isExplosionHappening = true;
@@ -132,7 +132,6 @@
 
   const increaseExplosion = () => {
     explosion.intensity += 0.025;
-    console.log( 'test', explosion.intensity );
 
     if ( explosion.intensity >= 5 ) {
       isExplosionDiminishing = true;
@@ -141,7 +140,6 @@
 
   const diminishExplosion = () => {
     explosion.intensity -= 0.05;
-    console.log( 'test', explosion.intensity );
 
     if ( explosion.intensity <= 0.5 ) {
       scene.remove( explosion );
@@ -165,15 +163,15 @@
     pluto.mesh.rotateY( 0.0008 );
 
     // //Around-sun-rotation
-    mercury.obj.rotateY( 0.0004 );
-    venus.obj.rotateY( 0.00015 );
-    earth.obj.rotateY( 0.0001 );
-    mars.obj.rotateY( 0.00008 );
-    jupiter.obj.rotateY( 0.00002 );
-    saturn.obj.rotateY( 0.000009 );
-    uranus.obj.rotateY( 0.000004 );
-    neptune.obj.rotateY( 0.000001 );
-    pluto.obj.rotateY( 0.0000007 );
+    mercury.obj.rotateY( 0.004 );
+    venus.obj.rotateY( 0.001 );
+    earth.obj.rotateY( 0.0009 );
+    mars.obj.rotateY( 0.0008 );
+    jupiter.obj.rotateY( 0.00009 );
+    saturn.obj.rotateY( 0.00009 );
+    uranus.obj.rotateY( 0.000005 );
+    neptune.obj.rotateY( 0.00005 );
+    pluto.obj.rotateY( 0.00005 );
 
     if ( isExplosionHappening === false ) {
       createExplosion();
@@ -239,13 +237,23 @@
       outerRadius: 12,
       texture: uranusRingTexture
     } );
-    uranus.obj.rotation.x = 2;
+    // uranus.rotation.x = 2;
     neptune = createPlanet( 7, neptuneTexture, 1000 );
-    pluto = createPlanet( 2.8, plutoTexture, 1216 );
+    pluto = createPlanet( 5.8, plutoTexture, 1216 );
+    pluto.obj.rotation.x = 1;
     document.addEventListener( 'scroll', moveCamera );
 
-    createExplosion();
+    mercury.obj.rotateY( Math.random() * 5 );
+    venus.obj.rotateY( Math.random() * 5 );
+    earth.obj.rotateY( Math.random() * 5 );
+    mars.obj.rotateY( Math.random() * 5 );
+    saturn.obj.rotateY( Math.random() * 5 );
+    uranus.obj.rotateY( Math.random() * 5 );
+    neptune.obj.rotateY( Math.random() * 5 );
+    pluto.obj.rotateY( Math.random() * 5 );
 
+
+    createExplosion();
     animate();
   } );
 
