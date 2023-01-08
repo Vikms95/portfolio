@@ -44,6 +44,7 @@
 <script setup>
   import TypeWriter from 'typewriter-effect/dist/core';
   import { onMounted } from 'vue';
+  import profilePicture from '/social-icons/profile.jfif';
 
   onMounted( () => {
     const node = document.querySelector( '.typewriter-text' );
@@ -68,10 +69,9 @@
 
 </script>
 
-
 <template>
   <header class='bio'>
-    <img class='profile' src="../assets/profile.jfif"
+    <img class='profile' :src=' profilePicture '
          alt="vikms looking at the camera">
 
     <div class='bio-text'>

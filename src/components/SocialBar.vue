@@ -39,10 +39,10 @@
 </style>
 
 <script setup>
-  import githubIcon from "../../public/social-icons/github-icon.png";
-  import linkedinIcon from "../../public/social-icons/linkedin-icon.png";
-  import mailIcon from "../../public/social-icons/resume-icon.png";
-  import cvIcon from "../../public/social-icons/email-icon.png";
+  import githubIcon from "/social-icons/github-icon.png";
+  import linkedinIcon from "/social-icons/linkedin-icon.png";
+  import mailIcon from "/social-icons/resume-icon.png";
+  import cvIcon from "/social-icons/email-icon.png";
 
   import { ref } from 'vue';
 
@@ -75,7 +75,7 @@
   <nav class='social'>
     <ul class='social-list'>
 
-      <li v-for='(  item  ) in links'>
+      <li v-for='(      item      ) in links'>
         <a target='_blank' class='link' :href=' item.link '>
           <img class='social-icon' :src=' item.iconSrc ' :alt=' item.alt '>
         </a>

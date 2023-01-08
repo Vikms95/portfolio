@@ -16,17 +16,17 @@
 <script setup>
 
   import { ref } from 'vue';
-  import git from '../../public/tech-icons/git-original.svg';
-  import bootstrap from '../../public/tech-icons/bootstrap-original.svg';
-  import mongo from '../../public/tech-icons/mongodb-original.svg';
-  import node from '../../public/tech-icons/nodejs-original.svg';
-  import postgre from '../../public/tech-icons/postgresql-original.svg';
-  import python from '../../public/tech-icons/python-original.svg';
-  import react from '../../public/tech-icons/react-original.svg';
-  import three from '../../public/tech-icons/threejs-original.svg';
-  import ts from '../../public/tech-icons/typescript-original.svg';
-  import vue from '../../public/tech-icons/vuejs-original.svg';
-  import redux from '../../public/tech-icons/redux-original.svg';
+  import git from '/tech-icons/git-original.svg';
+  import bootstrap from '/tech-icons/bootstrap-original.svg';
+  import mongo from '/tech-icons/mongodb-original.svg';
+  import node from '/tech-icons/nodejs-original.svg';
+  import postgre from '/tech-icons/postgresql-original.svg';
+  import python from '/tech-icons/python-original.svg';
+  import react from '/tech-icons/react-original.svg';
+  import three from '/tech-icons/threejs-original.svg';
+  import ts from '/tech-icons/typescript-original.svg';
+  import vue from '/tech-icons/vuejs-original.svg';
+  import redux from '/tech-icons/redux-original.svg';
 
   const links = ref( [
     git,
@@ -51,7 +51,7 @@
   </h4>
 
   <ul class='tech-list'>
-    <li v-for='(          item, index          ) in links'>
+    <li v-for='(              item, index              ) in links'>
       <img class='tech-icon' :src=' item ' :alt=' index ' />
     </li>
   </ul>

@@ -3,7 +3,6 @@
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     padding: 2em 4em;
-    /* margin-top: 5em; */
     position: absolute;
     top: 10em;
     left: 15vw;

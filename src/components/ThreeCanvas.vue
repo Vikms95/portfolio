@@ -1,41 +1,39 @@
 <style>
-    canvas
-    {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-    }
-  </style>
+  canvas {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
+</style>
 
 
 <script setup>
 
   import * as THREE from 'three';
   import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-  import
-  {
-    ref,
-    watch,
-    computed,
-    onMounted
-  }
+  import {
+  ref,
+  watch,
+  computed,
+  onMounted
+}
     from 'vue';
 
   import { useWindowSize } from '@vueuse/core';
 
-  import starsTexture from '../assets/stars.jpg';
-  import sunTexture from '../assets/sun.jpg';
-  import mercuryTexture from '../assets/mercury.jpg';
-  import venusTexture from '../assets/venus.jpg';
-  import earthTexture from '../assets/earth.jpg';
-  import marsTexture from '../assets/mars.jpg';
-  import jupiterTexture from '../assets/jupiter.jpg';
-  import saturnTexture from '../assets/saturn.jpg';
-  import saturnRingTexture from '../assets/saturn ring.png';
-  import uranusTexture from '../assets/uranus.jpg';
-  import uranusRingTexture from '../assets/uranus ring.png';
-  import neptuneTexture from '../assets/neptune.jpg';
-  import plutoTexture from '../assets/pluto.jpg';
+  import starsTexture from '/3D-assets/stars.jpg';
+  import sunTexture from '/3D-assets/sun.jpg';
+  import mercuryTexture from '/3D-assets/mercury.jpg';
+  import venusTexture from '/3D-assets/venus.jpg';
+  import earthTexture from '/3D-assets/earth.jpg';
+  import marsTexture from '/3D-assets/mars.jpg';
+  import jupiterTexture from '/3D-assets/jupiter.jpg';
+  import saturnTexture from '/3D-assets/saturn.jpg';
+  import saturnRingTexture from '/3D-assets/saturn ring.png';
+  import uranusTexture from '/3D-assets/uranus.jpg';
+  import uranusRingTexture from '/3D-assets/uranus ring.png';
+  import neptuneTexture from '/3D-assets/neptune.jpg';
+  import plutoTexture from '/3D-assets/pluto.jpg';
 
   let renderer;
   const { width, height } = useWindowSize();
@@ -63,14 +61,12 @@
   let neptune;
   let pluto;
 
-  function updateRenderer ()
-  {
+  function updateRenderer () {
     renderer.setSize( width.value, height.value );
     renderer.setPixelRatio( window.devicePixelRatio );
   }
 
-  function updateCamera ()
-  {
+  function updateCamera () {
     camera.aspect = aspectRatio.value;
     camera.updateProjectionMatrix;
   }
@@ -85,8 +81,7 @@
 
   const textureLoader = new THREE.TextureLoader();
 
-  function createPlanet ( size, texture, position, ring )
-  {
+  function createPlanet ( size, texture, position, ring ) {
     const geo = new THREE.SphereGeometry( size, 30, 30 );
     const mat = new THREE.MeshStandardMaterial( {
       map: textureLoader.load( texture )
@@ -96,8 +91,7 @@
     const obj = new THREE.Object3D();
     obj.add( mesh );
 
-    if ( ring )
-    {
+    if ( ring ) {
       const ringGeo = new THREE.RingGeometry(
         ring.innerRadius,
         ring.outerRadius,
@@ -122,8 +116,7 @@
   }
 
 
-  function animate ()
-  {
+  function animate () {
     //Self-rotation
     sun.rotateY( 0.0001 );
     mercury.mesh.rotateY( 0.004 );
@@ -151,15 +144,13 @@
     renderer.render( scene, camera );
   }
 
-  window.addEventListener( 'resize', function ()
-  {
+  window.addEventListener( 'resize', function () {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize( window.innerWidth, window.innerHeight );
   } );
 
-  onMounted( () =>
-  {
+  onMounted( () => {
     renderer = new THREE.WebGLRenderer( {
       canvas: experience.value,
     } );
@@ -210,8 +201,7 @@
     animate();
   } );
 
-  function moveCamera ()
-  {
+  function moveCamera () {
     const distance = document.body.getBoundingClientRect().top;
     camera.position.z += distance * -0.00001;
     // camera.position.setY( distance * -0.00002 );
