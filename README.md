@@ -34,3 +34,11 @@ https://www.flaticon.com/
 
 - Tech icons
 https://devicon.dev/
+
+- Logo 
+https://www.brandcrowd.com/
+
+- Add transparent background
+https://www.adobe.com/es/express/feature/image/transparent-background
+
+- Make planets not start aligned

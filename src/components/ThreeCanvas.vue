@@ -12,11 +12,11 @@
   import * as THREE from 'three';
   import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
   import {
-  ref,
-  watch,
-  computed,
-  onMounted
-}
+    ref,
+    watch,
+    computed,
+    onMounted
+  }
     from 'vue';
 
   import { useWindowSize } from '@vueuse/core';
@@ -36,20 +36,6 @@
   import plutoTexture from '/3D-assets/pluto.jpg';
 
   let renderer;
-  const { width, height } = useWindowSize();
-  const aspectRatio = computed( () => width.value / height.value );
-
-  const experience = ref( null );
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(
-    45,
-    aspectRatio.value,
-    0.1,
-    1000
-  );
-  camera.position.set( -90, 140, 140 );
-  scene.add( camera );
-
   let sun;
   let mercury;
   let venus;
@@ -60,6 +46,20 @@
   let uranus;
   let neptune;
   let pluto;
+
+  const { width, height } = useWindowSize();
+  const aspectRatio = computed( () => width.value / height.value );
+
+  const experience = ref( null );
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(
+    45,
+    aspectRatio.value,
+    0.1,
+    10000
+  );
+  camera.position.set( -90, 140, 140 );
+  scene.add( camera );
 
   function updateRenderer () {
     renderer.setSize( width.value, height.value );
@@ -75,7 +75,7 @@
   watch( aspectRatio, updateCamera );
 
   const ambientLight = new THREE.AmbientLight( 0x333333 );
-  const pointLight = new THREE.PointLight( 0xFFFFFF, 2, 200 );
+  const pointLight = new THREE.PointLight( 0xFFFFFF, 2, 1500 );
   scene.add( pointLight );
   scene.add( ambientLight );
 
@@ -115,6 +115,41 @@
     return { mesh, obj };
   }
 
+  let explosion;
+  let isExplosionHappening = false;
+  let isExplosionDiminishing = false;
+
+
+  const createExplosion = () => {
+    const isExplosion = Math.random() >= 0.999 ? true : false;
+
+    if ( isExplosion ) {
+      isExplosionHappening = true;
+      explosion = new THREE.PointLight( 0xFFFFFF, 2, 550 );
+      scene.add( explosion );
+    }
+  };
+
+  const increaseExplosion = () => {
+    explosion.intensity += 0.025;
+    console.log( 'test', explosion.intensity );
+
+    if ( explosion.intensity >= 5 ) {
+      isExplosionDiminishing = true;
+    }
+  };
+
+  const diminishExplosion = () => {
+    explosion.intensity -= 0.05;
+    console.log( 'test', explosion.intensity );
+
+    if ( explosion.intensity <= 0.5 ) {
+      scene.remove( explosion );
+
+      isExplosionHappening = false;
+      isExplosionDiminishing = false;
+    }
+  };
 
   function animate () {
     //Self-rotation
@@ -139,6 +174,17 @@
     uranus.obj.rotateY( 0.000004 );
     neptune.obj.rotateY( 0.000001 );
     pluto.obj.rotateY( 0.0000007 );
+
+    if ( isExplosionHappening === false ) {
+      createExplosion();
+    } else {
+      if ( isExplosionDiminishing === false ) {
+        increaseExplosion();
+      } else {
+        diminishExplosion();
+      }
+    }
+
 
     requestAnimationFrame( animate );
     renderer.render( scene, camera );
@@ -197,6 +243,8 @@
     neptune = createPlanet( 7, neptuneTexture, 1000 );
     pluto = createPlanet( 2.8, plutoTexture, 1216 );
     document.addEventListener( 'scroll', moveCamera );
+
+    createExplosion();
 
     animate();
   } );
