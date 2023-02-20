@@ -8,7 +8,7 @@
 <template>
   <h4 class='section-title text-glow'>Projects</h4>
   <article>
-    <ProjectView v-for=' project  in projects' 
+    <ProjectView v-for='  project  in projects' 
       :name=' project.name ' 
       :description=' project.description '
       :images=' project.images ' 
