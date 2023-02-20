@@ -27,7 +27,7 @@
   </h4>
 
   <ul class='tech-list'>
-    <li v-for=' (    item, index    )  in icons'>
+    <li v-for=' (item, index) in icons'>
       <img class='tech-icon' :src=' item ' :alt=' index ' />
     </li>
   </ul>

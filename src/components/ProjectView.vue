@@ -1,7 +1,16 @@
+<script setup>
+  const props = defineProps(
+    ['name', 'description', 'images', 'technologies', 'link']
+  );
+</script>
+<!-- https://brittanychiang.com/ -->
+
 <template>
-  <!-- https://brittanychiang.com/ -->
-  <h5>Project name</h5>
-  <p>Description</p>
-  <img src="" alt="">
-  <button>Go to project</button>
+  <article>
+    <h3>{{ props.name }}</h3>
+    <img src="" alt={{props.name}}>
+    <button>Go to project</button>
+    <p>{{ props.description }}</p>
+    <a href=""></a>
+  </article>
 </template>

@@ -11,6 +11,11 @@
 
   import * as THREE from 'three';
   import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+  import { EffectComposer } from 'three/addons/postprocessing/EffectComposer';
+  import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+  import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
+  import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+
   import {
     ref,
     watch,
