@@ -202,9 +202,11 @@
   onMounted( () => {
     renderer = new THREE.WebGLRenderer( {
       canvas: experience.value,
+      antialias: true
     } );
 
     renderer.setSize( width.value, height.value );
+    renderer.setPixelRatio( Math.min( window.devicePixelRatio, 2 ) );
     updateRenderer();
     updateCamera();
 
@@ -265,8 +267,6 @@
   function moveCamera () {
     const distance = document.body.getBoundingClientRect().top;
     camera.position.z += distance * -0.00001;
-    // camera.position.setY( distance * -0.00002 );
-    // camera.position.setX( distance * -0.00002 );
   }
 
 </script>

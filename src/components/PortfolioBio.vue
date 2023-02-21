@@ -30,6 +30,10 @@
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   }
 
+  .bio-hero {
+    font-size: 22px;
+  }
+
   .bio-text > h2,
   .bio-text > h3 {
     margin: 1.5em 0;
@@ -77,8 +81,8 @@
     <div class='bio-text'>
       <h2 class='typewriter-text' />
 
-      <h3>
-        I build impactful websites that work.
+      <h3 class='bio-hero'>
+        I build impactful websites that bring success to your business.
       </h3>
 
     </div>

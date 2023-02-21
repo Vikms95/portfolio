@@ -24,6 +24,9 @@
     padding: 1em 2em;
   }
 
+  .technologies {
+    margin-bottom: 2em;
+  }
 </style>
 
 <script setup>

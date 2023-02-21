@@ -2,33 +2,33 @@
 export const projects = [
   {
     name: 'Storyvine',
-    description: 'Lorem ipsum lorem Lorem ipsum loremLorem ipsum lorem Lorem ipsum loremLorem ipsum lorem Lorem ipsum lorem',
+    description: 'Social network to share and rate your experiences with literature. Ability to create lists of books, keep track of the progress and rate them',
     images: '/images/codespot-img.png',
-    technologies: ['React', 'Styled Components', 'Express', 'MongoDB'],
+    technologies: [ 'React', 'Styled Components', 'Express', 'MongoDB' ],
     githubLink: '',
     projectLink: ''
   },
   {
     name: 'Errorlab',
-    description: 'Lorem ipsum lorem Lorem ipsum loremLorem ipsum lorem Lorem ipsum loremLorem ipsum lorem Lorem ipsum loremLorem ipsum lorem Lorem ipsum loremLorem ipsum lorem Lorem ipsum lorem',
+    description: 'Social network to share and rate your experiences with literature. Ability to create lists of books, keep track of the progress and rate them',
     images: '/images/codespot-img.png',
-    technologies: ['React', 'Styled Components', 'Express', 'MongoDB'],
+    technologies: [ 'React', 'Styled Components', 'Express', 'MongoDB' ],
     githubLink: '',
     projectLink: ''
   },
   {
     name: 'Codespot',
-    description: 'Lorem ipsum loremLorem ipsum loremLorem ipsum lorem Lorem ipsum loremLorem ipsum lorem Lorem ipsum lorem',
+    description: 'Social network to share and rate your experiences with literature. Ability to create lists of books, keep track of the progress and rate them',
     images: '/images/codespot-img.png',
-    technologies: ['React', 'Styled Components', 'Express', 'MongoDB'],
+    technologies: [ 'React', 'Styled Components', 'Express', 'MongoDB' ],
     githubLink: '',
     projectLink: ''
   },
   {
     name: "Where's Waldo",
-    description: 'Lorem ipsum loremLorem ipsum lorem Lorem ipsum loremLorem ipsum lorem Lorem ipsum loremLorem ipsum lorem Lorem ipsum loremLorem ipsum lorem Lorem ipsum lorem',
+    description: 'Social network to share and rate your experiences with literature. Ability to create lists of books, keep track of the progress and rate them',
     images: '/images/codespot-img.png',
-    technologies: ['React', 'Styled Components', 'Express', 'MongoDB'],
+    technologies: [ 'React', 'Styled Components', 'Express', 'MongoDB' ],
     githubLink: '',
     projectLink: ''
   }

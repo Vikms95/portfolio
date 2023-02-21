@@ -1,7 +1,7 @@
 <style scoped>
   .project-container {
     display: flex;
-    margin: 0 0 100px;
+    margin: 0 0 200px;
   }
 
   .project-content {
@@ -14,29 +14,53 @@
 
   .project-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-    margin: 0 0 10px;
+    margin: 0 0 20px;
     z-index: 1;
     color: red;
   }
 
+  .project-name {
+    color: white;
+    font-size: 25px;
+    font-weight: 900;
+  }
+
+  .project-link-icons {
+    display: flex;
+    column-gap: 15px;
+    margin: 0 20px;
+  }
+
+  .project-link-icons > img {
+    height: 1.5em;
+  }
+
   .project-description {
     max-width: 20em;
-    min-height: 7em;
+    /* min-height: 7em; */
     background-color: #112240;
+    color: var(--light-slate);
     padding: 25px;
     border-radius: 5px;
-    font-size: 15px;
+    font-size: 18px;
+    line-height: 1.3;
+    letter-spacing: 1px;
+    -webkit-font-smoothing: antialised;
   }
 
   .project-technologies {
     display: flex;
     justify-content: space-evenly;
+    column-gap: 13px;
     align-items: center;
-    margin: 10px 0 0;
+    margin: 20px 0 0;
     z-index: 1;
-    color: red;
+    color: #f57dff;
+    font-size: 15px;
+    font-weight: 900;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   }
 
   .project-image {
@@ -51,13 +75,16 @@
 </style>
 
 <script setup>
-  const props = defineProps([
+  import ghIcon from '/social-icons/github-project-icon.png';
+  import linkIcon from '/social-icons/external-link-icon.png';
+
+  const props = defineProps( [
     'name',
     'description',
     'images',
     'technologies',
     'link'
-  ]);
+  ] );
 </script>
 <!-- https://brittanychiang.com/ -->
 
@@ -65,12 +92,15 @@
   <section class='project-container'>
     <div class='project-content'>
       <div class='project-header'>
-        <div style="font-size: 25px">{{ props.name }}</div>
-        <div class='project-link-icons'>Github Page</div>
+        <div class='project-name'>{{ props.name }}</div>
+        <div class='project-link-icons'>
+          <img :src=' ghIcon ' alt="">
+          <img :src=' linkIcon ' alt="">
+        </div>
       </div>
       <div class='project-description'>{{ props.description }}</div>
       <div class='project-technologies'>
-        <span class='technology-name' v-for='            techName             in technologies'>
+        <span class='technology-name' v-for='                          techName                           in technologies'>
           {{ techName }}
         </span>
       </div>
