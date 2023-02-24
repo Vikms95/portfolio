@@ -52,23 +52,27 @@
 
   onMounted( () => {
     const node = document.querySelector( '.typewriter-text' );
-    const typewriter = new TypeWriter( node, {
-      autoStart: true,
-      loop: true
-    } );
+    const typewriter = new TypeWriter( node,
+      {
+        autoStart: true,
+        loop: true
+      } );
 
     typewriter
       .pauseFor( 200 )
-      .typeString( 'Web developer.' )
+      .typeString( 'Professional web developer' )
       .pauseFor( 200 )
       .deleteAll()
-      .typeString( 'Science enthusiast.' )
+      .typeString( 'Science enthusiast' )
       .pauseFor( 200 )
       .deleteAll()
-      .typeString( 'Books and cinema lover.' )
+      .typeString( 'Book and videogames lover' )
       .pauseFor( 200 )
       .deleteAll()
       .start();
+
+
+
   } );
 
 </script>
@@ -76,13 +80,13 @@
 <template>
   <header class='bio'>
     <img class='profile' :src=' profilePicture '
-         alt="vikms looking at the camera">
+         alt="looking at the camera">
 
     <div class='bio-text'>
       <h2 class='typewriter-text' />
 
       <h3 class='bio-hero'>
-        I build impactful websites that bring success to your business.
+        I build impactful websites that bring success to your business
       </h3>
 
     </div>

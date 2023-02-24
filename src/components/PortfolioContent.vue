@@ -12,6 +12,10 @@
     justify-content: center;
     align-items: center;
     grid-template-rows: repeat(1fr, 2);
+    opacity: v-bind( opacity );
+    margin-left: v-bind( margin );
+    transition: margin-left 0.5s ease-out, opacity 0.8s, visibility 0.5s linear;
+
   }
 
   .content {
@@ -36,6 +40,14 @@
   import ContentProjects from './ContentProjects.vue';
   import ContentContributions from './ContentContributions.vue';
   import ContentTechnologies from './ContentTechnologies.vue';
+
+  import { onMounted, ref, computed } from 'vue';
+
+  const isLoaded = ref( false );
+  const opacity = computed( () => isLoaded.value ? 1 : 0 );
+  const margin = computed( () => isLoaded.value ? 'none' : '5em' );
+
+  onMounted( () => setTimeout( () => isLoaded.value = true, 500 ) )
 
 </script>
 

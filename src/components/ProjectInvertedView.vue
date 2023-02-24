@@ -1,6 +1,7 @@
 <style scoped>
   .project-container {
     display: flex;
+    justify-content: flex-end;
     margin: 0 0 200px;
   }
 
@@ -14,7 +15,7 @@
 
   .project-header {
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
     align-items: center;
     margin: 0 0 20px;
     z-index: 1;
@@ -70,7 +71,7 @@
 
   .project-image {
     position: absolute;
-    left: 300px;
+    right: 300px;
     top: -30px;
     display: flex;
     height: 20em;
@@ -101,21 +102,22 @@
   <section class='project-container'>
     <div class='project-content'>
       <div class='project-header'>
-        <div class='project-name'>{{ name }}</div>
         <div class='project-link-icons'>
           <a target='_blank' :href=' githubLink '>
             <img :src=' ghIcon ' alt="gh">
           </a>
           <a target='_blank' :href=' projectLink '>
             <img :src=' linkIcon ' alt="link">
-
+            
           </a>
         </div>
+        <div class='project-name'>{{ name }}</div>
       </div>
+      
       <div class='project-description'>{{ description }}</div>
       <div class='project-technologies'>
         <span class='technology-name' v-for=' 
-                          techName                           in technologies'>
+                                    techName                                     in technologies'>
           {{ techName }}
         </span>
       </div>
