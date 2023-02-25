@@ -15,7 +15,13 @@
     opacity: v-bind( opacity );
     margin-left: v-bind( margin );
     transition: margin-left 0.5s ease-out, opacity 0.8s, visibility 0.5s linear;
+  }
 
+  .bio-button-container {
+    display: flex;
+    justify-content: center;
+    column-gap: 5em;
+    margin-bottom: 10em;
   }
 
   .content {
@@ -40,21 +46,44 @@
   import ContentProjects from './ContentProjects.vue';
   import ContentContributions from './ContentContributions.vue';
   import ContentTechnologies from './ContentTechnologies.vue';
+  import ExperienceButton from './ExperienceButton.vue';
+  import { onMounted, ref, computed, defineProps } from 'vue';
 
-  import { onMounted, ref, computed } from 'vue';
+  const {
+    toggleContent,
+    toggleExperience,
+    contentButtonText,
+    experienceButtonText,
+  } = defineProps( [
+    'toggleContent',
+    'toggleExperience',
+    'contentButtonText',
+    'experienceButtonText',
+  ] );
 
   const isLoaded = ref( false );
   const opacity = computed( () => isLoaded.value ? 1 : 0 );
   const margin = computed( () => isLoaded.value ? 'none' : '5em' );
 
-  onMounted( () => setTimeout( () => isLoaded.value = true, 500 ) )
+  onMounted( () => setTimeout( () => isLoaded.value = true, 500 ) );
 
 </script>
 
 <template>
 
   <main class='content-wrapper'>
-    <PortfolioBio />
+    <PortfolioBio />    
+
+    <div class='bio-button-container'>
+      <ExperienceButton 
+        :toggle=' toggleContent '
+        :text=' contentButtonText '
+      />
+      <ExperienceButton 
+        :toggle=' toggleExperience '
+        :text=' experienceButtonText '
+      />
+    </div>
 
     <ScrollAnimatedIcon />
 
