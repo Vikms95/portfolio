@@ -20,7 +20,8 @@
     ref,
     watch,
     computed,
-    onMounted
+    onMounted,
+    onUpdated
   }
     from 'vue';
 
@@ -39,6 +40,8 @@
   import uranusRingTexture from '/3D-assets/uranus ring.png';
   import neptuneTexture from '/3D-assets/neptune.jpg';
   import plutoTexture from '/3D-assets/pluto.jpg';
+
+  const { isContentEnabled } = defineProps( [ 'isContentEnabled' ] );
 
   let renderer;
   let sun;
@@ -178,16 +181,15 @@
     neptune.obj.rotateY( 0.00005 );
     pluto.obj.rotateY( 0.00005 );
 
-    if ( isExplosionHappening === false ) {
+    if ( !isExplosionHappening ) {
       createExplosion();
     } else {
-      if ( isExplosionDiminishing === false ) {
+      if ( !isExplosionDiminishing )
         increaseExplosion();
-      } else {
-        diminishExplosion();
-      }
-    }
 
+      else
+        diminishExplosion();
+    }
 
     requestAnimationFrame( animate );
     renderer.render( scene, camera );
@@ -263,6 +265,14 @@
     createExplosion();
     animate();
   } );
+
+  onUpdated( () => {
+    console.log( 'test', isContentEnabled );
+
+    if ( !isContentEnabled )
+      console.log( "Hi" );
+  } );
+
 
   function moveCamera () {
     const distance = document.body.getBoundingClientRect().top;

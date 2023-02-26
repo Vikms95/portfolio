@@ -1,19 +1,39 @@
 <style scoped>
-  .logo {
+  .logo-wrapper {
     position: absolute;
     top: 10px;
-    /* left: 20px; */
     z-index: 2;
+  }
+
+  .logo {
     height: 6em;
   }
 </style>
 
 <script setup>
   import logo from '/social-icons/logo.png';
+  import ExperienceButton from './ExperienceButton.vue';
+
+  const {
+    toggle,
+    content
+  } = defineProps( [
+    'toggle',
+    'text',
+    'content'
+  ] )
 
 </script>
 
 <template>
-  <img class='logo' :src=' logo ' />
+  <div class='logo-wrapper'>
+    <img class='logo' :src=' logo ' />
+    
+    <ExperienceButton  v-if=' !content.isEnabled '
+    :toggle=' toggle '
+    :text=' content.buttonText '
+    />
+  </div>
+
 
 </template>

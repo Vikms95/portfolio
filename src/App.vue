@@ -23,27 +23,31 @@
     ( experience.value.isEnabled )
       ? experience.value.buttonText = 'Disable experience'
       : experience.value.buttonText = 'Enable experience';
-  }
+  };
+
+  console.log( 'test', content.value.isEnabled );
 
 </script>
 
 <template >
 
+  <PortfolioLogo 
+    :content=' content '
+    :toggle=' toggleContent '
+  />
+
   <SocialBar />
 
   <ThreeCanvas v-if=' experience.isEnabled '
-    id='scene' 
+    :isContentEnabled=' content.isEnabled '
   />
 
-  <PortfolioLogo  />
-  
-  <template v-if=' content.isEnabled '>
-    <PortfolioContent  
-      :toggleContent=' toggleContent '
-      :toggleExperience=' toggleExperience '
-      :contentButtonText=' content.buttonText '
-      :experienceButtonText=' experience.buttonText '
-    />
-  </template>
+  <PortfolioContent  v-if=' content.isEnabled '
+    :experience=' experience '
+    :toggleContent=' toggleContent '
+    :toggleExperience=' toggleExperience '
+    :contentButtonText=' content.buttonText '
+    :experienceButtonText=' experience.buttonText '
+  />
 
 </template>

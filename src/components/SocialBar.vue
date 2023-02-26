@@ -59,14 +59,14 @@
     },
     {
       link: "https://github.com/Vikms95",
-      iconSrc: cvIcon,
-      alt: "cv"
+      iconSrc: mailIcon,
+      alt: "emails"
     },
     {
       link: "https://github.com/Vikms95",
-      iconSrc: mailIcon,
-      alt: "emails"
-    }
+      iconSrc: cvIcon,
+      alt: "cv"
+    },
   ] );
 
 </script>
@@ -75,7 +75,7 @@
   <nav class='social'>
     <ul class='social-list'>
 
-      <li v-for='(      item      ) in links'>
+      <li v-for='(        item        ) in links'>
         <a target='_blank' class='link' :href=' item.link '>
           <img class='social-icon' :src=' item.iconSrc ' :alt=' item.alt '>
         </a>

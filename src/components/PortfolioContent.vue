@@ -2,8 +2,6 @@
   .content-wrapper {
     padding: 12em 14em;
     position: absolute;
-    /* top: 10em; */
-    /* left: 1vw; */
     width: 70.5vw;
     text-align: left;
     display: grid;
@@ -11,8 +9,7 @@
     align-items: center;
     grid-template-rows: repeat(1fr, 2);
     opacity: v-bind( opacity );
-    margin-left: v-bind( margin );
-    transition: margin-left 0.5s ease-out, opacity 0.8s, visibility 0.5s linear;
+    transition: opacity 0.8s, visibility 0.5s linear;
   }
 
   .bio-button-container {
@@ -45,25 +42,28 @@
   import ContentContributions from './ContentContributions.vue';
   import ContentTechnologies from './ContentTechnologies.vue';
   import ExperienceButton from './ExperienceButton.vue';
-  import { onMounted, ref, computed, defineProps } from 'vue';
+  import { onMounted, ref, computed, defineProps, onUnmounted } from 'vue';
 
   const {
+    experience,
     toggleContent,
     toggleExperience,
     contentButtonText,
     experienceButtonText,
   } = defineProps( [
+    'experience',
     'toggleContent',
     'toggleExperience',
     'contentButtonText',
     'experienceButtonText',
   ] );
 
-  const isLoaded = ref( false );
-  const opacity = computed( () => isLoaded.value ? 1 : 0 );
-  const margin = computed( () => isLoaded.value ? 'none' : '5em' );
+  const isFirstLoad = ref( false );
+  const opacity = computed( () => isFirstLoad.value ? 1 : 0 );
 
-  onMounted( () => setTimeout( () => isLoaded.value = true, 500 ) );
+  onMounted( () => setTimeout( () => {
+    isFirstLoad.value = true;
+  }, 100 ) );
 
 </script>
 
@@ -73,10 +73,11 @@
     <PortfolioBio />    
 
     <div class='bio-button-container'>
-      <ExperienceButton 
+      <ExperienceButton  v-if=' experience.isEnabled '
         :toggle=' toggleContent '
         :text=' contentButtonText '
       />
+
      <ExperienceButton 
         :toggle=' toggleExperience '
         :text=' experienceButtonText '
