@@ -25,7 +25,7 @@
       : experience.value.buttonText = 'Enable experience';
   };
 
-  console.log( 'test', content.value.isEnabled );
+  console.log( 'reload' );
 
 </script>
 
@@ -39,7 +39,7 @@
   <SocialBar />
 
   <ThreeCanvas v-if=' experience.isEnabled '
-    :isContentEnabled=' content.isEnabled '
+    :content=' content '
   />
 
   <PortfolioContent  v-if=' content.isEnabled '

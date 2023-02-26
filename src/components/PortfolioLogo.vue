@@ -2,6 +2,7 @@
   .logo-wrapper {
     position: absolute;
     top: 10px;
+    left: -120px;
     z-index: 2;
   }
 
@@ -22,6 +23,8 @@
     'text',
     'content'
   ] )
+
+
 
 </script>
 

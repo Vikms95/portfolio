@@ -75,7 +75,7 @@
   <nav class='social'>
     <ul class='social-list'>
 
-      <li v-for='(        item        ) in links'>
+      <li v-for='(         item         ) in links'>
         <a target='_blank' class='link' :href=' item.link '>
           <img class='social-icon' :src=' item.iconSrc ' :alt=' item.alt '>
         </a>

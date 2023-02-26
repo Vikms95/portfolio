@@ -25,7 +25,7 @@
   }
     from 'vue';
 
-  import { useWindowSize } from '@vueuse/core';
+  import { breakpointsAntDesign, useWindowSize } from '@vueuse/core';
 
   import starsTexture from '/3D-assets/stars.jpg';
   import sunTexture from '/3D-assets/sun.jpg';
@@ -41,7 +41,7 @@
   import neptuneTexture from '/3D-assets/neptune.jpg';
   import plutoTexture from '/3D-assets/pluto.jpg';
 
-  const { isContentEnabled } = defineProps( [ 'isContentEnabled' ] );
+  const { content } = defineProps( [ 'content' ] );
 
   let renderer;
   let sun;
@@ -58,6 +58,8 @@
   const { width, height } = useWindowSize();
   const aspectRatio = computed( () => width.value / height.value );
 
+  let controls;
+  let isInitialZoom = false;
   const experience = ref( null );
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(
@@ -79,8 +81,18 @@
     camera.updateProjectionMatrix;
   }
 
+  function zoomOnStart () {
+    if ( !content.isEnabled ) {
+      isInitialZoom = true;
+    }
+  }
+
   watch( aspectRatio, updateRenderer );
   watch( aspectRatio, updateCamera );
+  // watch( content, zoomOnStart );
+
+
+
 
   const ambientLight = new THREE.AmbientLight( 0x333333 );
   const pointLight = new THREE.PointLight( 0xFFFFFF, 2, 1500 );
@@ -157,8 +169,83 @@
     }
   };
 
-  function animate () {
-    //Self-rotation
+  const transitionOnFirstZoom = () => {
+    if ( isInitialZoom ) {
+      camera.lookAt( sun.position );
+
+      switch ( true ) {
+        case camera.position.z > 130:
+          camera.position.z -= 0.1;
+          camera.position.x += 0.1;
+          break;
+        case camera.position.z > 120:
+          camera.position.z -= 0.11;
+          camera.position.x += 0.11;
+          break;
+        case camera.position.z > 115:
+          camera.position.z -= 0.13;
+          camera.position.x += 0.13;
+          break;
+        case camera.position.z > 110:
+          camera.position.z -= 0.16;
+          camera.position.x += 0.16;
+          break;
+        case camera.position.z > 105:
+          camera.position.z -= 0.19;
+          camera.position.x += 0.19;
+          break;
+        case camera.position.z > 100:
+          camera.position.z -= 0.17;
+          camera.position.x += 0.17;
+          break;
+        case camera.position.z > 95:
+          camera.position.z -= 0.14;
+          camera.position.x += 0.14;
+          break;
+        case camera.position.z > 90:
+          camera.position.z -= 0.13;
+          camera.position.x += 0.13;
+          break;
+        case camera.position.z > 85:
+          camera.position.z -= 0.1;
+          camera.position.x += 0.1;
+          break;
+        case camera.position.z > 80:
+          camera.position.z -= 0.08;
+          camera.position.x += 0.08;
+          break;
+        case camera.position.z > 75:
+          camera.position.z -= 0.06;
+          camera.position.x += 0.06;
+          break;
+        case camera.position.z > 70:
+          camera.position.z -= 0.04;
+          camera.position.x += 0.04;
+          break;
+        case camera.position.z > 65:
+          camera.position.z -= 0.03;
+          camera.position.x += 0.03;
+          break;
+        case camera.position.z > 60:
+          camera.position.z -= 0.02;
+          camera.position.x += 0.02;
+          break;
+        case camera.position.z > 55:
+          camera.position.z -= 0.01;
+          camera.position.x += 0.01;
+          break;
+        case camera.position.z > 50:
+          isInitialZoom = false;
+          controls.enabled = true;
+          break;
+      }
+
+      camera.position.y -= 0.15;
+    }
+
+  };
+
+  const rotatePlanets = () => {
     sun.rotateY( 0.0001 );
     mercury.mesh.rotateY( 0.004 );
     venus.mesh.rotateY( 0.002 );
@@ -169,8 +256,9 @@
     uranus.mesh.rotateY( 0.003 );
     neptune.mesh.rotateY( 0.0032 );
     pluto.mesh.rotateY( 0.0008 );
+  };
 
-    // //Around-sun-rotation
+  const translatePlanets = () => {
     mercury.obj.rotateY( 0.004 );
     venus.obj.rotateY( 0.001 );
     earth.obj.rotateY( 0.0009 );
@@ -180,6 +268,9 @@
     uranus.obj.rotateY( 0.000005 );
     neptune.obj.rotateY( 0.00005 );
     pluto.obj.rotateY( 0.00005 );
+  };
+
+  const handleSunExplosions = () => {
 
     if ( !isExplosionHappening ) {
       createExplosion();
@@ -191,9 +282,22 @@
         diminishExplosion();
     }
 
+  };
+
+  function animate () {
+
+    controls.update();
+
+    // transitionOnFirstZoom();
+
+    rotatePlanets();
+    translatePlanets();
+    handleSunExplosions();
+
     requestAnimationFrame( animate );
     renderer.render( scene, camera );
   }
+
 
   window.addEventListener( 'resize', function () {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -212,7 +316,13 @@
     updateRenderer();
     updateCamera();
 
-    const controls = new OrbitControls( camera, renderer.domElement );
+    controls = new OrbitControls( camera, renderer.domElement );
+    controls.enabled = true;
+    controls.zoomSpeed = 0.25;
+    controls.panSpeed = 0.75;
+    controls.enableDamping = false;
+    controls.dampingFactor = 0.25;
+    controls.listenToKeyEvents( window );
     controls.update();
 
 
@@ -261,16 +371,9 @@
     neptune.obj.rotateY( Math.random() * 5 );
     pluto.obj.rotateY( Math.random() * 5 );
 
-
+    controls.update();
     createExplosion();
     animate();
-  } );
-
-  onUpdated( () => {
-    console.log( 'test', isContentEnabled );
-
-    if ( !isContentEnabled )
-      console.log( "Hi" );
   } );
 
 
