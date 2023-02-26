@@ -319,20 +319,25 @@
   };
 
   const normalizeColorOnMouseLeave = () => {
-    for ( const object of objectsToIntersect ) {
-      if ( object.material )
+    objectsToIntersect.forEach( ( object, index ) => {
+      if ( object.material ) {
         object.material.color.set( 'white' );
-    }
+        camera.layers.disable( index + 1 );
+
+      }
+    } );
   };
 
   const handleMouseOver = () => {
     const intersects = raycaster.intersectObjects( objectsToIntersect );
 
     if ( intersects.length > 0 ) {
-      for ( const intersect of intersects ) {
-        if ( intersect.object.material )
+      intersects.forEach( intersect => {
+        if ( intersect.object.material ) {
           intersect.object.material.color.set( '#909090' );
-      }
+          camera.layers.enable( intersect.object.name );
+        }
+      } );
     }
 
     if ( intersects.length > 0 ) document.body.style.cursor = 'pointer';
@@ -407,11 +412,14 @@
     const sunGeo = new THREE.SphereGeometry( 40, 30, 30 );
     const sunMat = new THREE.MeshBasicMaterial( { map: textureLoader.load( sunTexture ) } );
     sun = new THREE.Mesh( sunGeo, sunMat );
+    // mercury.mesh.name = 1;
     scene.add( sun );
 
     mercury = createPlanet( 3.2, mercuryTexture, 68 );
+    mercury.mesh.name = 1;
     venus = createPlanet( 5.8, venusTexture, 90 );
     earth = createPlanet( 6, earthTexture, 162 );
+    earth.mesh.name = 2;
     mars = createPlanet( 4, marsTexture, 278 );
     jupiter = createPlanet( 12, jupiterTexture, 400 );
     saturn = createPlanet( 10, saturnTexture, 538, {
@@ -442,55 +450,28 @@
     pluto.obj.rotateY( Math.random() * 5 );
 
     objectsToIntersect = [
-      sun,
+      // sun,
       mercury.mesh,
-      venus.mesh,
+      // venus.mesh,
       earth.mesh,
-      mars.mesh,
-      jupiter.mesh,
-      saturn.mesh,
-      uranus.mesh,
-      neptune.mesh,
-      pluto.mesh
+      // mars.mesh,
+      // jupiter.mesh,
+      // saturn.mesh,
+      // uranus.mesh,
+      // neptune.mesh,
+      // pluto.mesh
     ];
 
 
-    layers = {
-      'Toggle Name': function () {
-
-        camera.layers.toggle( 0 );
-
-      },
-      'Toggle Mass': function () {
-
-        camera.layers.toggle( 1 );
-
-      },
-      'Enable All': function () {
-
-        camera.layers.enableAll();
-
-      },
-
-      'Disable All': function () {
-
-        camera.layers.disableAll();
-
-      }
-    };
-
-    sun.layers.enableAll();
-    mercury.mesh.layers.enableAll();
-    venus.mesh.layers.enableAll();
-    earth.mesh.layers.enableAll();
-    mars.mesh.layers.enableAll();
-    jupiter.mesh.layers.enableAll();
-    saturn.mesh.layers.enableAll();
-    uranus.mesh.layers.enableAll();
-    neptune.mesh.layers.enableAll();
-    pluto.mesh.layers.enableAll();
-
-    camera.layers.toggle( 1 );
+    const mercuryDiv = document.createElement( 'div' );
+    mercuryDiv.className = 'label';
+    mercuryDiv.textContent = 'Mercury';
+    mercuryDiv.style.marginTop = '-1em';
+    const mercuryLabel = new CSS2DObject( mercuryDiv );
+    mercuryLabel.position.set( 0, 6, 0 );
+    mercury.mesh.add( mercuryLabel );
+    mercuryLabel.layers.set( 1 );
+    camera.layers.disable( 1 );
 
     const earthDiv = document.createElement( 'div' );
     earthDiv.className = 'label';
@@ -499,8 +480,8 @@
     const earthLabel = new CSS2DObject( earthDiv );
     earthLabel.position.set( 0, 6, 0 );
     earth.mesh.add( earthLabel );
-    earthLabel.layers.set( 0 );
-
+    earthLabel.layers.set( 2 );
+    camera.layers.disable( 2 );
 
     labelRenderer = new CSS2DRenderer();
     labelRenderer.setSize( window.innerWidth, window.innerHeight );
