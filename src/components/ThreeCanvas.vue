@@ -4,12 +4,19 @@
     width: 100%;
     height: 100%;
   }
+
+  .experience-div {
+    position: absolute;
+    top: 50px;
+    left: 100px;
+  }
 </style>
 
 
 <script setup>
 
   import * as THREE from 'three';
+  import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
   import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
   import { EffectComposer } from 'three/addons/postprocessing/EffectComposer';
   import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
@@ -25,7 +32,7 @@
   }
     from 'vue';
 
-  import { breakpointsAntDesign, useWindowSize } from '@vueuse/core';
+  import { useWindowSize } from '@vueuse/core';
 
   import starsTexture from '/3D-assets/stars.jpg';
   import sunTexture from '/3D-assets/sun.jpg';
@@ -40,10 +47,13 @@
   import uranusRingTexture from '/3D-assets/uranus ring.png';
   import neptuneTexture from '/3D-assets/neptune.jpg';
   import plutoTexture from '/3D-assets/pluto.jpg';
+  import { Raycaster, Vector2 } from 'three';
 
   const { content } = defineProps( [ 'content' ] );
 
+  let layers;
   let renderer;
+  let labelRenderer;
   let sun;
   let mercury;
   let venus;
@@ -58,8 +68,20 @@
   const { width, height } = useWindowSize();
   const aspectRatio = computed( () => width.value / height.value );
 
+  const raycaster = new Raycaster();
+  const cursor = new Vector2();
+
+  let objectsToIntersect;
+
+  const onCursorMove = ( e ) => {
+    cursor.x = ( e.clientX / window.innerWidth ) * 2 - 1;
+    cursor.y = - ( e.clientY / window.innerHeight ) * 2 + 1;
+
+  };
+
   let controls;
   let isInitialZoom = false;
+  let isKeyPress = true;
   const experience = ref( null );
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(
@@ -73,6 +95,7 @@
 
   function updateRenderer () {
     renderer.setSize( width.value, height.value );
+    // labelRenderer.setSize( width.value, height.value );
     renderer.setPixelRatio( window.devicePixelRatio );
   }
 
@@ -82,20 +105,31 @@
   }
 
   function zoomOnStart () {
-    if ( !content.isEnabled ) {
+    if ( !content.isEnabled && isKeyPress ) {
       isInitialZoom = true;
+
+      document.body.appendChild( labelRenderer.domElement );
+      controls = new OrbitControls( camera, labelRenderer.domElement );
+      controls.enabled = true;
+      controls.zoomSpeed = 0.25;
+      controls.panSpeed = 0.75;
+      controls.enableDamping = false;
+      controls.dampingFactor = 0.25;
+      controls.listenToKeyEvents( window );
+
+      isKeyPress = false;
     }
   }
 
   watch( aspectRatio, updateRenderer );
   watch( aspectRatio, updateCamera );
-  // watch( content, zoomOnStart );
-
+  watch( content, zoomOnStart );
 
 
 
   const ambientLight = new THREE.AmbientLight( 0x333333 );
   const pointLight = new THREE.PointLight( 0xFFFFFF, 2, 1500 );
+  pointLight.layers.enableAll();
   scene.add( pointLight );
   scene.add( ambientLight );
 
@@ -284,18 +318,52 @@
 
   };
 
+  const normalizeColorOnMouseLeave = () => {
+    for ( const object of objectsToIntersect ) {
+      if ( object.material )
+        object.material.color.set( 'white' );
+    }
+  };
+
+  const handleMouseOver = () => {
+    const intersects = raycaster.intersectObjects( objectsToIntersect );
+
+    if ( intersects.length > 0 ) {
+      for ( const intersect of intersects ) {
+        if ( intersect.object.material )
+          intersect.object.material.color.set( '#909090' );
+      }
+    }
+
+    if ( intersects.length > 0 ) document.body.style.cursor = 'pointer';
+    if ( intersects.length === 0 ) document.body.style.cursor = 'auto';
+  };
+
+  const handleIntersection = () => {
+    if ( !content.isEnabled ) {
+      raycaster.setFromCamera( cursor, camera );
+      normalizeColorOnMouseLeave();
+      handleMouseOver();
+    }
+
+  };
+
   function animate () {
 
-    controls.update();
 
+    handleMouseOver();
+    handleIntersection();
     // transitionOnFirstZoom();
 
+    controls.update();
     rotatePlanets();
     translatePlanets();
     handleSunExplosions();
 
     requestAnimationFrame( animate );
     renderer.render( scene, camera );
+    labelRenderer.render( scene, camera );
+
   }
 
 
@@ -361,6 +429,8 @@
     pluto = createPlanet( 5.8, plutoTexture, 1216 );
     pluto.obj.rotation.x = 1;
     document.addEventListener( 'scroll', moveCamera );
+    window.addEventListener( 'mousemove', onCursorMove );
+
 
     mercury.obj.rotateY( Math.random() * 5 );
     venus.obj.rotateY( Math.random() * 5 );
@@ -370,6 +440,73 @@
     uranus.obj.rotateY( Math.random() * 5 );
     neptune.obj.rotateY( Math.random() * 5 );
     pluto.obj.rotateY( Math.random() * 5 );
+
+    objectsToIntersect = [
+      sun,
+      mercury.mesh,
+      venus.mesh,
+      earth.mesh,
+      mars.mesh,
+      jupiter.mesh,
+      saturn.mesh,
+      uranus.mesh,
+      neptune.mesh,
+      pluto.mesh
+    ];
+
+
+    layers = {
+      'Toggle Name': function () {
+
+        camera.layers.toggle( 0 );
+
+      },
+      'Toggle Mass': function () {
+
+        camera.layers.toggle( 1 );
+
+      },
+      'Enable All': function () {
+
+        camera.layers.enableAll();
+
+      },
+
+      'Disable All': function () {
+
+        camera.layers.disableAll();
+
+      }
+    };
+
+    sun.layers.enableAll();
+    mercury.mesh.layers.enableAll();
+    venus.mesh.layers.enableAll();
+    earth.mesh.layers.enableAll();
+    mars.mesh.layers.enableAll();
+    jupiter.mesh.layers.enableAll();
+    saturn.mesh.layers.enableAll();
+    uranus.mesh.layers.enableAll();
+    neptune.mesh.layers.enableAll();
+    pluto.mesh.layers.enableAll();
+
+    camera.layers.toggle( 1 );
+
+    const earthDiv = document.createElement( 'div' );
+    earthDiv.className = 'label';
+    earthDiv.textContent = 'Earth';
+    earthDiv.style.marginTop = '-1em';
+    const earthLabel = new CSS2DObject( earthDiv );
+    earthLabel.position.set( 0, 6, 0 );
+    earth.mesh.add( earthLabel );
+    earthLabel.layers.set( 0 );
+
+
+    labelRenderer = new CSS2DRenderer();
+    labelRenderer.setSize( window.innerWidth, window.innerHeight );
+    labelRenderer.domElement.style.position = 'absolute';
+    labelRenderer.domElement.style.top = '0px';
+
 
     controls.update();
     createExplosion();

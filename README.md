@@ -26,18 +26,11 @@ https://brittanychiang.com/
 
 - Make the social media sidebar also look like the portfolio above and create some kind of futuristic layout as if you were an astronaut
 
-- Webpage for icons:
-https://www.flaticon.com/
-
-<!-- - Add bluriness to the content div -->
-
-- Tech icons
-https://devicon.dev/
-
 - Logo 
 https://www.brandcrowd.com/
 
-<!-- - Add transparent background -->
-https://www.adobe.com/es/express/feature/image/transparent-background
 
-<!-- - Make planets not start aligned -->
+<!-- - Add description and intersects to planets -->
+https://threejs-journey.com/lessons/mixing-html-and-webgl
+
+
