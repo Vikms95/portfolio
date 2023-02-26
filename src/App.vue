@@ -35,8 +35,9 @@
     id='scene' 
   />
 
+  <PortfolioLogo  />
+  
   <template v-if=' content.isEnabled '>
-    <PortfolioLogo  />
     <PortfolioContent  
       :toggleContent=' toggleContent '
       :toggleExperience=' toggleExperience '

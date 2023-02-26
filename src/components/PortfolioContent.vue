@@ -1,12 +1,10 @@
 <style scoped>
   .content-wrapper {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    padding: 2em 4em;
+    padding: 12em 14em;
     position: absolute;
-    top: 10em;
-    left: 15vw;
-    width: 105ch;
+    /* top: 10em; */
+    /* left: 1vw; */
+    width: 70.5vw;
     text-align: left;
     display: grid;
     justify-content: center;
@@ -20,7 +18,7 @@
   .bio-button-container {
     display: flex;
     justify-content: center;
-    column-gap: 5em;
+    column-gap: 2.5em;
     margin-bottom: 10em;
   }
 
@@ -79,7 +77,7 @@
         :toggle=' toggleContent '
         :text=' contentButtonText '
       />
-      <ExperienceButton 
+     <ExperienceButton 
         :toggle=' toggleExperience '
         :text=' experienceButtonText '
       />
