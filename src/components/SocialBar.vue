@@ -36,6 +36,26 @@
   .social-icon {
     height: 30px;
   }
+
+  .social-icon:hover ~ .icon-text {
+    display: flex;
+  }
+
+  .social-icon:hover ~ .icon-text {
+    opacity: 1;
+  }
+
+  .icon-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: max-content;
+    position: absolute;
+    color: white;
+    left: 40px;
+    opacity: 0;
+    transition: opacity 0.5s, visibility 0.5s linear;
+  }
 </style>
 
 <script setup>
@@ -50,21 +70,25 @@
     {
       link: "https://github.com/Vikms95",
       iconSrc: githubIcon,
+      text: 'Github',
       alt: "github"
     },
     {
       link: "https://www.linkedin.com/in/v%C3%ADctor-mart%C3%ADn-serra-b4003487/",
       iconSrc: linkedinIcon,
+      text: 'Linkedin',
       alt: "linkedin"
     },
     {
       link: "https://github.com/Vikms95",
       iconSrc: mailIcon,
+      text: 'Download my resume',
       alt: "emails"
     },
     {
       link: "https://github.com/Vikms95",
       iconSrc: cvIcon,
+      text: 'Send me an e-mail',
       alt: "cv"
     },
   ] );
@@ -75,9 +99,13 @@
   <nav class='social'>
     <ul class='social-list'>
 
-      <li v-for='(         item         ) in links'>
+      <li 
+      v-for='(     
+                                   item                                 
+      ) in links'>
         <a target='_blank' class='link' :href=' item.link '>
           <img class='social-icon' :src=' item.iconSrc ' :alt=' item.alt '>
+          <span class='icon-text'>{{ item.text }}</span>
         </a>
       </li>
 
