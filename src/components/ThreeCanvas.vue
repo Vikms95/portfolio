@@ -17,7 +17,6 @@
 
   import * as THREE from 'three';
   import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
-  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
   import {
     ref,
@@ -43,46 +42,57 @@
   import plutoTexture from '/3D-assets/pluto.jpg';
   import { Raycaster, Vector2 } from 'three';
 
-  import { setRendererSize, createRenderer, createCamera, updateCamera } from '../utils3D';
+  import {
+    setRendererSize,
+    createRenderer,
+    createCamera,
+    updateCamera,
+    createAndAddLights,
+    onCursorMove,
+    onScroll,
+    onResize,
+    createPlanet,
+    createSun,
+    createControls,
+    createBackground
+  } from '../utils3D';
 
   const { content } = defineProps( [ 'content' ] );
 
-  let renderer;
-  let labelRenderer;
-  let sun;
-  let camera;
-  let mercury;
-  let venus;
-  let earth;
-  let mars;
-  let jupiter;
-  let saturn;
-  let uranus;
-  let neptune;
-  let pluto;
+  let renderer,
+    labelRenderer,
+    controls,
+    sun,
+    camera,
+    mercury,
+    venus,
+    earth,
+    mars,
+    jupiter,
+    saturn,
+    uranus,
+    neptune,
+    pluto,
+    objectsToIntersect,
+    explosion;
+
+  let isInitialZoom = false;
+  let isKeyPress = true;
+  let isExplosionHappening = false;
+  let isExplosionDiminishing = false;
+
+  const raycaster = new Raycaster();
+  const cursor = new Vector2();
+  const experience = ref( null );
+  const scene = new THREE.Scene();
 
   const { width, height } = useWindowSize();
   const aspectRatio = computed( () => width.value / height.value );
 
-  const raycaster = new Raycaster();
-  const cursor = new Vector2();
-
-  let objectsToIntersect;
-
-  const onCursorMove = ( e ) => {
-    cursor.x = ( e.clientX / window.innerWidth ) * 2 - 1;
-    cursor.y = - ( e.clientY / window.innerHeight ) * 2 + 1;
-
-  };
-
-  let controls;
-  let isInitialZoom = false;
-  let isKeyPress = true;
-  const experience = ref( null );
-  const scene = new THREE.Scene();
-
   camera = createCamera( camera, aspectRatio );
   scene.add( camera );
+  createAndAddLights( scene );
+
 
   function zoomOnStart () {
     if ( !content.isEnabled && isKeyPress ) {
@@ -103,56 +113,7 @@
 
   watch( aspectRatio, () => setRendererSize( renderer ) );
   watch( aspectRatio, () => updateCamera( camera, aspectRatio ) );
-  watch( content, zoomOnStart );
-
-
-
-  const ambientLight = new THREE.AmbientLight( 0x333333 );
-  const pointLight = new THREE.PointLight( 0xFFFFFF, 2, 1500 );
-  pointLight.layers.enableAll();
-  scene.add( pointLight );
-  scene.add( ambientLight );
-
-  const textureLoader = new THREE.TextureLoader();
-
-  function createPlanet ( size, texture, position, ring ) {
-    const geo = new THREE.SphereGeometry( size, 30, 30 );
-    const mat = new THREE.MeshStandardMaterial( {
-      map: textureLoader.load( texture )
-    } );
-
-    const mesh = new THREE.Mesh( geo, mat );
-    const obj = new THREE.Object3D();
-    obj.add( mesh );
-
-    if ( ring ) {
-      const ringGeo = new THREE.RingGeometry(
-        ring.innerRadius,
-        ring.outerRadius,
-        32
-      );
-
-      const ringMat = new THREE.MeshBasicMaterial( {
-        map: textureLoader.load( ring.texture ),
-        side: THREE.DoubleSide
-      } );
-
-      const ringMesh = new THREE.Mesh( ringGeo, ringMat );
-      obj.add( ringMesh );
-      ringMesh.position.x = position;
-      ringMesh.rotation.x = -0.5 * Math.PI;
-    }
-
-    scene.add( obj );
-    mesh.position.x = position;
-
-    return { mesh, obj };
-  }
-
-  let explosion;
-  let isExplosionHappening = false;
-  let isExplosionDiminishing = false;
-
+  // watch( content, zoomOnStart );
 
   const createExplosion = () => {
     const isExplosion = Math.random() >= 0.9991 ? true : false;
@@ -348,87 +309,48 @@
     renderer.render( scene, camera );
   }
 
-
-  window.addEventListener( 'resize', function () {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize( window.innerWidth, window.innerHeight );
-  } );
-
   onMounted( () => {
     renderer = createRenderer( renderer, experience );
     renderer = setRendererSize( renderer );
 
     updateCamera();
 
-    controls = new OrbitControls( camera, renderer.domElement );
-    controls.enabled = true;
-    controls.zoomSpeed = 0.25;
-    controls.panSpeed = 0.75;
-    controls.enableDamping = false;
-    controls.dampingFactor = 0.25;
-    controls.listenToKeyEvents( window );
-    controls.update();
+    controls = createControls( controls, camera, renderer );
+    scene.background = createBackground();
 
+    sun = createSun( sun, sunTexture, scene );
 
-    const cubeTextureLoader = new THREE.CubeTextureLoader();
-    scene.background = cubeTextureLoader.load( [
-      starsTexture,
-      starsTexture,
-      starsTexture,
-      starsTexture,
-      starsTexture,
-      starsTexture
-    ] );
-
-    const sunGeo = new THREE.SphereGeometry( 40, 30, 30 );
-    const sunMat = new THREE.MeshBasicMaterial( { map: textureLoader.load( sunTexture ) } );
-    sun = new THREE.Mesh( sunGeo, sunMat );
-    sun.name = 10;
-    scene.add( sun );
-
-    mercury = createPlanet( 3.2, mercuryTexture, 68 );
+    mercury = createPlanet( 3.2, mercuryTexture, 68, scene );
     mercury.mesh.name = 1;
-    venus = createPlanet( 5.8, venusTexture, 90 );
+    venus = createPlanet( 5.8, venusTexture, 90, scene );
     venus.mesh.name = 3;
-    earth = createPlanet( 6, earthTexture, 162 );
+    earth = createPlanet( 6, earthTexture, 162, scene );
     earth.mesh.name = 2;
-    mars = createPlanet( 4, marsTexture, 278 );
+    mars = createPlanet( 4, marsTexture, 278, scene );
     mars.mesh.name = 4;
-    jupiter = createPlanet( 12, jupiterTexture, 400 );
+    jupiter = createPlanet( 12, jupiterTexture, 400, scene );
     jupiter.mesh.name = 5;
-
-    saturn = createPlanet( 10, saturnTexture, 538, {
+    saturn = createPlanet( 10, saturnTexture, 538, scene, {
       innerRadius: 10,
       outerRadius: 20,
       texture: saturnRingTexture
     } );
     saturn.mesh.name = 6;
-
-    uranus = createPlanet( 7, uranusTexture, 776, {
+    uranus = createPlanet( 7, uranusTexture, 776, scene, {
       innerRadius: 7,
       outerRadius: 12,
       texture: uranusRingTexture
     } );
     uranus.mesh.name = 7;
-    // uranus.rotation.x = 2;
-    neptune = createPlanet( 7, neptuneTexture, 1000 );
+    neptune = createPlanet( 7, neptuneTexture, 1000, scene );
     neptune.mesh.name = 8;
-    pluto = createPlanet( 5.8, plutoTexture, 1216 );
+    pluto = createPlanet( 5.8, plutoTexture, 1216, scene );
     pluto.mesh.name = 9;
     pluto.obj.rotation.x = 1;
-    document.addEventListener( 'scroll', moveCamera );
-    window.addEventListener( 'mousemove', onCursorMove );
 
-
-    mercury.obj.rotateY( Math.random() * 5 );
-    venus.obj.rotateY( Math.random() * 5 );
-    earth.obj.rotateY( Math.random() * 5 );
-    mars.obj.rotateY( Math.random() * 5 );
-    saturn.obj.rotateY( Math.random() * 5 );
-    uranus.obj.rotateY( Math.random() * 5 );
-    neptune.obj.rotateY( Math.random() * 5 );
-    pluto.obj.rotateY( Math.random() * 5 );
+    window.addEventListener( 'scroll', () => onScroll( camera ) );
+    window.addEventListener( 'mousemove', ( e ) => onCursorMove( e, cursor ) );
+    window.addEventListener( 'resize', () => onResize( renderer, camera ) );
 
     objectsToIntersect = [
       sun,
@@ -555,12 +477,6 @@
     createExplosion();
     animate();
   } );
-
-
-  function moveCamera () {
-    const distance = document.body.getBoundingClientRect().top;
-    camera.position.z += distance * -0.00001;
-  }
 
 </script>
 
