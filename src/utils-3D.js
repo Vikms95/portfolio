@@ -3,7 +3,7 @@ import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRe
 import starsTexture from '/3D-assets/stars.jpg';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { useWindowSize } from '@vueuse/core';
-import { planetsData } from './planets';
+import { planetsData } from './planetsData';
 
 export const createRenderer = ( renderer, element ) => (
   renderer = new THREE.WebGLRenderer( {
@@ -97,6 +97,26 @@ export const createSun = ( star, texture, scene ) => {
   return star;
 };
 
+const createRing = ( ring, obj, position ) => {
+  const textureLoader = new THREE.TextureLoader();
+  const ringGeo = new THREE.RingGeometry(
+    ring.innerRadius,
+    ring.outerRadius,
+    32
+  );
+
+  const ringMat = new THREE.MeshBasicMaterial( {
+    map: textureLoader.load( ring.texture ),
+    side: THREE.DoubleSide
+  } );
+
+  const ringMesh = new THREE.Mesh( ringGeo, ringMat );
+  obj.add( ringMesh );
+
+  ringMesh.position.x = position;
+  ringMesh.rotation.x = -0.5 * Math.PI;
+};
+
 export const createPlanet = ( size, texture, position, scene, index, ring, offset ) => {
   const textureLoader = new THREE.TextureLoader();
 
@@ -104,34 +124,17 @@ export const createPlanet = ( size, texture, position, scene, index, ring, offse
   const mat = new THREE.MeshStandardMaterial( { map: textureLoader.load( texture ) } );
   const mesh = new THREE.Mesh( geo, mat );
   mesh.name = index;
+  mesh.position.x = position;
 
   const obj = new THREE.Object3D();
+  obj.rotateY( Math.random() * 5 );
   obj.add( mesh );
 
+  if ( ring )
+    createRing( ring, obj, position );
 
-  if ( ring ) {
-    const ringGeo = new THREE.RingGeometry(
-      ring.innerRadius,
-      ring.outerRadius,
-      32
-    );
-
-    const ringMat = new THREE.MeshBasicMaterial( {
-      map: textureLoader.load( ring.texture ),
-      side: THREE.DoubleSide
-    } );
-
-    const ringMesh = new THREE.Mesh( ringGeo, ringMat );
-    obj.add( ringMesh );
-
-    ringMesh.position.x = position;
-    ringMesh.rotation.x = -0.5 * Math.PI;
-  }
-
-  mesh.position.x = position;
-  obj.rotateY( Math.random() * 5 );
-
-  if ( offset ) obj.rotation.x = offset;
+  if ( offset )
+    obj.rotation.x = offset;
 
   scene.add( obj );
 
@@ -152,7 +155,6 @@ export const createLabel = ( name, index, mesh, camera ) => {
 };
 
 export const createLabelRenderer = ( renderer ) => {
-
   renderer = new CSS2DRenderer();
   renderer.setSize( window.innerWidth, window.innerHeight );
   renderer.domElement.style.position = 'absolute';
@@ -168,10 +170,12 @@ export const createBackground = () => {
 };
 
 export const rotatePlanets = ( planetMeshes ) => {
-  planetMeshes.forEach( ( planet, index ) => planet.rotateY( planetsData[ index ].rotation ) );
+  planetMeshes.forEach( ( planet, index ) =>
+    planet.rotateY( planetsData[ index ].rotation ) );
 };
 
 export const translatePlanets = ( planetObjects ) => (
-  planetObjects.forEach( ( planet, index ) => planet.rotateY( planetsData[ index ].translation ) )
+  planetObjects.forEach( ( planet, index ) =>
+    planet.rotateY( planetsData[ index ].translation ) )
 );
 

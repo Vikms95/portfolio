@@ -2,7 +2,7 @@
 
 <script setup>
   import ProjectView from './ProjectView.vue';
-  import { projects } from '../projectInfo';
+  import { projectsData } from '../projectData';
   import ProjectInvertedView from './ProjectInvertedView.vue';
 </script>
 
@@ -13,7 +13,7 @@
 
   <article>
         
-    <template v-for=' (     project, index     )  in projects' >
+    <template v-for=' (        project, index        )  in projectsData' >
       <ProjectView  v-if=' index % 2 == 0 '
         :project=' project '
       />

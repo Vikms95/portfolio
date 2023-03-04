@@ -1,5 +1,5 @@
 
-export const projects = [
+export const projectsData = [
   {
     name: 'Storyvine',
     description: 'Social network to share and rate your experiences with literature. Ability to create lists of books, keep track of the progress and rate them',

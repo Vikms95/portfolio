@@ -21,7 +21,7 @@
 
   import sunTexture from '/3D-assets/sun.jpg';
   import { Raycaster, Vector2 } from 'three';
-  import { planetsData } from '../planets';
+  import { planetsData } from '../planetsData';
 
   import {
     setRendererSize,
@@ -38,7 +38,7 @@
     rotatePlanets,
     translatePlanets,
     addEventListeners
-  } from '../utils3D';
+  } from '../utils-3D';
 
 
   const { content } = defineProps( [ 'content' ] );
@@ -256,7 +256,7 @@
 
     requestAnimationFrame( animate );
 
-    // labelRenderer.render( scene, camera );
+    // labelRenderer?.render( scene, camera );
     renderer.render( scene, camera );
   }
 
