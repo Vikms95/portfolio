@@ -5,6 +5,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { useWindowSize } from '@vueuse/core';
 import { planetsData } from './planetsData';
 
+
 export const createRenderer = ( renderer, element ) => (
   renderer = new THREE.WebGLRenderer( {
     canvas: element.value,
@@ -29,6 +30,7 @@ export const createCamera = ( camera, aspectRatio ) => {
   );
 
   camera.position.set( -90, 140, 140 );
+  camera.layers.enableAll();
 
   return camera;
 };
@@ -43,13 +45,16 @@ export const updateCamera = ( camera, aspectRatio ) => {
 
 export const createControls = ( controls, camera, renderer ) => {
   controls = new OrbitControls( camera, renderer.domElement );
-  controls.enabled = true;
+  controls.enabled = false;
+
+  controls.update();
+
   controls.zoomSpeed = 0.25;
   controls.panSpeed = 0.75;
-  controls.enableDamping = false;
+
+  controls.enableDamping = true;
   controls.dampingFactor = 0.25;
   controls.listenToKeyEvents( window );
-  controls.update();
 
   return controls;
 };
@@ -152,6 +157,7 @@ export const createLabel = ( name, index, mesh, camera ) => {
   mesh.add( label );
   label.layers.set( index );
   camera.layers.disable( index );
+
 };
 
 export const createLabelRenderer = ( renderer ) => {
@@ -166,7 +172,8 @@ export const createLabelRenderer = ( renderer ) => {
 
 export const createBackground = () => {
   const cubeTextureLoader = new THREE.CubeTextureLoader();
-  return cubeTextureLoader.load( [ starsTexture, starsTexture, starsTexture, starsTexture, starsTexture, starsTexture ] );
+  const cube = new Array( 6 ).fill( starsTexture, 0, 6 );
+  return cubeTextureLoader.load( cube );
 };
 
 export const rotatePlanets = ( planetMeshes ) => {
@@ -179,3 +186,161 @@ export const translatePlanets = ( planetObjects ) => (
     planet.rotateY( planetsData[ index ].translation ) )
 );
 
+export const createExplosion = ( isExplosionHappening, explosion, scene ) => {
+  const isExplosion = Math.random() >= 0.9991 ? true : false;
+
+  if ( isExplosion ) {
+    isExplosionHappening = true;
+    explosion = new THREE.PointLight( 0xFFFFFF, 2, 550 );
+    scene.add( explosion );
+  }
+};
+
+const increaseExplosion = ( isExplosionDiminishing, explosion ) => {
+  explosion.intensity += 0.025;
+
+  if ( explosion.intensity >= 5 )
+    isExplosionDiminishing = true;
+};
+
+const diminishExplosion = ( isExplosionDiminishing, isExplosionHappening, explosion, scene ) => {
+  explosion.intensity -= 0.05;
+
+  if ( explosion.intensity <= 0.5 ) {
+    scene.remove( explosion );
+    isExplosionHappening = false;
+    isExplosionDiminishing = false;
+  }
+};
+
+export const handleSunExplosions = (
+  isExplosionHappening,
+  isExplosionDiminishing,
+  explosion, scene
+) => {
+  if ( !isExplosionHappening )
+    createExplosion( isExplosionHappening, explosion, scene );
+
+  else
+    if ( !isExplosionDiminishing )
+      increaseExplosion( isExplosionDiminishing, explosion );
+
+    else
+      diminishExplosion( isExplosionDiminishing, isExplosionHappening, explosion, scene );
+};
+
+export const zoomOnStart = ( isInitialZoom, labelRenderer, controls, content ) => {
+  if ( content.isEnabled ) return;
+
+  isInitialZoom = true;
+  controls.enabled = true;
+  document.body.appendChild( labelRenderer.domElement );
+};
+
+
+const normalizeColorOnMouseLeave = ( planetMeshes, camera ) => {
+  planetMeshes.forEach( ( object, index ) => {
+    if ( object.material ) {
+      object.material.color.set( 'white' );
+      camera.layers.disable( index + 1 );
+    }
+  } );
+};
+
+const handleMouseOver = ( planetMeshes, raycaster, camera ) => {
+  const intersects = raycaster.intersectObjects( planetMeshes );
+
+  if ( intersects.length > 0 ) {
+    if ( intersects[ 0 ].object.material ) {
+      intersects[ 0 ].object.material.color.set( '#909090' );
+      camera.layers.enable( intersects[ 0 ].object.name );
+    }
+  }
+
+  if ( intersects.length > 0 ) document.body.style.cursor = 'pointer';
+  if ( intersects.length === 0 ) document.body.style.cursor = 'auto';
+};
+
+export const handleIntersection = ( planetMeshes, content, raycaster, cursor, camera ) => {
+  if ( !content.isEnabled ) {
+    raycaster.setFromCamera( cursor, camera );
+    normalizeColorOnMouseLeave( planetMeshes, camera );
+    handleMouseOver( planetMeshes, raycaster, camera );
+  }
+};
+
+export const transitionOnFirstZoom = ( isInitialZoom, camera, sun, controls ) => {
+  if ( isInitialZoom ) {
+    camera.lookAt( sun.position );
+
+    switch ( true ) {
+      case camera.position.z > 130:
+        camera.position.z -= 0.1;
+        camera.position.x += 0.1;
+        break;
+      case camera.position.z > 120:
+        camera.position.z -= 0.11;
+        camera.position.x += 0.11;
+        break;
+      case camera.position.z > 115:
+        camera.position.z -= 0.13;
+        camera.position.x += 0.13;
+        break;
+      case camera.position.z > 110:
+        camera.position.z -= 0.16;
+        camera.position.x += 0.16;
+        break;
+      case camera.position.z > 105:
+        camera.position.z -= 0.19;
+        camera.position.x += 0.19;
+        break;
+      case camera.position.z > 100:
+        camera.position.z -= 0.17;
+        camera.position.x += 0.17;
+        break;
+      case camera.position.z > 95:
+        camera.position.z -= 0.14;
+        camera.position.x += 0.14;
+        break;
+      case camera.position.z > 90:
+        camera.position.z -= 0.13;
+        camera.position.x += 0.13;
+        break;
+      case camera.position.z > 85:
+        camera.position.z -= 0.1;
+        camera.position.x += 0.1;
+        break;
+      case camera.position.z > 80:
+        camera.position.z -= 0.08;
+        camera.position.x += 0.08;
+        break;
+      case camera.position.z > 75:
+        camera.position.z -= 0.06;
+        camera.position.x += 0.06;
+        break;
+      case camera.position.z > 70:
+        camera.position.z -= 0.04;
+        camera.position.x += 0.04;
+        break;
+      case camera.position.z > 65:
+        camera.position.z -= 0.03;
+        camera.position.x += 0.03;
+        break;
+      case camera.position.z > 60:
+        camera.position.z -= 0.02;
+        camera.position.x += 0.02;
+        break;
+      case camera.position.z > 55:
+        camera.position.z -= 0.01;
+        camera.position.x += 0.01;
+        break;
+      case camera.position.z > 50:
+        isInitialZoom = false;
+        controls.enabled = true;
+        break;
+    }
+
+    camera.position.y -= 0.15;
+  }
+
+};
