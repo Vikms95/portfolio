@@ -16,46 +16,30 @@
 <script setup>
 
   import * as THREE from 'three';
-  import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
-
-  import {
-    ref,
-    watch,
-    computed,
-    onMounted
-  } from 'vue';
-
+  import { ref, watch, computed, onMounted } from 'vue';
   import { useWindowSize } from '@vueuse/core';
 
-  import starsTexture from '/3D-assets/stars.jpg';
   import sunTexture from '/3D-assets/sun.jpg';
-  import mercuryTexture from '/3D-assets/mercury.jpg';
-  import venusTexture from '/3D-assets/venus.jpg';
-  import earthTexture from '/3D-assets/earth.jpg';
-  import marsTexture from '/3D-assets/mars.jpg';
-  import jupiterTexture from '/3D-assets/jupiter.jpg';
-  import saturnTexture from '/3D-assets/saturn.jpg';
-  import saturnRingTexture from '/3D-assets/saturn ring.png';
-  import uranusTexture from '/3D-assets/uranus.jpg';
-  import uranusRingTexture from '/3D-assets/uranus ring.png';
-  import neptuneTexture from '/3D-assets/neptune.jpg';
-  import plutoTexture from '/3D-assets/pluto.jpg';
   import { Raycaster, Vector2 } from 'three';
+  import { planetsData } from '../planets';
 
   import {
     setRendererSize,
     createRenderer,
     createCamera,
+    createLabelRenderer,
     updateCamera,
     createAndAddLights,
-    onCursorMove,
-    onScroll,
-    onResize,
     createPlanet,
     createSun,
     createControls,
-    createBackground
+    createBackground,
+    createLabel,
+    rotatePlanets,
+    translatePlanets,
+    addEventListeners
   } from '../utils3D';
+
 
   const { content } = defineProps( [ 'content' ] );
 
@@ -64,16 +48,8 @@
     controls,
     sun,
     camera,
-    mercury,
-    venus,
-    earth,
-    mars,
-    jupiter,
-    saturn,
-    uranus,
-    neptune,
-    pluto,
-    objectsToIntersect,
+    planetMeshes = [],
+    planetObjects = [],
     explosion;
 
   let isInitialZoom = false;
@@ -220,31 +196,6 @@
 
   };
 
-  const rotatePlanets = () => {
-    sun.rotateY( 0.0001 );
-    mercury.mesh.rotateY( 0.004 );
-    venus.mesh.rotateY( 0.002 );
-    earth.mesh.rotateY( 0.002 );
-    mars.mesh.rotateY( 0.0018 );
-    jupiter.mesh.rotateY( 0.004 );
-    saturn.mesh.rotateY( 0.0038 );
-    uranus.mesh.rotateY( 0.003 );
-    neptune.mesh.rotateY( 0.0032 );
-    pluto.mesh.rotateY( 0.0008 );
-  };
-
-  const translatePlanets = () => {
-    mercury.obj.rotateY( 0.004 );
-    venus.obj.rotateY( 0.001 );
-    earth.obj.rotateY( 0.0009 );
-    mars.obj.rotateY( 0.0008 );
-    jupiter.obj.rotateY( 0.00009 );
-    saturn.obj.rotateY( 0.00009 );
-    uranus.obj.rotateY( 0.000005 );
-    neptune.obj.rotateY( 0.00005 );
-    pluto.obj.rotateY( 0.00005 );
-  };
-
   const handleSunExplosions = () => {
 
     if ( !isExplosionHappening ) {
@@ -260,7 +211,7 @@
   };
 
   const normalizeColorOnMouseLeave = () => {
-    objectsToIntersect.forEach( ( object, index ) => {
+    planetMeshes.forEach( ( object, index ) => {
       if ( object.material ) {
         object.material.color.set( 'white' );
         camera.layers.disable( index + 1 );
@@ -270,7 +221,7 @@
   };
 
   const handleMouseOver = () => {
-    const intersects = raycaster.intersectObjects( objectsToIntersect );
+    const intersects = raycaster.intersectObjects( planetMeshes );
 
     if ( intersects.length > 0 ) {
       if ( intersects[ 0 ].object.material ) {
@@ -294,187 +245,44 @@
 
   function animate () {
 
-    handleMouseOver();
-    handleIntersection();
+    // handleMouseOver();
+    // handleIntersection();
     // transitionOnFirstZoom();
 
     controls.update();
-    rotatePlanets();
-    translatePlanets();
-    handleSunExplosions();
+    rotatePlanets( planetMeshes );
+    translatePlanets( planetObjects );
+    // handleSunExplosions();
 
     requestAnimationFrame( animate );
 
-    labelRenderer.render( scene, camera );
+    // labelRenderer.render( scene, camera );
     renderer.render( scene, camera );
   }
 
   onMounted( () => {
     renderer = createRenderer( renderer, experience );
     renderer = setRendererSize( renderer );
-
+    controls = createControls( controls, camera, renderer );
+    addEventListeners( cursor, renderer, camera );
     updateCamera();
 
-    controls = createControls( controls, camera, renderer );
     scene.background = createBackground();
 
     sun = createSun( sun, sunTexture, scene );
+    createLabel( 'The Sun', 10, sun, camera );
 
-    mercury = createPlanet( 3.2, mercuryTexture, 68, scene );
-    mercury.mesh.name = 1;
-    venus = createPlanet( 5.8, venusTexture, 90, scene );
-    venus.mesh.name = 3;
-    earth = createPlanet( 6, earthTexture, 162, scene );
-    earth.mesh.name = 2;
-    mars = createPlanet( 4, marsTexture, 278, scene );
-    mars.mesh.name = 4;
-    jupiter = createPlanet( 12, jupiterTexture, 400, scene );
-    jupiter.mesh.name = 5;
-    saturn = createPlanet( 10, saturnTexture, 538, scene, {
-      innerRadius: 10,
-      outerRadius: 20,
-      texture: saturnRingTexture
+    planetsData.forEach( ( { name, size, texture, position, index, ring, offset } ) => {
+      const { mesh, obj } = createPlanet( size, texture, position, scene, index, ring, offset );
+      createLabel( name, index, mesh, camera );
+      planetMeshes.push( mesh );
+      planetObjects.push( obj );
     } );
-    saturn.mesh.name = 6;
-    uranus = createPlanet( 7, uranusTexture, 776, scene, {
-      innerRadius: 7,
-      outerRadius: 12,
-      texture: uranusRingTexture
-    } );
-    uranus.mesh.name = 7;
-    neptune = createPlanet( 7, neptuneTexture, 1000, scene );
-    neptune.mesh.name = 8;
-    pluto = createPlanet( 5.8, plutoTexture, 1216, scene );
-    pluto.mesh.name = 9;
-    pluto.obj.rotation.x = 1;
 
-    window.addEventListener( 'scroll', () => onScroll( camera ) );
-    window.addEventListener( 'mousemove', ( e ) => onCursorMove( e, cursor ) );
-    window.addEventListener( 'resize', () => onResize( renderer, camera ) );
-
-    objectsToIntersect = [
-      sun,
-      mercury.mesh,
-      venus.mesh,
-      earth.mesh,
-      mars.mesh,
-      jupiter.mesh,
-      saturn.mesh,
-      uranus.mesh,
-      neptune.mesh,
-      pluto.mesh
-    ];
-
-
-    const mercuryDiv = document.createElement( 'div' );
-    mercuryDiv.className = 'label';
-    mercuryDiv.textContent = 'Mercury';
-    mercuryDiv.style.marginTop = '-1em';
-    const mercuryLabel = new CSS2DObject( mercuryDiv );
-    mercuryLabel.position.set( 0, 6, 0 );
-    mercury.mesh.add( mercuryLabel );
-    mercuryLabel.layers.set( 1 );
-    camera.layers.disable( 1 );
-
-    const earthDiv = document.createElement( 'div' );
-    earthDiv.className = 'label';
-    earthDiv.textContent = 'Earth';
-    earthDiv.style.marginTop = '-1em';
-    const earthLabel = new CSS2DObject( earthDiv );
-    earthLabel.position.set( 0, 6, 0 );
-    earth.mesh.add( earthLabel );
-    earthLabel.layers.set( 2 );
-    camera.layers.disable( 2 );
-
-    const venusDiv = document.createElement( 'div' );
-    venusDiv.className = 'label';
-    venusDiv.textContent = 'Venus';
-    venusDiv.style.marginTop = '-1em';
-    const venusLabel = new CSS2DObject( venusDiv );
-    venusLabel.position.set( 0, 6, 0 );
-    venus.mesh.add( venusLabel );
-    venusLabel.layers.set( 3 );
-    camera.layers.disable( 3 );
-
-    const marsDiv = document.createElement( 'div' );
-    marsDiv.className = 'label';
-    marsDiv.textContent = 'Mars';
-    marsDiv.style.marginTop = '-1em';
-    const marsLabel = new CSS2DObject( marsDiv );
-    marsLabel.position.set( 0, 6, 0 );
-    mars.mesh.add( marsLabel );
-    marsLabel.layers.set( 4 );
-    camera.layers.disable( 4 );
-
-    const jupiterDiv = document.createElement( 'div' );
-    jupiterDiv.className = 'label';
-    jupiterDiv.textContent = 'Jupiter';
-    jupiterDiv.style.marginTop = '-1em';
-    const jupiterLabel = new CSS2DObject( jupiterDiv );
-    jupiterLabel.position.set( 0, 6, 0 );
-    jupiter.mesh.add( jupiterLabel );
-    jupiterLabel.layers.set( 5 );
-    camera.layers.disable( 5 );
-
-    const saturnDiv = document.createElement( 'div' );
-    saturnDiv.className = 'label';
-    saturnDiv.textContent = 'Saturn';
-    saturnDiv.style.marginTop = '-1em';
-    const saturnLabel = new CSS2DObject( saturnDiv );
-    saturnLabel.position.set( 0, 6, 0 );
-    saturn.mesh.add( saturnLabel );
-    saturnLabel.layers.set( 6 );
-    camera.layers.disable( 6 );
-
-    const uranusDiv = document.createElement( 'div' );
-    uranusDiv.className = 'label';
-    uranusDiv.textContent = 'Uranus';
-    uranusDiv.style.marginTop = '-1em';
-    const uranusLabel = new CSS2DObject( uranusDiv );
-    uranusLabel.position.set( 0, 6, 0 );
-    uranus.mesh.add( uranusLabel );
-    uranusLabel.layers.set( 7 );
-    camera.layers.disable( 7 );
-
-    const neptuneDiv = document.createElement( 'div' );
-    neptuneDiv.className = 'label';
-    neptuneDiv.textContent = 'Neptune';
-    neptuneDiv.style.marginTop = '-1em';
-    const neptuneLabel = new CSS2DObject( neptuneDiv );
-    neptuneLabel.position.set( 0, 6, 0 );
-    neptune.mesh.add( neptuneLabel );
-    neptuneLabel.layers.set( 8 );
-    camera.layers.disable( 8 );
-
-    const plutoDiv = document.createElement( 'div' );
-    plutoDiv.className = 'label';
-    plutoDiv.textContent = 'Pluto';
-    plutoDiv.style.marginTop = '-1em';
-    const plutoLabel = new CSS2DObject( plutoDiv );
-    plutoLabel.position.set( 0, 6, 0 );
-    pluto.mesh.add( plutoLabel );
-    plutoLabel.layers.set( 9 );
-    camera.layers.disable( 9 );
-
-    const sunDiv = document.createElement( 'div' );
-    sunDiv.className = 'label';
-    sunDiv.textContent = 'The Sun';
-    sunDiv.style.marginTop = '-1em';
-    sunDiv.style.fontSize = '20px';
-    const sunLabel = new CSS2DObject( sunDiv );
-    sunLabel.position.set( 0, 0, 0 );
-    sun.add( sunLabel );
-    sunLabel.layers.set( 10 );
-    camera.layers.disable( 10 );
-
-    labelRenderer = new CSS2DRenderer();
-    labelRenderer.setSize( window.innerWidth, window.innerHeight );
-    labelRenderer.domElement.style.position = 'absolute';
-    labelRenderer.domElement.style.top = '0px';
-
+    // labelRenderer = createLabelRenderer( labelRenderer );
 
     controls.update();
-    createExplosion();
+    // createExplosion();
     animate();
   } );
 

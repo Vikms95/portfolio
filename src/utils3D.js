@@ -1,7 +1,9 @@
 import * as THREE from 'three';
+import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import starsTexture from '/3D-assets/stars.jpg';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { useWindowSize } from '@vueuse/core';
+import { planetsData } from './planets';
 
 export const createRenderer = ( renderer, element ) => (
   renderer = new THREE.WebGLRenderer( {
@@ -77,6 +79,13 @@ export const onResize = ( renderer, camera ) => {
   renderer.setSize( window.innerWidth, window.innerHeight );
 };
 
+export const addEventListeners = ( cursor, renderer, camera ) => {
+  window.addEventListener( 'scroll', () => onScroll( camera ) );
+  window.addEventListener( 'mousemove', ( e ) => onCursorMove( e, cursor ) );
+  window.addEventListener( 'resize', () => onResize( renderer, camera ) );
+
+};
+
 export const createSun = ( star, texture, scene ) => {
   const textureLoader = new THREE.TextureLoader();
 
@@ -92,13 +101,13 @@ export const createPlanet = ( size, texture, position, scene, index, ring, offse
   const textureLoader = new THREE.TextureLoader();
 
   const geo = new THREE.SphereGeometry( size, 30, 30 );
-  const mat = new THREE.MeshStandardMaterial( {
-    map: textureLoader.load( texture )
-  } );
-
+  const mat = new THREE.MeshStandardMaterial( { map: textureLoader.load( texture ) } );
   const mesh = new THREE.Mesh( geo, mat );
+  mesh.name = index;
+
   const obj = new THREE.Object3D();
   obj.add( mesh );
+
 
   if ( ring ) {
     const ringGeo = new THREE.RingGeometry(
@@ -114,20 +123,55 @@ export const createPlanet = ( size, texture, position, scene, index, ring, offse
 
     const ringMesh = new THREE.Mesh( ringGeo, ringMat );
     obj.add( ringMesh );
+
     ringMesh.position.x = position;
     ringMesh.rotation.x = -0.5 * Math.PI;
   }
 
-  obj.rotateY( Math.random() * 5 );
   mesh.position.x = position;
-  mesh.name = index;
+  obj.rotateY( Math.random() * 5 );
+
+  if ( offset ) obj.rotation.x = offset;
 
   scene.add( obj );
 
   return { mesh, obj };
 };
 
+export const createLabel = ( name, index, mesh, camera ) => {
+  const div = document.createElement( 'div' );
+  div.className = 'label';
+  div.textContent = name;
+  div.style.marginTop = '-1em';
+
+  const label = new CSS2DObject( div );
+  label.position.set( 0, 6, 0 );
+  mesh.add( label );
+  label.layers.set( index );
+  camera.layers.disable( index );
+};
+
+export const createLabelRenderer = ( renderer ) => {
+
+  renderer = new CSS2DRenderer();
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  renderer.domElement.style.position = 'absolute';
+  renderer.domElement.style.top = '0px';
+
+  return renderer;
+
+};
+
 export const createBackground = () => {
   const cubeTextureLoader = new THREE.CubeTextureLoader();
   return cubeTextureLoader.load( [ starsTexture, starsTexture, starsTexture, starsTexture, starsTexture, starsTexture ] );
 };
+
+export const rotatePlanets = ( planetMeshes ) => {
+  planetMeshes.forEach( ( planet, index ) => planet.rotateY( planetsData[ index ].rotation ) );
+};
+
+export const translatePlanets = ( planetObjects ) => (
+  planetObjects.forEach( ( planet, index ) => planet.rotateY( planetsData[ index ].translation ) )
+);
+
