@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import starsTexture from '/3D-assets/stars.jpg';
+import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { useWindowSize } from '@vueuse/core';
 import { planetsData } from './planetsData';
@@ -12,6 +13,24 @@ export const createRenderer = ( renderer, element ) => (
     antialias: true
   } )
 );
+
+export const createLabelRenderer = ( renderer ) => {
+  renderer = new CSS2DRenderer();
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  renderer.domElement.style.position = 'absolute';
+  renderer.domElement.style.top = '0px';
+
+  return renderer;
+};
+
+export const toggleRenderer = ( content, labelRenderer ) => {
+  if ( content.isEnabled == false )
+    document.body.appendChild( labelRenderer.domElement );
+
+  else if ( content.isEnabled == true )
+    document.body.removeChild( labelRenderer.domElement );
+
+};
 
 export const setRendererSize = ( renderer ) => {
   const { width, height } = useWindowSize();
@@ -43,18 +62,18 @@ export const updateCamera = ( camera, aspectRatio ) => {
   return camera;
 };
 
-export const createControls = ( controls, camera, renderer ) => {
-  controls = new OrbitControls( camera, renderer.domElement );
-  controls.enabled = false;
-
-  controls.update();
-
+export const createControls = ( controls, camera, labelRenderer ) => {
+  controls = new OrbitControls( camera, labelRenderer.domElement );
+  controls.enabled = true;
+  controls.minDistance = 5;
+  controls.maxDistance = 2000;
   controls.zoomSpeed = 0.25;
   controls.panSpeed = 0.75;
-
   controls.enableDamping = true;
   controls.dampingFactor = 0.25;
   controls.listenToKeyEvents( window );
+
+  controls.update();
 
   return controls;
 };
@@ -160,16 +179,6 @@ export const createLabel = ( name, index, mesh, camera ) => {
 
 };
 
-export const createLabelRenderer = ( renderer ) => {
-  renderer = new CSS2DRenderer();
-  renderer.setSize( window.innerWidth, window.innerHeight );
-  renderer.domElement.style.position = 'absolute';
-  renderer.domElement.style.top = '0px';
-
-  return renderer;
-
-};
-
 export const createBackground = () => {
   const cubeTextureLoader = new THREE.CubeTextureLoader();
   const cube = new Array( 6 ).fill( starsTexture, 0, 6 );
@@ -229,12 +238,12 @@ export const handleSunExplosions = (
       diminishExplosion( isExplosionDiminishing, isExplosionHappening, explosion, scene );
 };
 
-export const zoomOnStart = ( isInitialZoom, labelRenderer, controls, content ) => {
+export const zoomOnStart = ( isInitialZoom, labelRenderer, controls, content, camera, renderer ) => {
   if ( content.isEnabled ) return;
+  document.querySelector( 'canvas' ).appendChild( labelRenderer.domElement );
 
+  createControls( controls, camera, renderer, labelRenderer );
   isInitialZoom = true;
-  controls.enabled = true;
-  document.body.appendChild( labelRenderer.domElement );
 };
 
 

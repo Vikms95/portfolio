@@ -25,8 +25,9 @@
   import {
     setRendererSize,
     createRenderer,
-    createCamera,
     createLabelRenderer,
+    toggleRenderer,
+    createCamera,
     updateCamera,
     createAndAddLights,
     createPlanet,
@@ -60,7 +61,6 @@
     planetMeshes = [],
     planetObjects = [];
 
-  let isKeyPress = true;
   let isInitialZoom = false;
   let isExplosionHappening = false;
   let isExplosionDiminishing = false;
@@ -71,11 +71,10 @@
 
   watch( aspectRatio, () => setRendererSize( renderer ) );
   watch( aspectRatio, () => updateCamera( camera, aspectRatio ) );
-  watch( content, () => zoomOnStart( isInitialZoom, labelRenderer, controls, content ) );
+  watch( content, () => toggleRenderer( content, labelRenderer ) );
+  // watch( content, () => zoomOnStart( isInitialZoom, labelRenderer, controls, content, camera, renderer ) );
 
   function animate () {
-    controls.update();
-
     transitionOnFirstZoom( isInitialZoom, camera, sun, controls );
     handleIntersection( planetMeshes, content, raycaster, cursor, camera );
 
@@ -83,16 +82,17 @@
     translatePlanets( planetObjects );
     handleSunExplosions( isExplosionHappening, isExplosionDiminishing, explosion, scene );
 
+    requestAnimationFrame( animate );
+
+    controls.update();
     renderer.render( scene, camera );
     labelRenderer.render( scene, camera );
-
-    requestAnimationFrame( animate );
   }
 
   onMounted( () => {
     scene = new THREE.Scene();
-    raycaster = new THREE.Raycaster();
     cursor = new THREE.Vector2();
+    raycaster = new THREE.Raycaster();
 
     renderer = createRenderer( renderer, experience );
     renderer = setRendererSize( renderer );
@@ -104,7 +104,7 @@
 
     createAndAddLights( scene );
 
-    controls = createControls( controls, camera, renderer );
+    controls = createControls( controls, camera, labelRenderer );
 
     addEventListeners( cursor, renderer, camera );
 
