@@ -4,16 +4,17 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "start": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@vueuse/core": "^9.6.0",
-    "devicon": "^2.15.1",
+    "vue": "^3.2.45",
+    "gsap": "^3.11.4",
     "three": "^0.147.0",
-    "typewriter-effect": "^2.19.0",
-    "vue": "^3.2.45"
+    "devicon": "^2.15.1",
+    "@vueuse/core": "^9.6.0",
+    "typewriter-effect": "^2.19.0"
   },
   "devDependencies": {
     "@types/three": "^0.146.0",

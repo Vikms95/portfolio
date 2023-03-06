@@ -10,14 +10,22 @@
     top: 50px;
     left: 100px;
   }
+
+  .body-info {
+    position: absolute;
+    top: 50px;
+    right: 500px;
+    /* z-index: 999; */
+  }
 </style>
 
 
 <script setup>
 
+  import gsap from 'gsap';
+  import { useWindowSize } from '@vueuse/core';
   import { Vector2, Raycaster, Scene } from 'three';
   import { ref, watch, computed, onMounted } from 'vue';
-  import { useWindowSize } from '@vueuse/core';
 
   import {
     setupCamera,
@@ -36,7 +44,8 @@
     setupExplosion,
     handleSunExplosions,
     handleIntersection,
-    transitionOnFirstZoom
+    translateCameraOnFirstToggle,
+    translateToSelectedBody
   } from '../utils-3D';
 
   const { content } = defineProps( [ 'content' ] );
@@ -48,28 +57,37 @@
     camera,
     sunMesh,
     explosion,
+    planetMeshes = [],
+    planetObjects = [],
     scene = new Scene(),
     cursor = new Vector2(),
     raycaster = new Raycaster(),
-    planetMeshes = [],
-    planetObjects = [],
     isExplosionHappening = false,
     isExplosionDiminishing = false;
 
   const experience = ref( null );
+  const selectedBody = ref( null );
   const isFirstToggle = ref( null );
+
   const { width, height } = useWindowSize();
   const aspectRatio = computed( () => width.value / height.value );
 
   watch( aspectRatio, () => setRendererSize( renderer ) );
   watch( aspectRatio, () => updateCamera( camera, aspectRatio ) );
   watch( content, () => toggleRenderer( content, labelRenderer, isFirstToggle ) );
+  // watch( selectedBody, () => gsap.to( camera.position, {
+  //   x: selectedBody.value.x,
+  //   y: selectedBody.value.y,
+  //   z: selectedBody.value.z - 100,
+  //   duration: 5
+  // } ) );
 
   function animate () {
     controls.update();
     requestAnimationFrame( animate );
 
     // transitionOnFirstZoom( isFirstToggle, camera, sunMesh, controls );
+    translateToSelectedBody( scene, camera, selectedBody );
     handleIntersection( planetMeshes, sunMesh, content, raycaster, cursor, camera );
 
     rotatePlanets( planetMeshes );
@@ -93,9 +111,9 @@
     setupAndAddLights( scene );
     setupExplosion( isExplosionHappening, explosion, scene );
 
-    addEventListeners( cursor, renderer, camera );
-
     [ sunMesh, planetMeshes, planetObjects ] = setupCelestialBodies( scene, camera );
+
+    addEventListeners( cursor, renderer, camera, planetMeshes, sunMesh, raycaster, selectedBody );
 
     animate();
   } );
@@ -104,6 +122,7 @@
 
 <template>
   <canvas ref='experience' />
+  <aside v-if=' selectedBody !== null ' class='body-info'>Hello</aside>
 </template>
 
 

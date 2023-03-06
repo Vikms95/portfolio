@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import gsap from 'gsap';
 import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import starsTexture from '/3D-assets/stars.jpg';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -108,14 +109,19 @@ export const onResize = ( renderer, camera ) => {
   renderer.setSize( window.innerWidth, window.innerHeight );
 };
 
-export const addEventListeners = ( cursor, renderer, camera ) => {
-  window.addEventListener( 'scroll', () => onScroll( camera ) );
-  window.addEventListener( 'mousemove', ( e ) => onCursorMove( e, cursor ) );
-  window.addEventListener( 'resize', () => onResize( renderer, camera ) );
+export const onClick = () => {
 
+  // const raycaster = raycaster.setFromCamera();
 };
 
-export const createSun = ( star, scene ) => {
+export const addEventListeners = ( cursor, renderer, camera, planetMeshes, sunMesh, raycaster, selectedBody ) => {
+  window.addEventListener( 'scroll', () => onScroll( camera ) );
+  window.addEventListener( 'resize', () => onResize( renderer, camera ) );
+  window.addEventListener( 'mousemove', ( e ) => onCursorMove( e, cursor ) );
+  window.addEventListener( 'click', () => handleClick( planetMeshes, sunMesh, raycaster, selectedBody ) );
+};
+
+const createSun = ( star, scene ) => {
   const textureLoader = new THREE.TextureLoader();
 
   const starGeo = new THREE.SphereGeometry( sunData.size, 30, 30 );
@@ -149,7 +155,7 @@ const createRing = ( ring, obj, position ) => {
   ringMesh.rotation.x = -0.5 * Math.PI;
 };
 
-export const createPlanet = ( size, texture, position, scene, index, ring, offset ) => {
+const createPlanet = ( size, texture, position, scene, index, ring, offset ) => {
   const textureLoader = new THREE.TextureLoader();
 
   const geo = new THREE.SphereGeometry( size, 30, 30 );
@@ -173,7 +179,7 @@ export const createPlanet = ( size, texture, position, scene, index, ring, offse
   return { mesh, obj };
 };
 
-export const attachLabel = ( name, index, mesh, camera ) => {
+const attachLabel = ( name, index, mesh, camera ) => {
   const div = document.createElement( 'div' );
   div.className = 'label';
   div.textContent = name;
@@ -289,6 +295,16 @@ const handleMouseOver = ( planetMeshes, sunMesh, raycaster, camera ) => {
   if ( intersects.length === 0 ) document.body.style.cursor = 'auto';
 };
 
+const handleClick = ( planetMeshes, sunMesh, raycaster, selectedBody ) => {
+  const intersects = raycaster.intersectObjects( planetMeshes.concat( sunMesh ) );
+
+  if ( intersects.length > 0 )
+    selectedBody.value = intersects[ 0 ].object.name;
+
+  else
+    selectedBody.value = null;
+};
+
 export const handleIntersection = ( planetMeshes, sunMesh, content, raycaster, cursor, camera ) => {
   if ( !content.isEnabled ) {
     planetMeshes.concat( sunMesh );
@@ -296,10 +312,11 @@ export const handleIntersection = ( planetMeshes, sunMesh, content, raycaster, c
     raycaster.setFromCamera( cursor, camera );
     normalizeColorOnMouseLeave( planetMeshes, sunMesh, camera );
     handleMouseOver( planetMeshes, sunMesh, raycaster, camera );
+    handleClick( planetMeshes, sunMesh, raycaster, camera );
   }
 };
 
-export const transitionOnFirstZoom = ( isFirstToggle, camera, sun, controls ) => {
+export const translateCameraOnFirstToggle = ( isFirstToggle, camera, sun, controls ) => {
   if ( isFirstToggle.value === false || isFirstToggle.value === null ) return;
 
   camera.lookAt( sun.position );
@@ -373,4 +390,15 @@ export const transitionOnFirstZoom = ( isFirstToggle, camera, sun, controls ) =>
 
   camera.position.y -= 0.15;
 
+};
+
+export const translateToSelectedBody = ( scene, camera, selectedBody ) => {
+  if ( selectedBody.value === null ) return;
+
+  const object = scene.getObjectByName( selectedBody.value );
+
+  camera.lookAt( object.position );
+
+  gsap.to( camera.position, { y: object.position.y, duration: 5 } );
+  gsap.to( camera.position, { x: object.position.x, duration: 2.5 } );
 };
