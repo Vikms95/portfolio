@@ -5,7 +5,7 @@ import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { useWindowSize } from '@vueuse/core';
 import { planetsData } from './planetsData';
-
+import { sunData } from './planetsData';
 
 export const createRenderer = ( renderer, element ) => (
   renderer = new THREE.WebGLRenderer( {
@@ -23,9 +23,14 @@ export const createLabelRenderer = ( renderer ) => {
   return renderer;
 };
 
-export const toggleRenderer = ( content, labelRenderer ) => {
-  if ( content.isEnabled == false )
+export const toggleRenderer = ( content, labelRenderer, isFirstToggle ) => {
+  if ( content.isEnabled == false ) {
     document.body.appendChild( labelRenderer.domElement );
+
+    if ( isFirstToggle.value === null ) {
+      isFirstToggle.value = true;
+    }
+  }
 
   else if ( content.isEnabled == true )
     document.body.removeChild( labelRenderer.domElement );
@@ -110,14 +115,17 @@ export const addEventListeners = ( cursor, renderer, camera ) => {
 
 };
 
-export const createSun = ( star, texture, scene ) => {
+export const createSun = ( star, scene ) => {
   const textureLoader = new THREE.TextureLoader();
 
-  const starGeo = new THREE.SphereGeometry( 40, 30, 30 );
-  const sunMat = new THREE.MeshBasicMaterial( { map: textureLoader.load( texture ) } );
+  const starGeo = new THREE.SphereGeometry( sunData.size, 30, 30 );
+  const sunMat = new THREE.MeshBasicMaterial( { map: textureLoader.load( sunData.texture ) } );
   star = new THREE.Mesh( starGeo, sunMat );
-  star.name = 10;
+  star.name = sunData.index;
+
+
   scene.add( star );
+
   return star;
 };
 
@@ -238,17 +246,8 @@ export const handleSunExplosions = (
       diminishExplosion( isExplosionDiminishing, isExplosionHappening, explosion, scene );
 };
 
-export const zoomOnStart = ( isInitialZoom, labelRenderer, controls, content, camera, renderer ) => {
-  if ( content.isEnabled ) return;
-  document.querySelector( 'canvas' ).appendChild( labelRenderer.domElement );
-
-  createControls( controls, camera, renderer, labelRenderer );
-  isInitialZoom = true;
-};
-
-
-const normalizeColorOnMouseLeave = ( planetMeshes, camera ) => {
-  planetMeshes.forEach( ( object, index ) => {
+const normalizeColorOnMouseLeave = ( planetMeshes, sunMesh, camera ) => {
+  planetMeshes.concat( sunMesh ).forEach( ( object, index ) => {
     if ( object.material ) {
       object.material.color.set( 'white' );
       camera.layers.disable( index + 1 );
@@ -256,8 +255,8 @@ const normalizeColorOnMouseLeave = ( planetMeshes, camera ) => {
   } );
 };
 
-const handleMouseOver = ( planetMeshes, raycaster, camera ) => {
-  const intersects = raycaster.intersectObjects( planetMeshes );
+const handleMouseOver = ( planetMeshes, sunMesh, raycaster, camera ) => {
+  const intersects = raycaster.intersectObjects( planetMeshes.concat( sunMesh ) );
 
   if ( intersects.length > 0 ) {
     if ( intersects[ 0 ].object.material ) {
@@ -270,86 +269,88 @@ const handleMouseOver = ( planetMeshes, raycaster, camera ) => {
   if ( intersects.length === 0 ) document.body.style.cursor = 'auto';
 };
 
-export const handleIntersection = ( planetMeshes, content, raycaster, cursor, camera ) => {
+export const handleIntersection = ( planetMeshes, sunMesh, content, raycaster, cursor, camera ) => {
   if ( !content.isEnabled ) {
+    planetMeshes.concat( sunMesh );
+
     raycaster.setFromCamera( cursor, camera );
-    normalizeColorOnMouseLeave( planetMeshes, camera );
-    handleMouseOver( planetMeshes, raycaster, camera );
+    normalizeColorOnMouseLeave( planetMeshes, sunMesh, camera );
+    handleMouseOver( planetMeshes, sunMesh, raycaster, camera );
   }
 };
 
-export const transitionOnFirstZoom = ( isInitialZoom, camera, sun, controls ) => {
-  if ( isInitialZoom ) {
-    camera.lookAt( sun.position );
+export const transitionOnFirstZoom = ( isFirstToggle, camera, sun, controls ) => {
+  if ( isFirstToggle.value === false || isFirstToggle.value === null ) return;
 
-    switch ( true ) {
-      case camera.position.z > 130:
-        camera.position.z -= 0.1;
-        camera.position.x += 0.1;
-        break;
-      case camera.position.z > 120:
-        camera.position.z -= 0.11;
-        camera.position.x += 0.11;
-        break;
-      case camera.position.z > 115:
-        camera.position.z -= 0.13;
-        camera.position.x += 0.13;
-        break;
-      case camera.position.z > 110:
-        camera.position.z -= 0.16;
-        camera.position.x += 0.16;
-        break;
-      case camera.position.z > 105:
-        camera.position.z -= 0.19;
-        camera.position.x += 0.19;
-        break;
-      case camera.position.z > 100:
-        camera.position.z -= 0.17;
-        camera.position.x += 0.17;
-        break;
-      case camera.position.z > 95:
-        camera.position.z -= 0.14;
-        camera.position.x += 0.14;
-        break;
-      case camera.position.z > 90:
-        camera.position.z -= 0.13;
-        camera.position.x += 0.13;
-        break;
-      case camera.position.z > 85:
-        camera.position.z -= 0.1;
-        camera.position.x += 0.1;
-        break;
-      case camera.position.z > 80:
-        camera.position.z -= 0.08;
-        camera.position.x += 0.08;
-        break;
-      case camera.position.z > 75:
-        camera.position.z -= 0.06;
-        camera.position.x += 0.06;
-        break;
-      case camera.position.z > 70:
-        camera.position.z -= 0.04;
-        camera.position.x += 0.04;
-        break;
-      case camera.position.z > 65:
-        camera.position.z -= 0.03;
-        camera.position.x += 0.03;
-        break;
-      case camera.position.z > 60:
-        camera.position.z -= 0.02;
-        camera.position.x += 0.02;
-        break;
-      case camera.position.z > 55:
-        camera.position.z -= 0.01;
-        camera.position.x += 0.01;
-        break;
-      case camera.position.z > 50:
-        isInitialZoom = false;
-        controls.enabled = true;
-        break;
-    }
+  camera.lookAt( sun.position );
 
-    camera.position.y -= 0.15;
+  switch ( true ) {
+    case camera.position.z > 130:
+      camera.position.z -= 0.1;
+      camera.position.x += 0.1;
+      break;
+    case camera.position.z > 120:
+      camera.position.z -= 0.11;
+      camera.position.x += 0.11;
+      break;
+    case camera.position.z > 115:
+      camera.position.z -= 0.13;
+      camera.position.x += 0.13;
+      break;
+    case camera.position.z > 110:
+      camera.position.z -= 0.16;
+      camera.position.x += 0.16;
+      break;
+    case camera.position.z > 105:
+      camera.position.z -= 0.19;
+      camera.position.x += 0.19;
+      break;
+    case camera.position.z > 100:
+      camera.position.z -= 0.17;
+      camera.position.x += 0.17;
+      break;
+    case camera.position.z > 95:
+      camera.position.z -= 0.14;
+      camera.position.x += 0.14;
+      break;
+    case camera.position.z > 90:
+      camera.position.z -= 0.13;
+      camera.position.x += 0.13;
+      break;
+    case camera.position.z > 85:
+      camera.position.z -= 0.1;
+      camera.position.x += 0.1;
+      break;
+    case camera.position.z > 80:
+      camera.position.z -= 0.08;
+      camera.position.x += 0.08;
+      break;
+    case camera.position.z > 75:
+      camera.position.z -= 0.06;
+      camera.position.x += 0.06;
+      break;
+    case camera.position.z > 70:
+      camera.position.z -= 0.04;
+      camera.position.x += 0.04;
+      break;
+    case camera.position.z > 65:
+      camera.position.z -= 0.03;
+      camera.position.x += 0.03;
+      break;
+    case camera.position.z > 60:
+      camera.position.z -= 0.02;
+      camera.position.x += 0.02;
+      break;
+    case camera.position.z > 55:
+      camera.position.z -= 0.01;
+      camera.position.x += 0.01;
+      break;
+    case camera.position.z > 50:
+      isFirstToggle.value = false;
+      controls.enabled = true;
+      break;
   }
+
+  camera.position.y -= 0.15;
 
 };

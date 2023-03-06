@@ -1,3 +1,4 @@
+import sunTexture from '/3D-assets/sun.jpg';
 import mercuryTexture from '/3D-assets/mercury.jpg';
 import venusTexture from '/3D-assets/venus.jpg';
 import earthTexture from '/3D-assets/earth.jpg';
@@ -107,13 +108,12 @@ export const planetsData = [
   }
 ];
 
-export const sun = {
-  name: 'Sun',
-  index: 9,
-  size: 5.8,
-  texture: plutoTexture,
-  position: 1216,
-  offset: 1,
-  rotation: 0.0008,
-  translation: 0.000005
+export const sunData = {
+  name: 'The Sun',
+  index: 10,
+  size: 40,
+  texture: sunTexture,
+  position: 0,
+  rotation: 0.00000000008,
+  translation: null
 };

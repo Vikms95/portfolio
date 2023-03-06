@@ -20,8 +20,6 @@
   import { useWindowSize } from '@vueuse/core';
   import { planetsData } from '../planetsData';
 
-  import sunTexture from '/3D-assets/sun.jpg';
-
   import {
     setRendererSize,
     createRenderer,
@@ -40,11 +38,9 @@
     addEventListeners,
     createExplosion,
     handleSunExplosions,
-    zoomOnStart,
     handleIntersection,
     transitionOnFirstZoom
   } from '../utils-3D';
-
 
   const { content } = defineProps( [ 'content' ] );
 
@@ -56,27 +52,25 @@
     scene,
     cursor,
     raycaster,
-    sun,
+    sunMesh,
     explosion,
     planetMeshes = [],
-    planetObjects = [];
-
-  let isInitialZoom = false;
-  let isExplosionHappening = false;
-  let isExplosionDiminishing = false;
+    planetObjects = [],
+    isExplosionHappening = false,
+    isExplosionDiminishing = false;
 
   const experience = ref( null );
+  const isFirstToggle = ref( null );
   const { width, height } = useWindowSize();
   const aspectRatio = computed( () => width.value / height.value );
 
   watch( aspectRatio, () => setRendererSize( renderer ) );
   watch( aspectRatio, () => updateCamera( camera, aspectRatio ) );
-  watch( content, () => toggleRenderer( content, labelRenderer ) );
-  // watch( content, () => zoomOnStart( isInitialZoom, labelRenderer, controls, content, camera, renderer ) );
+  watch( content, () => toggleRenderer( content, labelRenderer, isFirstToggle ) );
 
   function animate () {
-    transitionOnFirstZoom( isInitialZoom, camera, sun, controls );
-    handleIntersection( planetMeshes, content, raycaster, cursor, camera );
+    transitionOnFirstZoom( isFirstToggle, camera, sunMesh, controls );
+    handleIntersection( planetMeshes, sunMesh, content, raycaster, cursor, camera );
 
     rotatePlanets( planetMeshes );
     translatePlanets( planetObjects );
@@ -110,8 +104,10 @@
 
     scene.background = createBackground();
 
-    sun = createSun( sun, sunTexture, scene );
-    createLabel( 'The Sun', 10, sun, camera );
+    sunMesh = createSun( sunMesh, scene );
+
+    createLabel( 'The Sun', sunMesh.name, sunMesh, camera );
+
     createExplosion( isExplosionHappening, explosion, scene );
 
     planetsData.forEach( ( { name, size, texture, position, index, ring, offset } ) => {
