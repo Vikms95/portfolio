@@ -15,28 +15,25 @@
 
 <script setup>
 
-  import * as THREE from 'three';
+  import { Vector2, Raycaster, Scene } from 'three';
   import { ref, watch, computed, onMounted } from 'vue';
   import { useWindowSize } from '@vueuse/core';
-  import { planetsData } from '../planetsData';
 
   import {
-    setRendererSize,
-    createRenderer,
-    createLabelRenderer,
-    toggleRenderer,
-    createCamera,
+    setupCamera,
     updateCamera,
-    createAndAddLights,
-    createPlanet,
-    createSun,
-    createControls,
-    createBackground,
-    createLabel,
+    setupRenderer,
+    setRendererSize,
+    toggleRenderer,
+    setupLabelRenderer,
+    setupAndAddLights,
+    setupControls,
+    setupBackground,
+    setupCelestialBodies,
     rotatePlanets,
     translatePlanets,
     addEventListeners,
-    createExplosion,
+    setupExplosion,
     handleSunExplosions,
     handleIntersection,
     transitionOnFirstZoom
@@ -49,11 +46,11 @@
     labelRenderer,
     controls,
     camera,
-    scene,
-    cursor,
-    raycaster,
     sunMesh,
     explosion,
+    scene = new Scene(),
+    cursor = new Vector2(),
+    raycaster = new Raycaster(),
     planetMeshes = [],
     planetObjects = [],
     isExplosionHappening = false,
@@ -69,54 +66,36 @@
   watch( content, () => toggleRenderer( content, labelRenderer, isFirstToggle ) );
 
   function animate () {
-    transitionOnFirstZoom( isFirstToggle, camera, sunMesh, controls );
+    controls.update();
+    requestAnimationFrame( animate );
+
+    // transitionOnFirstZoom( isFirstToggle, camera, sunMesh, controls );
     handleIntersection( planetMeshes, sunMesh, content, raycaster, cursor, camera );
 
     rotatePlanets( planetMeshes );
     translatePlanets( planetObjects );
     handleSunExplosions( isExplosionHappening, isExplosionDiminishing, explosion, scene );
 
-    requestAnimationFrame( animate );
-
-    controls.update();
     renderer.render( scene, camera );
     labelRenderer.render( scene, camera );
   }
 
   onMounted( () => {
-    scene = new THREE.Scene();
-    cursor = new THREE.Vector2();
-    raycaster = new THREE.Raycaster();
-
-    renderer = createRenderer( renderer, experience );
+    renderer = setupRenderer( renderer, experience );
     renderer = setRendererSize( renderer );
-    labelRenderer = createLabelRenderer( labelRenderer );
+    labelRenderer = setupLabelRenderer( labelRenderer );
 
-    camera = createCamera( camera, aspectRatio );
+    camera = setupCamera( camera, aspectRatio, scene );
     camera = updateCamera( camera, aspectRatio );
-    scene.add( camera );
+    controls = setupControls( controls, camera, labelRenderer );
 
-    createAndAddLights( scene );
-
-    controls = createControls( controls, camera, labelRenderer );
+    setupBackground( scene );
+    setupAndAddLights( scene );
+    setupExplosion( isExplosionHappening, explosion, scene );
 
     addEventListeners( cursor, renderer, camera );
 
-    scene.background = createBackground();
-
-    sunMesh = createSun( sunMesh, scene );
-
-    createLabel( 'The Sun', sunMesh.name, sunMesh, camera );
-
-    createExplosion( isExplosionHappening, explosion, scene );
-
-    planetsData.forEach( ( { name, size, texture, position, index, ring, offset } ) => {
-      const { mesh, obj } = createPlanet( size, texture, position, scene, index, ring, offset );
-      createLabel( name, index, mesh, camera );
-
-      planetMeshes.push( mesh );
-      planetObjects.push( obj );
-    } );
+    [ sunMesh, planetMeshes, planetObjects ] = setupCelestialBodies( scene, camera );
 
     animate();
   } );

@@ -1,20 +1,19 @@
 import * as THREE from 'three';
 import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import starsTexture from '/3D-assets/stars.jpg';
-import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { useWindowSize } from '@vueuse/core';
 import { planetsData } from './planetsData';
 import { sunData } from './planetsData';
 
-export const createRenderer = ( renderer, element ) => (
+export const setupRenderer = ( renderer, element ) => (
   renderer = new THREE.WebGLRenderer( {
     canvas: element.value,
     antialias: true
   } )
 );
 
-export const createLabelRenderer = ( renderer ) => {
+export const setupLabelRenderer = ( renderer ) => {
   renderer = new CSS2DRenderer();
   renderer.setSize( window.innerWidth, window.innerHeight );
   renderer.domElement.style.position = 'absolute';
@@ -45,7 +44,7 @@ export const setRendererSize = ( renderer ) => {
   return renderer;
 };
 
-export const createCamera = ( camera, aspectRatio ) => {
+export const setupCamera = ( camera, aspectRatio, scene ) => {
   camera = new THREE.PerspectiveCamera(
     45,
     aspectRatio.value,
@@ -55,6 +54,7 @@ export const createCamera = ( camera, aspectRatio ) => {
 
   camera.position.set( -90, 140, 140 );
   camera.layers.enableAll();
+  scene.add( camera );
 
   return camera;
 };
@@ -67,7 +67,7 @@ export const updateCamera = ( camera, aspectRatio ) => {
   return camera;
 };
 
-export const createControls = ( controls, camera, labelRenderer ) => {
+export const setupControls = ( controls, camera, labelRenderer ) => {
   controls = new OrbitControls( camera, labelRenderer.domElement );
   controls.enabled = true;
   controls.minDistance = 5;
@@ -83,7 +83,7 @@ export const createControls = ( controls, camera, labelRenderer ) => {
   return controls;
 };
 
-export const createAndAddLights = ( scene ) => {
+export const setupAndAddLights = ( scene ) => {
   let ambientLight = new THREE.AmbientLight( 0x333333 );
   let pointLight = new THREE.PointLight( 0xFFFFFF, 2, 1500 );
   pointLight.layers.enableAll();
@@ -173,7 +173,7 @@ export const createPlanet = ( size, texture, position, scene, index, ring, offse
   return { mesh, obj };
 };
 
-export const createLabel = ( name, index, mesh, camera ) => {
+export const attachLabel = ( name, index, mesh, camera ) => {
   const div = document.createElement( 'div' );
   div.className = 'label';
   div.textContent = name;
@@ -187,10 +187,30 @@ export const createLabel = ( name, index, mesh, camera ) => {
 
 };
 
-export const createBackground = () => {
+export const setupCelestialBodies = ( scene, camera ) => {
+  let sunMesh;
+  let planetMeshes = [];
+  let planetObjects = [];
+
+  sunMesh = createSun( sunMesh, scene );
+
+  attachLabel( 'The Sun', sunMesh.name, sunMesh, camera );
+
+  planetsData.forEach( ( { name, size, texture, position, index, ring, offset } ) => {
+    const { mesh, obj } = createPlanet( size, texture, position, scene, index, ring, offset );
+    attachLabel( name, index, mesh, camera );
+
+    planetMeshes.push( mesh );
+    planetObjects.push( obj );
+  } );
+
+  return [ sunMesh, planetMeshes, planetObjects ];
+};
+
+export const setupBackground = ( scene ) => {
   const cubeTextureLoader = new THREE.CubeTextureLoader();
   const cube = new Array( 6 ).fill( starsTexture, 0, 6 );
-  return cubeTextureLoader.load( cube );
+  scene.background = cubeTextureLoader.load( cube );
 };
 
 export const rotatePlanets = ( planetMeshes ) => {
@@ -203,7 +223,7 @@ export const translatePlanets = ( planetObjects ) => (
     planet.rotateY( planetsData[ index ].translation ) )
 );
 
-export const createExplosion = ( isExplosionHappening, explosion, scene ) => {
+export const setupExplosion = ( isExplosionHappening, explosion, scene ) => {
   const isExplosion = Math.random() >= 0.9991 ? true : false;
 
   if ( isExplosion ) {
@@ -236,7 +256,7 @@ export const handleSunExplosions = (
   explosion, scene
 ) => {
   if ( !isExplosionHappening )
-    createExplosion( isExplosionHappening, explosion, scene );
+    setupExplosion( isExplosionHappening, explosion, scene );
 
   else
     if ( !isExplosionDiminishing )
