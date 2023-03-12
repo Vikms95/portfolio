@@ -480,12 +480,12 @@ export const getSelectedBodyDetails = ( selectedBody ) => {
   const {
     diameter,
     gravity,
-    moons,
     distanceSun,
-    dayLength
+    dayLength,
+    moons,
   } = planetsData[ selectedBody - 1 ];
 
-  return [ diameter, gravity, moons, distanceSun, dayLength ];
+  return [ diameter, gravity, distanceSun, dayLength, moons ];
 };
 
 export const getSelectedBodyName = ( selectedBody ) => {

@@ -39,14 +39,26 @@ export const planetsData = [
     position: 162,
     rotation: 0.002,
     translation: 0.00009,
-    distanceSun: '149.6',
     diameter: {
-      title: 'Diameter (km)',
-      value: '12576'
+      title: 'Diameter',
+      value: '12.576 (km)'
     },
-    gravity: '9.8',
-    dayLength: '24',
-    moons: '1',
+    gravity: {
+      title: 'Gravity',
+      value: '9.8 (m/s²)',
+    },
+    dayLength: {
+      title: 'Day length',
+      value: '24 (hours)'
+    },
+    distanceSun: {
+      title: 'Sun distance',
+      value: '149.6 (10⁶ km)'
+    },
+    moons: {
+      title: 'Moons',
+      value: '1'
+    },
     facts: [
       `
       Today, the average day is 24 hours long, but is increasing by about 1.7 milliseconds every century.
