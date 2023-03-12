@@ -20,7 +20,7 @@ export const planetsData = [
     texture: mercuryTexture,
     position: 68,
     rotation: 0.004,
-    translation: 0.004
+    translation: 0.0004
   },
   {
     name: 'Venus',
@@ -29,7 +29,7 @@ export const planetsData = [
     texture: venusTexture,
     position: 90,
     rotation: 0.002,
-    translation: 0.001
+    translation: 0.0001
   },
   {
     name: 'Earth',
@@ -38,7 +38,7 @@ export const planetsData = [
     texture: earthTexture,
     position: 162,
     rotation: 0.002,
-    translation: 0.0009
+    translation: 0.00009
 
   },
   {
@@ -48,7 +48,7 @@ export const planetsData = [
     texture: marsTexture,
     position: 278,
     rotation: 0.0018,
-    translation: 0.0008
+    translation: 0.00008
   },
   {
     name: 'Jupiter',
@@ -57,7 +57,7 @@ export const planetsData = [
     texture: jupiterTexture,
     position: 400,
     rotation: 0.004,
-    translation: 0.00009
+    translation: 0.000009
   },
   {
     name: 'Saturn',
@@ -71,7 +71,7 @@ export const planetsData = [
     },
     position: 600,
     rotation: 0.0038,
-    translation: 0.00009
+    translation: 0.000009
   },
   {
     name: 'Uranus',
@@ -85,7 +85,7 @@ export const planetsData = [
     },
     position: 776,
     rotation: 0.003,
-    translation: 0.000005
+    translation: 0.0000005
   },
   {
     name: 'Neptune',
@@ -94,7 +94,7 @@ export const planetsData = [
     texture: neptuneTexture,
     position: 1000,
     rotation: 0.0032,
-    translation: 0.000005
+    translation: 0.0000005
   },
   {
     name: 'Pluto',
@@ -104,7 +104,7 @@ export const planetsData = [
     position: 1216,
     offset: 1,
     rotation: 0.0008,
-    translation: 0.000005
+    translation: 0.0000005
   }
 ];
 

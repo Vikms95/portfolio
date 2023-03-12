@@ -24,7 +24,7 @@
 
   import gsap from 'gsap';
   import { useWindowSize } from '@vueuse/core';
-  import { Vector2, Raycaster, Scene } from 'three';
+  import { Vector2, Raycaster, Scene, Clock } from 'three';
   import { ref, watch, computed, onMounted } from 'vue';
 
   import {
@@ -59,6 +59,7 @@
     explosion,
     planetMeshes = [],
     planetObjects = [],
+    clock = new Clock(),
     scene = new Scene(),
     cursor = new Vector2(),
     raycaster = new Raycaster(),
@@ -75,24 +76,18 @@
   watch( aspectRatio, () => setRendererSize( renderer ) );
   watch( aspectRatio, () => updateCamera( camera, aspectRatio ) );
   watch( content, () => toggleRenderer( content, labelRenderer, isFirstToggle ) );
-  // watch( selectedBody, () => gsap.to( camera.position, {
-  //   x: selectedBody.value.x,
-  //   y: selectedBody.value.y,
-  //   z: selectedBody.value.z - 100,
-  //   duration: 5
-  // } ) );
 
   function animate () {
     controls.update();
     requestAnimationFrame( animate );
 
     // transitionOnFirstZoom( isFirstToggle, camera, sunMesh, controls );
-    translateToSelectedBody( scene, camera, selectedBody );
+    translateToSelectedBody( scene, camera, controls, selectedBody );
     handleIntersection( planetMeshes, sunMesh, content, raycaster, cursor, camera );
 
     rotatePlanets( planetMeshes );
     translatePlanets( planetObjects );
-    handleSunExplosions( isExplosionHappening, isExplosionDiminishing, explosion, scene );
+    // handleSunExplosions( isExplosionHappening, isExplosionDiminishing, explosion, scene );
 
     renderer.render( scene, camera );
     labelRenderer.render( scene, camera );

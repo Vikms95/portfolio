@@ -6,6 +6,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { useWindowSize } from '@vueuse/core';
 import { planetsData } from './planetsData';
 import { sunData } from './planetsData';
+import { Vector3 } from 'three';
 
 export const setupRenderer = ( renderer, element ) => (
   renderer = new THREE.WebGLRenderer( {
@@ -392,13 +393,80 @@ export const translateCameraOnFirstToggle = ( isFirstToggle, camera, sun, contro
 
 };
 
-export const translateToSelectedBody = ( scene, camera, selectedBody ) => {
+export const translateToSelectedBody = ( scene, camera, controls, selectedBody ) => {
   if ( selectedBody.value === null ) return;
 
+  disableControls( controls );
+
   const object = scene.getObjectByName( selectedBody.value );
+  const { cameraRotation, targetOrientation } = getInitialQuaternion( camera );
+  setupInitialRotation( object, camera, cameraRotation );
 
+  const box = new THREE.Box3().setFromObject( object );
+  const center = box.getCenter( new THREE.Vector3() );
+  const size = box.getSize( new THREE.Vector3() );
+
+  const startOrientation = getStartOrientation( camera );
+
+
+  gsap.to( {}, {
+    onUpdate: function () {
+      camera
+        .quaternion
+        .copy( startOrientation )
+        .slerp( targetOrientation, this.progress() );
+    },
+    onComplete: function () {
+      gsap.to( camera.position, {
+        duration: 10,
+        x: center.x,
+        y: center.y + 3,
+        z: ( center.z + 1.5 * size.z ),
+        onUpdate: function () {
+          camera.lookAt( center );
+          gsap.to( controls.target, {
+            x: center.x,
+            y: center.y,
+            z: center.z,
+            duration: 3
+          } );
+        },
+        onComplete: function () {
+          enableControls( controls );
+        }
+      } );
+    }
+  } );
+};
+
+const enableControls = ( controls ) => {
+  controls.enabled = true;
+};
+
+const disableControls = ( controls ) => {
+  controls.enabled = false;
+};
+
+const getStartOrientation = ( camera ) => {
+  return camera.quaternion.clone();
+};
+
+const setupInitialRotation = ( object, camera, cameraRotation ) => {
   camera.lookAt( object.position );
+  camera.rotation.x = cameraRotation.x;
+  camera.rotation.y = cameraRotation.y;
+  camera.rotation.z = cameraRotation.z;
 
-  gsap.to( camera.position, { y: object.position.y, duration: 5 } );
-  gsap.to( camera.position, { x: object.position.x, duration: 2.5 } );
+};
+
+const getInitialQuaternion = ( camera ) => {
+  const cameraRotation = { x: camera.rotation.x, y: camera.rotation.y, z: camera.rotation.z };
+  const targetOrientation = camera.quaternion.clone().normalize();
+
+  return { cameraRotation, targetOrientation };
+
+};
+
+const rotateCameraOnSelect = () => {
+
 };
