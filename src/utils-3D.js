@@ -474,8 +474,6 @@ const targetPlanetAndTranslate = ( camera, center, size, controls, startOrientat
   } );
 };
 
-
-
 export const getSelectedBodyName = ( selectedBody ) => {
   return planetsData[ selectedBody - 1 ].name;
 };
@@ -486,11 +484,11 @@ export const getSelectedBodyDetails = ( selectedBody ) => {
     gravity,
     distanceSun,
     dayLength,
-    orbitalPeriod,
+    yearLength,
     moons,
   } = planetsData[ selectedBody - 1 ];
 
-  return [ diameter, gravity, dayLength, orbitalPeriod, distanceSun, moons ];
+  return [ diameter, gravity, dayLength, yearLength, distanceSun, moons ];
 };
 
 export const getSelectedBodyFacts = ( selectedBody ) => {

@@ -16,7 +16,6 @@
   .body-details {
     display: grid;
     justify-items: center;
-    text-align: start;
     grid-template-columns: repeat(2, 1fr);
     row-gap: 2em;
     margin-bottom: 4em;
@@ -74,7 +73,7 @@
   <aside class='info-container'>
     <h1 class='name'>{{ name }}</h1>
     <article class='body-details'>
-      <div class='detail' v-for='                                     detail                                      in details'>
+      <div class='detail' v-for='                                        detail                                         in details'>
         <div class='title'>
           {{ detail.title }}
         </div>
@@ -84,7 +83,7 @@
       </div>
     </article>
     <ul class='body-facts'>
-      <li v-for='                   fact                    in facts'>
+      <li v-for='                      fact                       in facts'>
         {{ fact }}
       </li>
     </ul>

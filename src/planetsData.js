@@ -20,7 +20,35 @@ export const planetsData = [
     texture: mercuryTexture,
     position: 68,
     rotation: 0.004,
-    translation: 0.0004
+    translation: 0.0004,
+    diameter: {
+      title: 'Diameter',
+      value: '4.879 (km)'
+    },
+    gravity: {
+      title: 'Gravity',
+      value: '3,7 (m/s²)',
+    },
+    dayLength: {
+      title: 'Day length',
+      value: '4222,6 (hours)'
+    },
+    yearLength: {
+      title: 'Year length',
+      value: '88 (days)'
+    },
+    distanceSun: {
+      title: 'Sun distance',
+      value: '57,9 (10⁶ km)'
+    },
+    moons: {
+      title: 'Moons',
+      value: '0'
+    },
+    facts: [
+      `Average day length is increasing by about 1.7 milliseconds every century.`,
+      `Melting glaciers are causing Earth's waistline to spread.`
+    ],
   },
   {
     name: 'Venus',
@@ -29,7 +57,35 @@ export const planetsData = [
     texture: venusTexture,
     position: 90,
     rotation: 0.002,
-    translation: 0.0001
+    translation: 0.0001,
+    diameter: {
+      title: 'Diameter',
+      value: '12.104 (km)'
+    },
+    gravity: {
+      title: 'Gravity',
+      value: '8,9 (m/s²)',
+    },
+    dayLength: {
+      title: 'Day length',
+      value: '2.802 (hours)'
+    },
+    yearLength: {
+      title: 'Year length',
+      value: '224,7 (days)'
+    },
+    distanceSun: {
+      title: 'Year length',
+      value: '108,2 (10⁶ km)'
+    },
+    moons: {
+      title: 'Moons',
+      value: '0'
+    },
+    facts: [
+      `Average day length is increasing by about 1.7 milliseconds every century.`,
+      `Melting glaciers are causing Earth's waistline to spread.`
+    ],
   },
   {
     name: 'Earth',
@@ -45,19 +101,19 @@ export const planetsData = [
     },
     gravity: {
       title: 'Gravity',
-      value: '9.8 (m/s²)',
+      value: '9,8 (m/s²)',
     },
     dayLength: {
       title: 'Day length',
       value: '24 (hours)'
     },
-    orbitalPeriod: {
-      title: 'Orbital period',
-      value: '365.2 (days)'
+    yearLength: {
+      title: 'Year length',
+      value: '365,2 (days)'
     },
     distanceSun: {
       title: 'Sun distance',
-      value: '149.6 (10⁶ km)'
+      value: '149,6 (10⁶ km)'
     },
     moons: {
       title: 'Moons',
@@ -75,7 +131,35 @@ export const planetsData = [
     texture: marsTexture,
     position: 278,
     rotation: 0.0018,
-    translation: 0.00008
+    translation: 0.00008,
+    diameter: {
+      title: 'Diameter',
+      value: '6.792 (km)'
+    },
+    gravity: {
+      title: 'Gravity',
+      value: '3,7 (m/s²)',
+    },
+    dayLength: {
+      title: 'Day length',
+      value: '24,7 (hours)'
+    },
+    yearLength: {
+      title: 'Year length',
+      value: '687 (days)'
+    },
+    distanceSun: {
+      title: 'Sun distance',
+      value: '228 (10⁶ km)'
+    },
+    moons: {
+      title: 'Moons',
+      value: '2'
+    },
+    facts: [
+      `Average day length is increasing by about 1.7 milliseconds every century.`,
+      `Melting glaciers are causing Earth's waistline to spread.`
+    ],
   },
   {
     name: 'Jupiter',
@@ -84,7 +168,35 @@ export const planetsData = [
     texture: jupiterTexture,
     position: 400,
     rotation: 0.004,
-    translation: 0.000009
+    translation: 0.000009,
+    diameter: {
+      title: 'Diameter',
+      value: '142.984 (km)'
+    },
+    gravity: {
+      title: 'Gravity',
+      value: '23,1 (m/s²)',
+    },
+    dayLength: {
+      title: 'Day length',
+      value: '9,9 (hours)'
+    },
+    yearLength: {
+      title: 'Year length',
+      value: '4.331 (days)'
+    },
+    distanceSun: {
+      title: 'Sun distance',
+      value: '778,5 (10⁶ km)'
+    },
+    moons: {
+      title: 'Moons',
+      value: '92'
+    },
+    facts: [
+      `Average day length is increasing by about 1.7 milliseconds every century.`,
+      `Melting glaciers are causing Earth's waistline to spread.`
+    ],
   },
   {
     name: 'Saturn',
@@ -98,7 +210,35 @@ export const planetsData = [
     },
     position: 600,
     rotation: 0.0038,
-    translation: 0.000009
+    translation: 0.000009,
+    diameter: {
+      title: 'Diameter',
+      value: '120.536 (km)'
+    },
+    gravity: {
+      title: 'Gravity',
+      value: '9,0 (m/s²)',
+    },
+    dayLength: {
+      title: 'Day length',
+      value: '10,7 (hours)'
+    },
+    yearLength: {
+      title: 'Year length',
+      value: '10.747 (days)'
+    },
+    distanceSun: {
+      title: 'Sun distance',
+      value: '1.432 (10⁶ km)'
+    },
+    moons: {
+      title: 'Moons',
+      value: '83'
+    },
+    facts: [
+      `Average day length is increasing by about 1.7 milliseconds every century.`,
+      `Melting glaciers are causing Earth's waistline to spread.`
+    ],
   },
   {
     name: 'Uranus',
@@ -112,7 +252,35 @@ export const planetsData = [
     },
     position: 776,
     rotation: 0.003,
-    translation: 0.0000005
+    translation: 0.0000005,
+    diameter: {
+      title: 'Diameter',
+      value: '51.118 (km)'
+    },
+    gravity: {
+      title: 'Gravity',
+      value: '8,7 (m/s²)',
+    },
+    dayLength: {
+      title: 'Day length',
+      value: '17,2 (hours)'
+    },
+    yearLength: {
+      title: 'Year length',
+      value: '30.589 (days)'
+    },
+    distanceSun: {
+      title: 'Sun distance',
+      value: '2.867 (10⁶ km)'
+    },
+    moons: {
+      title: 'Moons',
+      value: '27'
+    },
+    facts: [
+      `Average day length is increasing by about 1.7 milliseconds every century.`,
+      `Melting glaciers are causing Earth's waistline to spread.`
+    ],
   },
   {
     name: 'Neptune',
@@ -121,7 +289,35 @@ export const planetsData = [
     texture: neptuneTexture,
     position: 1000,
     rotation: 0.0032,
-    translation: 0.0000005
+    translation: 0.0000005,
+    diameter: {
+      title: 'Diameter',
+      value: '49.528 (km)'
+    },
+    gravity: {
+      title: 'Gravity',
+      value: '11 (m/s²)',
+    },
+    dayLength: {
+      title: 'Day length',
+      value: '16,1 (hours)'
+    },
+    yearLength: {
+      title: 'Year length',
+      value: '59.800 (days)'
+    },
+    distanceSun: {
+      title: 'Sun distance',
+      value: '4.515 (10⁶ km)'
+    },
+    moons: {
+      title: 'Moons',
+      value: '14'
+    },
+    facts: [
+      `Average day length is increasing by about 1.7 milliseconds every century.`,
+      `Melting glaciers are causing Earth's waistline to spread.`
+    ],
   },
   {
     name: 'Pluto',
@@ -131,7 +327,35 @@ export const planetsData = [
     position: 1216,
     offset: 1,
     rotation: 0.0008,
-    translation: 0.0000005
+    translation: 0.0000005,
+    diameter: {
+      title: 'Diameter',
+      value: '2.376 (km)'
+    },
+    gravity: {
+      title: 'Gravity',
+      value: '0,7 (m/s²)',
+    },
+    dayLength: {
+      title: 'Day length',
+      value: '153,3 (hours)'
+    },
+    yearLength: {
+      title: 'Year length',
+      value: '90.560 (days)'
+    },
+    distanceSun: {
+      title: 'Sun distance',
+      value: '5.906 (10⁶ km)'
+    },
+    moons: {
+      title: 'Moons',
+      value: '5'
+    },
+    facts: [
+      `Average day length is increasing by about 1.7 milliseconds every century.`,
+      `Melting glaciers are causing Earth's waistline to spread.`
+    ],
   }
 ];
 
