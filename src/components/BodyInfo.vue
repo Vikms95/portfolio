@@ -6,7 +6,7 @@
     left: 1100px;
     background-color: rgba(0, 0, 0, 0.5);
     /* opacity: v-bind( opacity );
-                                                                                                                                                                                                          transition: opacity 0.5s, visibility 0.5s ease-in-out; */
+                                                                                                                                                                                                                    transition: opacity 0.5s, visibility 0.5s ease-in-out; */
     min-width: 20em;
     min-height: 35em;
     padding: 1.5em;
@@ -49,6 +49,7 @@
     flex-direction: column;
     text-align: start;
     row-gap: 2em;
+    font-size: 14px;
   }
 
   .body-facts > li {
@@ -77,7 +78,7 @@
     <h1 class='name'>{{ name }}</h1>
     <article class='body-details'>
       
-      <div class='detail' v-for='                                                                                                                                                detail                                                                                                                                                 in details'>
+      <div class='detail' v-for='                                                                                                                                                     detail                                                                                                                                                      in details'>
         
         <div class='title'>
           {{ detail.title }}
@@ -91,7 +92,7 @@
     </article>
     
     <ul class='body-facts'>
-      <li v-for='                                                                                                                              fact                                                                                                                               in facts'>
+      <li v-for='                                                                                                                                   fact                                                                                                                                    in facts'>
         {{ fact }}
       </li>
     </ul>

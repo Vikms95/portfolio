@@ -46,8 +46,8 @@ export const planetsData = [
       value: '0'
     },
     facts: [
-      `Average day length is increasing by about 1.7 milliseconds every century.`,
-      `Melting glaciers are causing Earth's waistline to spread.`
+      `The deepest crater is about 1,550 km in diameter, which would be enough to fit inbetween Portugal to Germany. `,
+      `Contrary to what one might think, it is not the hottest planet in the Solar System. Mercury has a very weak atmosphere so it can’t hold any heat.`
     ],
   },
   {
@@ -75,7 +75,7 @@ export const planetsData = [
       value: '224,7 (days)'
     },
     distanceSun: {
-      title: 'Year length',
+      title: 'Sun distance',
       value: '108,2 (10⁶ km)'
     },
     moons: {
@@ -83,8 +83,8 @@ export const planetsData = [
       value: '0'
     },
     facts: [
-      `Average day length is increasing by about 1.7 milliseconds every century.`,
-      `Melting glaciers are causing Earth's waistline to spread.`
+      `Its unusual axis rotation is due to being upside down – it was knocked off its upright position earlier in its history!`,
+      `Hottest planet on the Solar System. This is because of the high concentration of carbon dioxide in Venus’ atmosphere, which works to produce an intense greenhouse effect`
     ],
   },
   {
@@ -157,8 +157,8 @@ export const planetsData = [
       value: '2'
     },
     facts: [
-      `Average day length is increasing by about 1.7 milliseconds every century.`,
-      `Melting glaciers are causing Earth's waistline to spread.`
+      `Mars is home to the highest mountain and volcano on the Solar System. Three times the height of the Mount Everest!`,
+      `This could be evidence that open water in liquid form once existed on the surface billions of years ago.`,
     ],
   },
   {
@@ -194,8 +194,8 @@ export const planetsData = [
       value: '92'
     },
     facts: [
-      `Average day length is increasing by about 1.7 milliseconds every century.`,
-      `Melting glaciers are causing Earth's waistline to spread.`
+      `The planet only takes about 10 hours to complete a full rotation on its axis.  And because it’s spinning so rapidly, the planet has flattened out at the poles a little and is bulging at its equator. points on Jupiter’s equator are more than 4,600 km further from the center than the poles. `,
+      `If you could crash dozens of Jupiters together, you might have a chance to make a new star. But in the meantime, Jupiter shall remain a large gas giant with no hopes of becoming a star.`
     ],
   },
   {
