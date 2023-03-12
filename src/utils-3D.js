@@ -496,3 +496,11 @@ export const getSelectedBodyDetails = ( selectedBody ) => {
 export const getSelectedBodyFacts = ( selectedBody ) => {
   return planetsData[ selectedBody - 1 ].facts;
 };
+
+export const updateBodyData = ( props, name, facts, details ) => {
+  const selected = props.selectedBody;
+
+  name.value = getSelectedBodyName( selected );
+  facts.value = getSelectedBodyFacts( selected );
+  details.value = getSelectedBodyDetails( selected );
+};

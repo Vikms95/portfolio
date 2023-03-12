@@ -6,7 +6,7 @@
     left: 1100px;
     background-color: rgba(0, 0, 0, 0.5);
     /* opacity: v-bind( opacity );
-                                                                                                                                                    transition: opacity 0.5s, visibility 0.5s ease-in-out; */
+                                                                                                                                                                                                          transition: opacity 0.5s, visibility 0.5s ease-in-out; */
     min-width: 20em;
     min-height: 35em;
     padding: 1.5em;
@@ -57,41 +57,44 @@
 </style>
 
 <script setup>
-  import { getSelectedBodyName, getSelectedBodyDetails, getSelectedBodyFacts } from '../utils-3D';
-  import { ref, computed, watch, defineProps, onMounted, onUnmounted, onUpdated } from 'vue';
+  import { updateBodyData } from '../utils-3D';
+  import { ref, watch, defineProps, onMounted } from 'vue';
 
   const props = defineProps( [ 'selectedBody', 'selectedBodyRef', 'updateBodyName' ] );
 
-  // const name = getSelectedBodyName( selectedBody );
-  const name = ref( getSelectedBodyName( props.selectedBody ) );
-  const facts = getSelectedBodyFacts( props.selectedBody );
-  const details = getSelectedBodyDetails( props.selectedBody );
+  const name = ref( null );
+  const facts = ref( null );
+  const details = ref( null );
 
-  const fn = ( props ) => {
-    name.value = props.updateBodyName( props );
-  };
-
-  watch( props, () => fn( props ) );
+  onMounted( () => updateBodyData( props, name, facts, details ) );
+  watch( props, () => updateBodyData( props, name, facts, details ) );
 
 </script>
 
 <template>
   <aside class='info-container'>
+    
     <h1 class='name'>{{ name }}</h1>
     <article class='body-details'>
-      <div class='detail' v-for='                                                                                                                     detail                                                                                                                      in details'>
+      
+      <div class='detail' v-for='                                                                                                                                                detail                                                                                                                                                 in details'>
+        
         <div class='title'>
           {{ detail.title }}
         </div>
+
         <div class='value'>
           {{ detail.value }}
         </div>
       </div>
+
     </article>
+    
     <ul class='body-facts'>
-      <li v-for='                                                                                                   fact                                                                                                    in facts'>
+      <li v-for='                                                                                                                              fact                                                                                                                               in facts'>
         {{ fact }}
       </li>
     </ul>
+    
   </aside>
 </template>
