@@ -476,18 +476,23 @@ const targetPlanetAndTranslate = ( camera, center, size, controls, startOrientat
 
 
 
+export const getSelectedBodyName = ( selectedBody ) => {
+  return planetsData[ selectedBody - 1 ].name;
+};
+
 export const getSelectedBodyDetails = ( selectedBody ) => {
   const {
     diameter,
     gravity,
     distanceSun,
     dayLength,
+    orbitalPeriod,
     moons,
   } = planetsData[ selectedBody - 1 ];
 
-  return [ diameter, gravity, distanceSun, dayLength, moons ];
+  return [ diameter, gravity, dayLength, orbitalPeriod, distanceSun, moons ];
 };
 
-export const getSelectedBodyName = ( selectedBody ) => {
-  return planetsData[ selectedBody - 1 ].name;
+export const getSelectedBodyFacts = ( selectedBody ) => {
+  return planetsData[ selectedBody - 1 ].facts;
 };

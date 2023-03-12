@@ -15,16 +15,23 @@
 
   .body-details {
     display: grid;
+    justify-items: center;
+    text-align: start;
     grid-template-columns: repeat(2, 1fr);
     row-gap: 2em;
-
+    margin-bottom: 4em;
   }
 
   .name {
     display: flex;
     justify-content: center;
-    margin-bottom: 1em;
+    margin-bottom: 1.5em;
     font-size: 30px;
+  }
+
+  .detail {
+    display: flex;
+    flex-direction: column;
   }
 
   .title {
@@ -34,17 +41,30 @@
   }
 
   .value {
+    justify-self: flex-start;
     font-style: italic;
+  }
+
+  .body-facts {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    row-gap: 2em;
+  }
+
+  .body-facts > li {
+    list-style-type: circle;
   }
 </style>
 
 <script setup>
-  import { getSelectedBodyName, getSelectedBodyDetails } from '../utils-3D';
+  import { getSelectedBodyName, getSelectedBodyDetails, getSelectedBodyFacts } from '../utils-3D';
   import { computed, defineProps } from 'vue';
 
   const { selectedBody } = defineProps( [ 'selectedBody' ] );
   const name = getSelectedBodyName( selectedBody );
   const details = getSelectedBodyDetails( selectedBody );
+  const facts = getSelectedBodyFacts( selectedBody );
 
   const opacity = computed( () => selectedBody !== null ? 1 : 0 );
 
@@ -54,7 +74,7 @@
   <aside class='info-container'>
     <h1 class='name'>{{ name }}</h1>
     <article class='body-details'>
-      <div class='detail' v-for='                detail                 in details'>
+      <div class='detail' v-for='                                     detail                                      in details'>
         <div class='title'>
           {{ detail.title }}
         </div>
@@ -63,5 +83,10 @@
         </div>
       </div>
     </article>
+    <ul class='body-facts'>
+      <li v-for='                   fact                    in facts'>
+        {{ fact }}
+      </li>
+    </ul>
   </aside>
 </template>
