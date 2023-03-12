@@ -1,12 +1,12 @@
 import * as THREE from 'three';
-import gsap from 'gsap';
+import GSAP from 'gsap';
+
 import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import starsTexture from '/3D-assets/stars.jpg';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { useWindowSize } from '@vueuse/core';
 import { planetsData } from './planetsData';
 import { sunData } from './planetsData';
-import { Vector3 } from 'three';
 
 export const setupRenderer = ( renderer, element ) => (
   renderer = new THREE.WebGLRenderer( {
@@ -396,47 +396,14 @@ export const translateCameraOnFirstToggle = ( isFirstToggle, camera, sun, contro
 export const translateToSelectedBody = ( scene, camera, controls, selectedBody ) => {
   if ( selectedBody.value === null ) return;
 
-  disableControls( controls );
-
   const object = scene.getObjectByName( selectedBody.value );
   const { cameraRotation, targetOrientation } = getInitialQuaternion( camera );
-  setupInitialRotation( object, camera, cameraRotation );
-
-  const box = new THREE.Box3().setFromObject( object );
-  const center = box.getCenter( new THREE.Vector3() );
-  const size = box.getSize( new THREE.Vector3() );
-
+  const { center, size } = getObjectBoundingBox( object );
   const startOrientation = getStartOrientation( camera );
 
-
-  gsap.to( {}, {
-    onUpdate: function () {
-      camera
-        .quaternion
-        .copy( startOrientation )
-        .slerp( targetOrientation, this.progress() );
-    },
-    onComplete: function () {
-      gsap.to( camera.position, {
-        duration: 10,
-        x: center.x,
-        y: center.y + 3,
-        z: ( center.z + 1.5 * size.z ),
-        onUpdate: function () {
-          camera.lookAt( center );
-          gsap.to( controls.target, {
-            x: center.x,
-            y: center.y,
-            z: center.z,
-            duration: 3
-          } );
-        },
-        onComplete: function () {
-          enableControls( controls );
-        }
-      } );
-    }
-  } );
+  disableControls( controls );
+  setupInitialRotation( object, camera, cameraRotation );
+  targetPlanetAndTranslate( camera, center, size, controls, startOrientation, targetOrientation );
 };
 
 const enableControls = ( controls ) => {
@@ -445,6 +412,15 @@ const enableControls = ( controls ) => {
 
 const disableControls = ( controls ) => {
   controls.enabled = false;
+};
+
+const getObjectBoundingBox = ( object ) => {
+  const box = new THREE.Box3().setFromObject( object );
+  const center = box.getCenter( new THREE.Vector3() );
+  const size = box.getSize( new THREE.Vector3() );
+
+  return { center, size };
+
 };
 
 const getStartOrientation = ( camera ) => {
@@ -467,6 +443,38 @@ const getInitialQuaternion = ( camera ) => {
 
 };
 
-const rotateCameraOnSelect = () => {
+const translateCamera = ( camera, center, size, controls ) => {
+  GSAP.to( camera.position, {
+    duration: 10,
+    x: center.x,
+    y: center.y + 3,
+    z: ( center.z + 1.5 * size.z ),
+    onUpdate: function () {
+      camera.lookAt( center );
+      GSAP.to( controls.target, {
+        x: center.x,
+        y: center.y,
+        z: center.z,
+        duration: 3
+      } );
+    },
+    onComplete: function () {
+      enableControls( controls );
+    }
+  } );
+};
 
+const targetPlanetAndTranslate = ( camera, center, size, controls, startOrientation, targetOrientation ) => {
+
+  GSAP.to( {}, {
+    onUpdate: function () {
+      camera
+        .quaternion
+        .copy( startOrientation )
+        .slerp( targetOrientation, this.progress() );
+    },
+    onComplete: function () {
+      translateCamera( camera, center, size, controls );
+    }
+  } );
 };
