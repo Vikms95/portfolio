@@ -39,7 +39,8 @@
     handleSunExplosions,
     handleIntersection,
     translateCameraOnFirstToggle,
-    translateToSelectedBody
+    translateToSelectedBody,
+    getSelectedBodyName
   } from '../utils-3D';
 
   const { content } = defineProps( [ 'content' ] );
@@ -69,6 +70,10 @@
   watch( aspectRatio, () => setRendererSize( renderer ) );
   watch( aspectRatio, () => updateCamera( camera, aspectRatio ) );
   watch( content, () => toggleRenderer( content, labelRenderer, isFirstToggle ) );
+
+  const updateBodyName = ( props ) => {
+    return getSelectedBodyName( props.selectedBody );
+  };
 
   function animate () {
     controls.update();
@@ -106,12 +111,15 @@
     animate();
   } );
 
+
+
 </script>
 
 <template>
   <canvas ref='experience' />
   <BodyInfo v-if=' selectedBody !== null '
     :selectedBody=' selectedBody '
+    :updateBodyName=' updateBodyName '
   />
 </template>
 

@@ -389,7 +389,12 @@ export const translateCameraOnFirstToggle = ( isFirstToggle, camera, sun, contro
 };
 
 export const translateToSelectedBody = ( scene, camera, controls, selectedBody ) => {
-  if ( selectedBody.value === null ) return;
+
+  if ( selectedBody.value === null ) {
+    enableControls( controls );
+    // scene.add( camera );
+    return;
+  }
 
   const object = scene.getObjectByName( selectedBody.value );
   const { cameraRotation, targetOrientation } = getInitialQuaternion( camera );
@@ -440,7 +445,7 @@ const getInitialQuaternion = ( camera ) => {
 
 const translateCamera = ( camera, center, size, controls ) => {
   GSAP.to( camera.position, {
-    duration: 5,
+    duration: 3,
     x: center.x,
     y: center.y + 3,
     z: ( center.z + 1.5 * size.z ),
@@ -453,9 +458,6 @@ const translateCamera = ( camera, center, size, controls ) => {
         duration: 3
       } );
     },
-    onComplete: function () {
-      enableControls( controls );
-    }
   } );
 };
 

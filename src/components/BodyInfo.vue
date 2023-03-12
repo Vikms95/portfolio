@@ -5,8 +5,8 @@
     top: 50px;
     left: 1100px;
     background-color: rgba(0, 0, 0, 0.5);
-    opacity: v-bind( opacity );
-    transition: opacity 0.5s, visibility 0.5s ease-in-out;
+    /* opacity: v-bind( opacity );
+                                                                                                                                                    transition: opacity 0.5s, visibility 0.5s ease-in-out; */
     min-width: 20em;
     min-height: 35em;
     padding: 1.5em;
@@ -58,14 +58,20 @@
 
 <script setup>
   import { getSelectedBodyName, getSelectedBodyDetails, getSelectedBodyFacts } from '../utils-3D';
-  import { computed, defineProps } from 'vue';
+  import { ref, computed, watch, defineProps, onMounted, onUnmounted, onUpdated } from 'vue';
 
-  const { selectedBody } = defineProps( [ 'selectedBody' ] );
-  const name = getSelectedBodyName( selectedBody );
-  const details = getSelectedBodyDetails( selectedBody );
-  const facts = getSelectedBodyFacts( selectedBody );
+  const props = defineProps( [ 'selectedBody', 'selectedBodyRef', 'updateBodyName' ] );
 
-  const opacity = computed( () => selectedBody !== null ? 1 : 0 );
+  // const name = getSelectedBodyName( selectedBody );
+  const name = ref( getSelectedBodyName( props.selectedBody ) );
+  const facts = getSelectedBodyFacts( props.selectedBody );
+  const details = getSelectedBodyDetails( props.selectedBody );
+
+  const fn = ( props ) => {
+    name.value = props.updateBodyName( props );
+  };
+
+  watch( props, () => fn( props ) );
 
 </script>
 
@@ -73,7 +79,7 @@
   <aside class='info-container'>
     <h1 class='name'>{{ name }}</h1>
     <article class='body-details'>
-      <div class='detail' v-for='                                        detail                                         in details'>
+      <div class='detail' v-for='                                                                                                                     detail                                                                                                                      in details'>
         <div class='title'>
           {{ detail.title }}
         </div>
@@ -83,7 +89,7 @@
       </div>
     </article>
     <ul class='body-facts'>
-      <li v-for='                      fact                       in facts'>
+      <li v-for='                                                                                                   fact                                                                                                    in facts'>
         {{ fact }}
       </li>
     </ul>
