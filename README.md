@@ -34,3 +34,6 @@ https://www.brandcrowd.com/
 https://threejs-journey.com/lessons/mixing-html-and-webgl
 
 
+https://nssdc.gsfc.nasa.gov/planetary/factsheet/
+
+https://climate.nasa.gov/news/2469/10-interesting-things-about-earth/

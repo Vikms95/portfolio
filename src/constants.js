@@ -1,0 +1,2 @@
+export const CAMERA_TRANSLATION_SPEED = 5;
+export const CAMERA_ROTATION_SPEED = 5;

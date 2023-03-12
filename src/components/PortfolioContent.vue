@@ -42,7 +42,7 @@
   import ContentContributions from './ContentContributions.vue';
   import ContentTechnologies from './ContentTechnologies.vue';
   import ExperienceButton from './ExperienceButton.vue';
-  import { onMounted, ref, computed, defineProps, onUnmounted } from 'vue';
+  import { onMounted, ref, computed, defineProps } from 'vue';
 
   const {
     experience,

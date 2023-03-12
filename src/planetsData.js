@@ -38,8 +38,25 @@ export const planetsData = [
     texture: earthTexture,
     position: 162,
     rotation: 0.002,
-    translation: 0.00009
-
+    translation: 0.00009,
+    distanceSun: '149.6',
+    diameter: {
+      title: 'Diameter (km)',
+      value: '12576'
+    },
+    gravity: '9.8',
+    dayLength: '24',
+    moons: '1',
+    facts: [
+      `
+      Today, the average day is 24 hours long, but is increasing by about 1.7 milliseconds every century.
+      The reason ? The moon is slowing down Earth's rotation through the tides that it helps create. Earth's spin causes the position of its tidal ocean bulges to be pulled slightly ahead of the moon - Earth axis, which creates a twisting force that slows down Earth's rotation.
+      `,
+      `
+      Earth has never been perfectly round. The planet bulges around the equator by an extra 0.3 percent as a result of the fact that it rotates about its axis.
+      Recent research from NASA's Jet Propulsion Laboratory suggests that melting glaciers are causing Earth's waistline to spread.
+      `
+    ],
   },
   {
     name: 'Mars',

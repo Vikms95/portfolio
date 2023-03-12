@@ -10,22 +10,16 @@
     top: 50px;
     left: 100px;
   }
-
-  .body-info {
-    position: absolute;
-    top: 50px;
-    right: 500px;
-    /* z-index: 999; */
-  }
 </style>
 
 
 <script setup>
 
-  import gsap from 'gsap';
   import { useWindowSize } from '@vueuse/core';
-  import { Vector2, Raycaster, Scene, Clock } from 'three';
+  import { Vector2, Raycaster, Scene } from 'three';
   import { ref, watch, computed, onMounted } from 'vue';
+
+  import BodyInfo from './BodyInfo.vue';
 
   import {
     setupCamera,
@@ -59,7 +53,6 @@
     explosion,
     planetMeshes = [],
     planetObjects = [],
-    clock = new Clock(),
     scene = new Scene(),
     cursor = new Vector2(),
     raycaster = new Raycaster(),
@@ -117,7 +110,9 @@
 
 <template>
   <canvas ref='experience' />
-  <aside v-if=' selectedBody !== null ' class='body-info'>Hello</aside>
+  <BodyInfo v-if=' selectedBody !== null '
+    :selectedBody=' selectedBody '
+  />
 </template>
 
 

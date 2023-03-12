@@ -110,11 +110,6 @@ export const onResize = ( renderer, camera ) => {
   renderer.setSize( window.innerWidth, window.innerHeight );
 };
 
-export const onClick = () => {
-
-  // const raycaster = raycaster.setFromCamera();
-};
-
 export const addEventListeners = ( cursor, renderer, camera, planetMeshes, sunMesh, raycaster, selectedBody ) => {
   window.addEventListener( 'scroll', () => onScroll( camera ) );
   window.addEventListener( 'resize', () => onResize( renderer, camera ) );
@@ -399,7 +394,7 @@ export const translateToSelectedBody = ( scene, camera, controls, selectedBody )
   const object = scene.getObjectByName( selectedBody.value );
   const { cameraRotation, targetOrientation } = getInitialQuaternion( camera );
   const { center, size } = getObjectBoundingBox( object );
-  const startOrientation = getStartOrientation( camera );
+  const startOrientation = getInitialOrientation( camera );
 
   disableControls( controls );
   setupInitialRotation( object, camera, cameraRotation );
@@ -423,7 +418,7 @@ const getObjectBoundingBox = ( object ) => {
 
 };
 
-const getStartOrientation = ( camera ) => {
+const getInitialOrientation = ( camera ) => {
   return camera.quaternion.clone();
 };
 
@@ -445,7 +440,7 @@ const getInitialQuaternion = ( camera ) => {
 
 const translateCamera = ( camera, center, size, controls ) => {
   GSAP.to( camera.position, {
-    duration: 10,
+    duration: 5,
     x: center.x,
     y: center.y + 3,
     z: ( center.z + 1.5 * size.z ),
@@ -477,4 +472,22 @@ const targetPlanetAndTranslate = ( camera, center, size, controls, startOrientat
       translateCamera( camera, center, size, controls );
     }
   } );
+};
+
+
+
+export const getSelectedBodyDetails = ( selectedBody ) => {
+  const {
+    diameter,
+    gravity,
+    moons,
+    distanceSun,
+    dayLength
+  } = planetsData[ selectedBody - 1 ];
+
+  return [ diameter, gravity, moons, distanceSun, dayLength ];
+};
+
+export const getSelectedBodyName = ( selectedBody ) => {
+  return planetsData[ selectedBody - 1 ].name;
 };

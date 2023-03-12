@@ -25,8 +25,6 @@
       : experience.value.buttonText = 'Enable experience';
   };
 
-  console.log( 'reload' );
-
 </script>
 
 <template >

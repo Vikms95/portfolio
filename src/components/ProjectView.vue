@@ -44,7 +44,6 @@
 
   .project-description {
     max-width: 20em;
-    /* min-height: 7em; */
     background-color: #112240;
     color: var(--light-slate);
     padding: 25px;
@@ -115,7 +114,7 @@
       <div class='project-description'>{{ description }}</div>
       <div class='project-technologies'>
         <span class='technology-name' v-for=' 
-                          techName                           in technologies'>
+                           techName                            in technologies'>
           {{ techName }}
         </span>
       </div>
