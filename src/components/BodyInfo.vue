@@ -1,101 +1,94 @@
 <style scoped>
-  .info-container {
-    display: block;
-    position: absolute;
-    top: 50px;
-    left: 1100px;
-    background-color: rgba(0, 0, 0, 0.5);
-    /* opacity: v-bind( opacity );
-                                                                                                                                                                                                                    transition: opacity 0.5s, visibility 0.5s ease-in-out; */
-    min-width: 20em;
-    min-height: 35em;
-    padding: 1.5em;
-    border-radius: 5px;
-  }
+.info-container {
+  display: block;
+  position: absolute;
+  top: 50px;
+  left: 1100px;
+  background-color: rgba(0, 0, 0, 0.5);
+  min-width: 20em;
+  min-height: 35em;
+  padding: 1.5em;
+  border-radius: 5px;
+}
 
-  .body-details {
-    display: grid;
-    justify-items: center;
-    grid-template-columns: repeat(2, 1fr);
-    row-gap: 2em;
-    margin-bottom: 4em;
-  }
+.body-details {
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 2em;
+  margin-bottom: 4em;
+}
 
-  .name {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1.5em;
-    font-size: 30px;
-  }
+.name {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5em;
+  font-size: 30px;
+  text-decoration: underline;
+}
 
-  .detail {
-    display: flex;
-    flex-direction: column;
-  }
+.detail {
+  display: flex;
+  flex-direction: column;
+}
 
-  .title {
-    font-weight: 900;
-    font-size: 15px;
-    text-decoration: underline;
-  }
+.title {
+  font-weight: 900;
+  font-size: 15px;
+  text-decoration: underline;
+}
 
-  .value {
-    justify-self: flex-start;
-    font-style: italic;
-  }
+.value {
+  justify-self: flex-start;
+  font-style: italic;
+}
 
-  .body-facts {
-    display: flex;
-    flex-direction: column;
-    text-align: start;
-    row-gap: 2em;
-    font-size: 14px;
-  }
+.body-facts {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  row-gap: 2em;
+  font-size: 14px;
+}
 
-  .body-facts > li {
-    list-style-type: circle;
-  }
+.body-facts > li {
+  list-style-type: circle;
+}
 </style>
 
 <script setup>
-  import { updateBodyData } from '../utils-3D';
-  import { ref, watch, defineProps, onMounted } from 'vue';
+import { updateBodyData } from '../utils-3D'
+import { ref, watch, defineProps, onMounted } from 'vue'
 
-  const props = defineProps( [ 'selectedBody', 'selectedBodyRef', 'updateBodyName' ] );
+const props = defineProps(['selectedBody', 'selectedBodyRef', 'updateBodyName'])
 
-  const name = ref( null );
-  const facts = ref( null );
-  const details = ref( null );
+const name = ref(null)
+const facts = ref(null)
+const details = ref(null)
 
-  onMounted( () => updateBodyData( props, name, facts, details ) );
-  watch( props, () => updateBodyData( props, name, facts, details ) );
-
+onMounted(() => updateBodyData(props, name, facts, details))
+watch(props, () => updateBodyData(props, name, facts, details))
 </script>
 
 <template>
-  <aside class='info-container'>
-    
-    <h1 class='name'>{{ name }}</h1>
-    <article class='body-details'>
-      
-      <div class='detail' v-for='                                                                                                                                                     detail                                                                                                                                                      in details'>
-        
-        <div class='title'>
+  <aside class="info-container">
+    <h1 class="name">{{ name }}</h1>
+    <article class="body-details">
+      <div class="detail" v-for="detail in details">
+        <div class="title">
           {{ detail.title }}
         </div>
 
-        <div class='value'>
+        <div class="value">
           {{ detail.value }}
         </div>
       </div>
-
     </article>
-    
-    <ul class='body-facts'>
-      <li v-for='                                                                                                                                   fact                                                                                                                                    in facts'>
+
+    <ul class="body-facts">
+      <li v-for="fact in facts">
         {{ fact }}
       </li>
     </ul>
-    
   </aside>
 </template>

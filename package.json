@@ -9,16 +9,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.2.45",
+    "@vueuse/core": "^9.6.0",
+    "devicon": "^2.15.1",
     "gsap": "^3.11.4",
     "three": "^0.147.0",
-    "devicon": "^2.15.1",
-    "@vueuse/core": "^9.6.0",
-    "typewriter-effect": "^2.19.0"
+    "typewriter-effect": "^2.19.0",
+    "vue": "^3.2.45"
   },
   "devDependencies": {
     "@types/three": "^0.146.0",
     "@vitejs/plugin-vue": "^4.0.0",
+    "prettier": "2.8.4",
     "vite": "^4.0.0"
   }
 }

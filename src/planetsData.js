@@ -1,16 +1,15 @@
-import sunTexture from '/3D-assets/sun.jpg';
-import mercuryTexture from '/3D-assets/mercury.jpg';
-import venusTexture from '/3D-assets/venus.jpg';
-import earthTexture from '/3D-assets/earth.jpg';
-import marsTexture from '/3D-assets/mars.jpg';
-import jupiterTexture from '/3D-assets/jupiter.jpg';
-import saturnTexture from '/3D-assets/saturn.jpg';
-import saturnRingTexture from '/3D-assets/saturn ring.png';
-import uranusTexture from '/3D-assets/uranus.jpg';
-import uranusRingTexture from '/3D-assets/uranus ring.png';
-import neptuneTexture from '/3D-assets/neptune.jpg';
-import plutoTexture from '/3D-assets/pluto.jpg';
-
+import sunTexture from '/3D-assets/sun.jpg'
+import mercuryTexture from '/3D-assets/mercury.jpg'
+import venusTexture from '/3D-assets/venus.jpg'
+import earthTexture from '/3D-assets/earth.jpg'
+import marsTexture from '/3D-assets/mars.jpg'
+import jupiterTexture from '/3D-assets/jupiter.jpg'
+import saturnTexture from '/3D-assets/saturn.jpg'
+import saturnRingTexture from '/3D-assets/saturn ring.png'
+import uranusTexture from '/3D-assets/uranus.jpg'
+import uranusRingTexture from '/3D-assets/uranus ring.png'
+import neptuneTexture from '/3D-assets/neptune.jpg'
+import plutoTexture from '/3D-assets/pluto.jpg'
 
 export const planetsData = [
   {
@@ -23,7 +22,7 @@ export const planetsData = [
     translation: 0.0004,
     diameter: {
       title: 'Diameter',
-      value: '4.879 (km)'
+      value: '4.879 (km)',
     },
     gravity: {
       title: 'Gravity',
@@ -31,23 +30,23 @@ export const planetsData = [
     },
     dayLength: {
       title: 'Day length',
-      value: '4222,6 (hours)'
+      value: '4222,6 (hours)',
     },
     yearLength: {
       title: 'Year length',
-      value: '88 (days)'
+      value: '88 (days)',
     },
     distanceSun: {
       title: 'Sun distance',
-      value: '57,9 (10⁶ km)'
+      value: '57,9 (10⁶ km)',
     },
     moons: {
       title: 'Moons',
-      value: '0'
+      value: '0',
     },
     facts: [
       `The deepest crater is about 1,550 km in diameter, which would be enough to fit inbetween Portugal to Germany. `,
-      `Contrary to what one might think, it is not the hottest planet in the Solar System. Mercury has a very weak atmosphere so it can’t hold any heat.`
+      `Contrary to what one might think, it is not the hottest planet in the Solar System. Mercury has a very weak atmosphere so it can’t hold any heat.`,
     ],
   },
   {
@@ -60,7 +59,7 @@ export const planetsData = [
     translation: 0.0001,
     diameter: {
       title: 'Diameter',
-      value: '12.104 (km)'
+      value: '12.104 (km)',
     },
     gravity: {
       title: 'Gravity',
@@ -68,23 +67,23 @@ export const planetsData = [
     },
     dayLength: {
       title: 'Day length',
-      value: '2.802 (hours)'
+      value: '2.802 (hours)',
     },
     yearLength: {
       title: 'Year length',
-      value: '224,7 (days)'
+      value: '224,7 (days)',
     },
     distanceSun: {
       title: 'Sun distance',
-      value: '108,2 (10⁶ km)'
+      value: '108,2 (10⁶ km)',
     },
     moons: {
       title: 'Moons',
-      value: '0'
+      value: '0',
     },
     facts: [
       `Its unusual axis rotation is due to being upside down – it was knocked off its upright position earlier in its history!`,
-      `Hottest planet on the Solar System. This is because of the high concentration of carbon dioxide in Venus’ atmosphere, which works to produce an intense greenhouse effect`
+      `Hottest planet on the Solar System. This is because of the high concentration of carbon dioxide in Venus’ atmosphere, which works to produce an intense greenhouse effect`,
     ],
   },
   {
@@ -97,7 +96,7 @@ export const planetsData = [
     translation: 0.00009,
     diameter: {
       title: 'Diameter',
-      value: '12.576 (km)'
+      value: '12.576 (km)',
     },
     gravity: {
       title: 'Gravity',
@@ -105,23 +104,23 @@ export const planetsData = [
     },
     dayLength: {
       title: 'Day length',
-      value: '24 (hours)'
+      value: '24 (hours)',
     },
     yearLength: {
       title: 'Year length',
-      value: '365,2 (days)'
+      value: '365,2 (days)',
     },
     distanceSun: {
       title: 'Sun distance',
-      value: '149,6 (10⁶ km)'
+      value: '149,6 (10⁶ km)',
     },
     moons: {
       title: 'Moons',
-      value: '1'
+      value: '1',
     },
     facts: [
       `Average day length is increasing by about 1.7 milliseconds every century.`,
-      `Melting glaciers are causing Earth's waistline to spread.`
+      `Melting glaciers are causing Earth's waistline to spread.`,
     ],
   },
   {
@@ -134,7 +133,7 @@ export const planetsData = [
     translation: 0.00008,
     diameter: {
       title: 'Diameter',
-      value: '6.792 (km)'
+      value: '6.792 (km)',
     },
     gravity: {
       title: 'Gravity',
@@ -142,19 +141,19 @@ export const planetsData = [
     },
     dayLength: {
       title: 'Day length',
-      value: '24,7 (hours)'
+      value: '24,7 (hours)',
     },
     yearLength: {
       title: 'Year length',
-      value: '687 (days)'
+      value: '687 (days)',
     },
     distanceSun: {
       title: 'Sun distance',
-      value: '228 (10⁶ km)'
+      value: '228 (10⁶ km)',
     },
     moons: {
       title: 'Moons',
-      value: '2'
+      value: '2',
     },
     facts: [
       `Mars is home to the highest mountain and volcano on the Solar System. Three times the height of the Mount Everest!`,
@@ -171,7 +170,7 @@ export const planetsData = [
     translation: 0.000009,
     diameter: {
       title: 'Diameter',
-      value: '142.984 (km)'
+      value: '142.984 (km)',
     },
     gravity: {
       title: 'Gravity',
@@ -179,23 +178,23 @@ export const planetsData = [
     },
     dayLength: {
       title: 'Day length',
-      value: '9,9 (hours)'
+      value: '9,9 (hours)',
     },
     yearLength: {
       title: 'Year length',
-      value: '4.331 (days)'
+      value: '4.331 (days)',
     },
     distanceSun: {
       title: 'Sun distance',
-      value: '778,5 (10⁶ km)'
+      value: '778,5 (10⁶ km)',
     },
     moons: {
       title: 'Moons',
-      value: '92'
+      value: '92',
     },
     facts: [
-      `The planet only takes about 10 hours to complete a full rotation on its axis.  And because it’s spinning so rapidly, the planet has flattened out at the poles a little and is bulging at its equator. points on Jupiter’s equator are more than 4,600 km further from the center than the poles. `,
-      `If you could crash dozens of Jupiters together, you might have a chance to make a new star. But in the meantime, Jupiter shall remain a large gas giant with no hopes of becoming a star.`
+      `It’s spinning so rapidly, the planet has flattened out at the poles a little and is bulging at its equator. points on Jupiter’s equator are more than 4,600 km further from the center than the poles. `,
+      `If you could crash dozens of Jupiters together, you might have a chance to make a new star. But in the meantime, Jupiter shall remain a large gas giant with no hopes of becoming a star.`,
     ],
   },
   {
@@ -213,7 +212,7 @@ export const planetsData = [
     translation: 0.000009,
     diameter: {
       title: 'Diameter',
-      value: '120.536 (km)'
+      value: '120.536 (km)',
     },
     gravity: {
       title: 'Gravity',
@@ -221,23 +220,23 @@ export const planetsData = [
     },
     dayLength: {
       title: 'Day length',
-      value: '10,7 (hours)'
+      value: '10,7 (hours)',
     },
     yearLength: {
       title: 'Year length',
-      value: '10.747 (days)'
+      value: '10.747 (days)',
     },
     distanceSun: {
       title: 'Sun distance',
-      value: '1.432 (10⁶ km)'
+      value: '1.432 (10⁶ km)',
     },
     moons: {
       title: 'Moons',
-      value: '83'
+      value: '83',
     },
     facts: [
-      `Average day length is increasing by about 1.7 milliseconds every century.`,
-      `Melting glaciers are causing Earth's waistline to spread.`
+      `Saturn could float in water because it is mostly made of gas. `,
+      `The blue hexagon is a gigantic, perpetual hurricane spinning at the centre of the planet's north pole.`,
     ],
   },
   {
@@ -255,7 +254,7 @@ export const planetsData = [
     translation: 0.0000005,
     diameter: {
       title: 'Diameter',
-      value: '51.118 (km)'
+      value: '51.118 (km)',
     },
     gravity: {
       title: 'Gravity',
@@ -263,23 +262,23 @@ export const planetsData = [
     },
     dayLength: {
       title: 'Day length',
-      value: '17,2 (hours)'
+      value: '17,2 (hours)',
     },
     yearLength: {
       title: 'Year length',
-      value: '30.589 (days)'
+      value: '30.589 (days)',
     },
     distanceSun: {
       title: 'Sun distance',
-      value: '2.867 (10⁶ km)'
+      value: '2.867 (10⁶ km)',
     },
     moons: {
       title: 'Moons',
-      value: '27'
+      value: '27',
     },
     facts: [
-      `Average day length is increasing by about 1.7 milliseconds every century.`,
-      `Melting glaciers are causing Earth's waistline to spread.`
+      `The axial tilt of Uranus is a staggering 99 degrees! In other words, the planet is rotating on its side.`,
+      `The lowest temperature recorded here is -224 degrees Celsius. Extreme conditions caused by some parts of the surface not seeing sunlight at all for more than 40 years in a row.`,
     ],
   },
   {
@@ -292,7 +291,7 @@ export const planetsData = [
     translation: 0.0000005,
     diameter: {
       title: 'Diameter',
-      value: '49.528 (km)'
+      value: '49.528 (km)',
     },
     gravity: {
       title: 'Gravity',
@@ -300,23 +299,23 @@ export const planetsData = [
     },
     dayLength: {
       title: 'Day length',
-      value: '16,1 (hours)'
+      value: '16,1 (hours)',
     },
     yearLength: {
       title: 'Year length',
-      value: '59.800 (days)'
+      value: '59.800 (days)',
     },
     distanceSun: {
       title: 'Sun distance',
-      value: '4.515 (10⁶ km)'
+      value: '4.515 (10⁶ km)',
     },
     moons: {
       title: 'Moons',
-      value: '14'
+      value: '14',
     },
     facts: [
-      `Average day length is increasing by about 1.7 milliseconds every century.`,
-      `Melting glaciers are causing Earth's waistline to spread.`
+      `First planet in our solar system not visible to the naked eye and the first predicted by mathematics before its discovery.`,
+      `Only one spacecraft, the Voyager 2, has flown past Neptune. It happened in 1989 and captured the first close-up images of the Neptunian system. `,
     ],
   },
   {
@@ -330,7 +329,7 @@ export const planetsData = [
     translation: 0.0000005,
     diameter: {
       title: 'Diameter',
-      value: '2.376 (km)'
+      value: '2.376 (km)',
     },
     gravity: {
       title: 'Gravity',
@@ -338,26 +337,26 @@ export const planetsData = [
     },
     dayLength: {
       title: 'Day length',
-      value: '153,3 (hours)'
+      value: '153,3 (hours)',
     },
     yearLength: {
       title: 'Year length',
-      value: '90.560 (days)'
+      value: '90.560 (days)',
     },
     distanceSun: {
       title: 'Sun distance',
-      value: '5.906 (10⁶ km)'
+      value: '5.906 (10⁶ km)',
     },
     moons: {
       title: 'Moons',
-      value: '5'
+      value: '5',
     },
     facts: [
-      `Average day length is increasing by about 1.7 milliseconds every century.`,
-      `Melting glaciers are causing Earth's waistline to spread.`
+      `Because of its elliptical orbit it means that on occasion Pluto is actually closer to The Sun than Neptune.`,
+      `Contrary to popular belief, Pluto was actually downgraded to dwarf planet because it’s simply not unique. Pluto is merely the brightest member of the Kuiper Belt, a mass of objects that orbit the sun beyond Neptune.`,
     ],
-  }
-];
+  },
+]
 
 export const sunData = {
   name: 'The Sun',
@@ -366,5 +365,9 @@ export const sunData = {
   texture: sunTexture,
   position: 0,
   rotation: 0.00000000008,
-  translation: null
-};
+  translation: null,
+  facts: [
+    `At the age of 10.9 billion years, the Sun’s core will start getting depleted of hydrogen. Our star will swell and in a few hundred million years it will turn into a subgiant — an orange star, whose radius will be 2.3 times larger than today.`,
+    `At the age of 12.2 billion years, a thermonuclear reaction will begin in the outer layers of the Sun, and it will start swelling even more. Our luminary will turn into a red giant and absorb the inner planets. These transformations will end with the outer layers of the red giant flying into space, and the inner ones shrinking down to the state of a white dwarf.`,
+  ],
+}

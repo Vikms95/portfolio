@@ -5,34 +5,34 @@ Portfolio with text rotation
 https://nicoflorentin.github.io/
 
 Content bio
-  Quick description with CTAs
+Quick description with CTAs
 Content projects
-  Grid with miniatures of project linking to its site and Github, swift
-  description and tech used
+Grid with miniatures of project linking to its site and Github, swift
+description and tech used
 Content contributions
-  Libraries or accomplishments in code I have made
+Libraries or accomplishments in code I have made
 
 <!-- Ideas -->
+
 - Make camera move to a part of the solar system when looking at certain position
 
 - Give random lights to the Sun so it looks like plasma explosions
-    <!-- Gave it PointLights generated randomly -->
-    Need to give it animations on the Sun texture itself
-<!-- 
+<!-- Gave it PointLights generated randomly -->
+Need to give it animations on the Sun texture itself
+<!--
 - Make the bio float and the rest of the content rest on a semi-transparent div -->
 
 - I like the projects layout from this portfolio:
-https://brittanychiang.com/
+  https://brittanychiang.com/
 
 - Make the social media sidebar also look like the portfolio above and create some kind of futuristic layout as if you were an astronaut
 
-- Logo 
-https://www.brandcrowd.com/
-
+- Logo
+  https://www.brandcrowd.com/
 
 <!-- - Add description and intersects to planets -->
-https://threejs-journey.com/lessons/mixing-html-and-webgl
 
+https://threejs-journey.com/lessons/mixing-html-and-webgl
 
 https://nssdc.gsfc.nasa.gov/planetary/factsheet/
 
