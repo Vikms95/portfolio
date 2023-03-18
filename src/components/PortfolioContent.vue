@@ -1,8 +1,8 @@
 <style scoped>
 .content-wrapper {
-  padding: 12em 14em;
   position: absolute;
-  width: 70.5vw;
+  transform: translate(50%, 5%);
+  min-width: max(500px, 50vw);
   text-align: left;
   display: grid;
   justify-content: center;

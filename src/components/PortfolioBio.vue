@@ -39,9 +39,10 @@ img.profile {
   margin: 1.5em 0;
 }
 
-#typewritter-text {
-  max-width: 100%;
-  padding: 0 2em;
+@media (max-width: 1200px) {
+  .typewriter-text {
+    font-size: 1em;
+  }
 }
 </style>
 
