@@ -39,9 +39,16 @@ img.profile {
   margin: 1.5em 0;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1318px) {
   .typewriter-text {
+    text-align: center;
     font-size: 1em;
+  }
+}
+
+@media (max-width: 930px) {
+  .bio-hero {
+    font-size: 21px;
   }
 }
 </style>
