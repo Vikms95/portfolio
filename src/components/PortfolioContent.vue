@@ -4,7 +4,7 @@
   top: 15em;
   left: 0;
   right: 0;
-  margin-left: clamp(18em, 21vw, 20em);
+  margin-left: clamp(12.5em, 20vw, 15em);
   margin-right: auto;
   width: clamp(635px, 70vw, 1950px);
   text-align: left;
