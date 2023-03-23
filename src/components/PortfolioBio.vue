@@ -38,7 +38,6 @@ img.profile {
 .bio-text > h3 {
   margin: 1.5em 0;
 }
-
 @media (max-width: 1318px) {
   .typewriter-text {
     text-align: center;
@@ -55,6 +54,7 @@ img.profile {
 
 <script setup>
 import TypeWriter from 'typewriter-effect/dist/core'
+//change check
 import { onMounted } from 'vue'
 import profilePicture from '/social-icons/profile.jfif'
 
