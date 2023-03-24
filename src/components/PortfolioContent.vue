@@ -47,7 +47,13 @@ import ContentTechnologies from './ContentTechnologies.vue'
 import ExperienceButton from './ExperienceButton.vue'
 import { onMounted, ref, computed, defineProps } from 'vue'
 
-const { experience, toggleContent, toggleExperience, contentButtonText, experienceButtonText } = defineProps([
+const {
+  experience,
+  toggleContent,
+  toggleExperience,
+  contentButtonText,
+  experienceButtonText,
+} = defineProps([
   'experience',
   'toggleContent',
   'toggleExperience',
@@ -70,9 +76,16 @@ onMounted(() =>
     <PortfolioBio />
 
     <div class="bio-button-container">
-      <ExperienceButton v-if="experience.isEnabled" :toggle="toggleContent" :text="contentButtonText" />
+      <ExperienceButton
+        v-if="experience.isEnabled"
+        :toggle="toggleContent"
+        :text="contentButtonText"
+      />
 
-      <ExperienceButton :toggle="toggleExperience" :text="experienceButtonText" />
+      <ExperienceButton
+        :toggle="toggleExperience"
+        :text="experienceButtonText"
+      />
     </div>
 
     <ScrollAnimatedIcon />
