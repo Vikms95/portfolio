@@ -1,17 +1,3 @@
-<style>
-canvas {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-}
-
-.experience-div {
-  position: absolute;
-  top: 50px;
-  left: 100px;
-}
-</style>
-
 <script setup>
 import { useWindowSize } from '@vueuse/core'
 import { Vector2, Raycaster, Scene } from 'three'
@@ -84,7 +70,9 @@ function animate() {
   translatePlanets(planetObjects)
   // handleSunExplosions( isExplosionHappening, isExplosionDiminishing, explosion, scene );
 
+  renderer.setSize(width.value, height.value)
   renderer.render(scene, camera)
+  labelRenderer.setSize(width.value, height.value)
   labelRenderer.render(scene, camera)
 }
 
@@ -100,16 +88,27 @@ onMounted(() => {
   setupBackground(scene)
   setupAndAddLights(scene)
   setupExplosion(isExplosionHappening, explosion, scene)
-
   ;[sunMesh, planetMeshes, planetObjects] = setupCelestialBodies(scene, camera)
 
-  addEventListeners(cursor, renderer, camera, planetMeshes, sunMesh, raycaster, selectedBody)
+  addEventListeners(
+    cursor,
+    renderer,
+    camera,
+    planetMeshes,
+    sunMesh,
+    raycaster,
+    selectedBody
+  )
 
   animate()
 })
 </script>
 
 <template>
-  <canvas ref="experience" />
-  <BodyInfo v-if="selectedBody !== null" :selectedBody="selectedBody" :updateBodyName="updateBodyName" />
+  <canvas ref="experience" class="fixed w-fit h-fit" />
+  <BodyInfo
+    v-if="selectedBody !== null"
+    :selectedBody="selectedBody"
+    :updateBodyName="updateBodyName"
+  />
 </template>

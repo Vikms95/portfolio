@@ -1,5 +1,3 @@
-<style scoped></style>
-
 <script setup>
 const { toggle, text } = defineProps(['toggle', 'text'])
 </script>

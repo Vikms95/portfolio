@@ -1,22 +1,5 @@
 <style scoped>
-.social {
-  position: fixed;
-  bottom: 40px;
-  left: 40px;
-  z-index: 2;
-}
-
-.social-list {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  row-gap: 2em;
-  padding: 0;
-  margin: 0;
-}
-
-.social::after {
+.vertical-bar::after {
   content: '';
   display: block;
   width: 3px;
@@ -24,13 +7,6 @@
   margin: 20px auto;
   background-color: rgb(57, 72, 209);
   border-radius: 15px;
-}
-
-.link {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  column-gap: 5px;
 }
 
 .social-icon {
@@ -57,7 +33,6 @@
   transition: opacity 0.5s, visibility 0.5s linear;
 }
 </style>
-
 <script setup>
 import githubIcon from '/social-icons/github-icon.png'
 import linkedinIcon from '/social-icons/linkedin-icon.png'
@@ -95,12 +70,16 @@ const links = ref([
 </script>
 
 <template>
-  <nav class="social">
-    <ul class="social-list">
-      <li v-for="item in links">
-        <a target="_blank" class="link" :href="item.link">
-          <img class="social-icon" :src="item.iconSrc" :alt="item.alt" />
-          <span class="icon-text">{{ item.text }}</span>
+  <nav class="fixed bottom-10 left-10 z-10 vertical-bar">
+    <ul class="flex flex-col justify-center items-center gap-y-6 p-0 m-0">
+      <li v-for="{ link, iconSrc, alt, text } in links">
+        <a
+          target="_blank"
+          class="flex justify-center items-center gap-y-1"
+          :href="link"
+        >
+          <img class="social-icon" :src="iconSrc" :alt="alt" />
+          <span class="icon-text">{{ text }}</span>
         </a>
       </li>
     </ul>
