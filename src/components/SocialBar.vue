@@ -70,7 +70,7 @@ const links = ref([
 </script>
 
 <template>
-  <nav class="mobile:hidden fixed bottom-10 left-10 z-10 vertical-bar">
+  <nav class="tablet:hidden fixed bottom-10 left-10 z-10 vertical-bar">
     <ul class="flex flex-col justify-center items-center gap-y-6 p-0 m-0">
       <li v-for="{ link, iconSrc, alt, text } in links">
         <a

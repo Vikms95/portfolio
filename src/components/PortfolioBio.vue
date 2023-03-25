@@ -37,7 +37,7 @@ onMounted(() => {
     class="backdrop-blur-sm text-white flex flex-auto justify-evenly flex-wrap items-center gap-x-5 mb-5"
   >
     <img
-      class="justify-self-start h-60 w-auto rounded-full"
+      class="justify-self-start h-60 mobile:h-52 w-auto rounded-full"
       :src="profilePicture"
       alt="looking at the camera"
     />

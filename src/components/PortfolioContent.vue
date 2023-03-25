@@ -3,7 +3,7 @@
   position: absolute;
   left: 50%;
   top: 120em;
-  transform: translate(-50%, -100em);
+  transform: translate(-50%, -110em);
   width: clamp(310px, 60vw, 1050px);
 
   display: grid;
