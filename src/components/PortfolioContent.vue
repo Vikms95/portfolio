@@ -74,7 +74,9 @@ onMounted(() =>
     <main class="content-wrapper">
       <PortfolioBio />
 
-      <div class="bio-button-container">
+      <div
+        class="flex justify-center gap-x-10 mb-40 mobile:flex-col mobile:gap-y-6 mobile:items-center"
+      >
         <ExperienceButton
           v-if="experience.isEnabled"
           :toggle="toggleContent"
