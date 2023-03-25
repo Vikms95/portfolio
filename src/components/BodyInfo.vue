@@ -1,64 +1,30 @@
 <style scoped>
 .info-container {
-  display: block;
-  position: absolute;
-  top: 50px;
-  left: 1100px;
-  background-color: rgba(0, 0, 0, 0.5);
-  min-width: 20em;
-  min-height: 35em;
-  padding: 1.5em;
-  border-radius: 5px;
+  @apply block 
+  tablet:hidden
+  absolute 
+  top-20 
+  left-[70vw] 
+  desktop:left-[65vw] 
+  tablet:left-[40vw] 
+  p-6 
+  desktop:p-4
+  rounded-md 
+  w-96 
+  desktop:w-72
+  tablet:w-64
+  bg-black 
+  bg-opacity-50;
 }
 
-.body-details {
-  display: grid;
-  justify-items: center;
-  grid-template-columns: repeat(2, 1fr);
-  row-gap: 2em;
-  margin-bottom: 4em;
-}
-
-.name {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1.5em;
-  font-size: 30px;
-  text-decoration: underline;
-}
-
-.detail {
-  display: flex;
-  flex-direction: column;
-}
-
-.title {
-  font-weight: 900;
-  font-size: 15px;
-  text-decoration: underline;
-}
-
-.value {
-  justify-self: flex-start;
-  font-style: italic;
-}
-
-.body-facts {
-  display: flex;
-  flex-direction: column;
-  text-align: start;
-  row-gap: 2em;
-  font-size: 14px;
-}
-
-.body-facts > li {
+.circle-list > li {
   list-style-type: circle;
 }
 </style>
 
 <script setup>
 import { updateBodyData } from '../utils-3D'
-import { ref, watch, defineProps, onMounted } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 
 const props = defineProps(['selectedBody', 'selectedBodyRef', 'updateBodyName'])
 
@@ -72,20 +38,20 @@ watch(props, () => updateBodyData(props, name, facts, details))
 
 <template>
   <aside class="info-container">
-    <h1 class="name">{{ name }}</h1>
-    <article class="body-details">
-      <div class="detail" v-for="detail in details">
-        <div class="title">
-          {{ detail.title }}
+    <h1 class="flex justify-center mb-6 text-3xl">{{ name }}</h1>
+    <article class="grid grid-cols-2 items-center gap-x-8 gap-y-5 mb-16">
+      <div class="flex flex-col" v-for="{ title, value } in details">
+        <div class="text-l underline font-black mb-2">
+          {{ title }}
         </div>
 
-        <div class="value">
-          {{ detail.value }}
+        <div class="text-l justify-self-start italic">
+          {{ value }}
         </div>
       </div>
     </article>
 
-    <ul class="body-facts">
+    <ul class="circle-list flex flex-col text-center gap-y-4 text-m">
       <li v-for="fact in facts">
         {{ fact }}
       </li>

@@ -2,6 +2,7 @@
 .tech-list {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   flex-wrap: wrap;
   row-gap: 4em;
   column-gap: 1.75em;
@@ -22,7 +23,7 @@ import icons from './_export'
 
   <ul class="tech-list">
     <li v-for="(item, index) in icons">
-      <img class="tech-icon" :src="item" :alt="index" />
+      <img class="h-[4.5rem] tablet:h-12 mobile:h-6" :src="item" :alt="index" />
     </li>
   </ul>
 </template>

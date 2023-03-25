@@ -1,17 +1,16 @@
 <style scoped>
 .content-wrapper {
   position: absolute;
-  top: 15em;
-  left: 0;
-  right: 0;
-  margin-left: clamp(12.5em, 20vw, 15em);
-  margin-right: auto;
-  width: clamp(635px, 70vw, 1950px);
-  text-align: left;
+  left: 50%;
+  top: 120em;
+  transform: translate(-50%, -100em);
+  width: clamp(310px, 60vw, 1050px);
+
   display: grid;
   justify-content: center;
   align-items: center;
-  grid-template-rows: repeat(1fr, 2);
+  text-align: left;
+
   opacity: v-bind(opacity);
   transition: opacity 0.8s, visibility 0.5s linear;
 }
@@ -25,7 +24,6 @@
 
 .content {
   display: grid;
-  grid-template-rows: repeat(1fr, 2);
   font-size: 15px;
   backdrop-filter: blur(15px);
   color: white;
@@ -45,7 +43,7 @@ import ContentProjects from './ContentProjects.vue'
 import ContentContributions from './ContentContributions.vue'
 import ContentTechnologies from './ContentTechnologies.vue'
 import ExperienceButton from './ExperienceButton.vue'
-import { onMounted, ref, computed, defineProps } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 
 const {
   experience,
@@ -72,36 +70,41 @@ onMounted(() =>
 </script>
 
 <template>
-  <main class="content-wrapper">
-    <PortfolioBio />
+  <Teleport to="body">
+    <main class="content-wrapper">
+      <PortfolioBio />
 
-    <div class="bio-button-container">
-      <ExperienceButton
-        v-if="experience.isEnabled"
-        :toggle="toggleContent"
-        :text="contentButtonText"
-      />
+      <div class="bio-button-container">
+        <ExperienceButton
+          v-if="experience.isEnabled"
+          :toggle="toggleContent"
+          :text="contentButtonText"
+        />
 
-      <ExperienceButton
-        :toggle="toggleExperience"
-        :text="experienceButtonText"
-      />
-    </div>
+        <ExperienceButton
+          :toggle="toggleExperience"
+          :text="experienceButtonText"
+        />
+      </div>
 
-    <ScrollAnimatedIcon />
+      <ScrollAnimatedIcon />
 
-    <section class="content">
-      <article class="technologies">
-        <ContentTechnologies />
-      </article>
+      <section
+        class="backdrop-blur-lg grid text-base text-white rounded-lg px-8 py-4 tablet:px-6 tablet:py-2"
+      >
+        <article class="technologies">
+          <ContentTechnologies />
+        </article>
 
-      <article class="projects">
-        <ContentProjects />
-      </article>
+        <!-- <article class="projects">
+          <ContentProjects />
+        </article> -->
 
-      <article class="contributions">
-        <ContentContributions />
-      </article>
-    </section>
-  </main>
+        <!-- 
+        <article class="contributions">
+          <ContentContributions />
+        </article> -->
+      </section>
+    </main>
+  </Teleport>
 </template>
