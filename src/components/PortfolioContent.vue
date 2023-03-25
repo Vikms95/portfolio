@@ -37,12 +37,14 @@
 </style>
 
 <script setup>
+import { useWindowSize } from '@vueuse/core'
 import PortfolioBio from './PortfolioBio.vue'
 import ScrollAnimatedIcon from './ScrollAnimatedIcon.vue'
 import ContentProjects from './ContentProjects.vue'
 import ContentContributions from './ContentContributions.vue'
 import ContentTechnologies from './ContentTechnologies.vue'
 import ExperienceButton from './ExperienceButton.vue'
+import HorizontalSocialBar from './HorizontalSocialBar.vue'
 import { onMounted, ref, computed } from 'vue'
 
 const {
@@ -61,6 +63,7 @@ const {
 
 const isFirstLoad = ref(false)
 const opacity = computed(() => (isFirstLoad.value ? 1 : 0))
+const { width } = useWindowSize()
 
 onMounted(() =>
   setTimeout(() => {
@@ -75,7 +78,7 @@ onMounted(() =>
       <PortfolioBio />
 
       <div
-        class="flex justify-center gap-x-10 mb-40 mobile:flex-col mobile:gap-y-6 mobile:items-center"
+        class="flex justify-center gap-x-10 mb-40 tablet:flex-col tablet:gap-y-6 tablet:mb-20 tablet:items-center"
       >
         <ExperienceButton
           v-if="experience.isEnabled"
@@ -89,7 +92,8 @@ onMounted(() =>
         />
       </div>
 
-      <ScrollAnimatedIcon />
+      <ScrollAnimatedIcon v-if="width >= 786" />
+      <HorizontalSocialBar v-else />
 
       <section
         class="backdrop-blur-lg grid text-base text-white rounded-lg px-8 py-4 tablet:px-6 tablet:py-2"

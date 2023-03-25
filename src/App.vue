@@ -1,7 +1,7 @@
 <script setup>
 import ThreeCanvas from './components/ThreeCanvas.vue'
 import PortfolioContent from './components/PortfolioContent.vue'
-import SocialBar from './components/SocialBar.vue'
+import VerticalSocialBar from './components/VerticalSocialBar.vue'
 import PortfolioLogo from './components/PortfolioLogo.vue'
 import { ref } from 'vue'
 
@@ -28,7 +28,7 @@ const toggleExperience = () => {
 <template>
   <PortfolioLogo :content="content" :toggle="toggleContent" />
 
-  <SocialBar />
+  <VerticalSocialBar />
 
   <ThreeCanvas v-if="experience.isEnabled" :content="content" />
 

@@ -19,7 +19,7 @@ import icons from './_export'
 </script>
 
 <template>
-  <h4 class="section-title text-glow">Technologies</h4>
+  <h4 class="section-title text-glow mobile:text-center">Technologies</h4>
 
   <ul class="tech-list">
     <li v-for="(item, index) in icons">
