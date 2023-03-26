@@ -17,13 +17,13 @@ export const links = [
     alt: 'linkedin',
   },
   {
-    link: 'https://github.com/Vikms95',
+    link: '/Víctor Martín CV.pdf',
     iconSrc: mailIcon,
     text: 'Download my resume',
     alt: 'emails',
   },
   {
-    link: 'https://github.com/Vikms95',
+    link: 'mailto:vms1995@hotmail.com?subject=I want to hire you&body=I want to hire you',
     iconSrc: cvIcon,
     text: 'Send me an e-mail',
     alt: 'cv',

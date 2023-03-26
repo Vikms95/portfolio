@@ -41,10 +41,10 @@ import { links } from '../socialData'
 <template>
   <nav class="tablet:hidden fixed bottom-10 left-10 z-10 vertical-bar">
     <ul class="flex flex-col justify-center items-center gap-y-6 p-0 m-0">
-      <li v-for="{ link, iconSrc, alt, text } in links">
+      <li v-for="{ alt, link, text, iconSrc } in links">
         <a
-          target="_blank"
           class="flex justify-center items-center gap-y-1"
+          target="_blank"
           :href="link"
         >
           <img class="social-icon" :src="iconSrc" :alt="alt" />
