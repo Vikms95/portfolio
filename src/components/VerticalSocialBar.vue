@@ -14,23 +14,21 @@
 }
 
 .social-icon:hover ~ .icon-text {
-  display: flex;
-}
-
-.social-icon:hover ~ .icon-text {
+  font-size: 16px;
   opacity: 1;
 }
 
 .icon-text {
   display: flex;
+  font-size: 0px;
+  opacity: 0;
   justify-content: center;
   align-items: center;
   width: max-content;
   position: absolute;
   color: white;
   left: 40px;
-  opacity: 0;
-  transition: opacity 0.5s, visibility 0.5s linear;
+  transition: opacity 0.5s linear;
 }
 </style>
 
