@@ -48,7 +48,7 @@ watch(props, () => updateBodyData(props, name, facts, details))
     <h1 class="relative flex justify-center mb-6 text-3xl">
       {{ name }}
       <button
-        class="absolute -top-1 left-72 text-base cursor-pointer bg-transparent w-[0.1px]"
+        class="absolute -top-1 right-[5%] text-base cursor-pointer border-none z-20 bg-transparent w-[0.1px]"
         :onclick="props.resetSelectedBody"
       >
         X
