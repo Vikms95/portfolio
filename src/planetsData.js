@@ -40,9 +40,9 @@ export const planetsData = [
       title: 'Sun distance',
       value: '57,9 (10⁶ km)',
     },
-    moons: {
-      title: 'Moons',
-      value: '0',
+    temperature: {
+      title: 'Temperature',
+      value: '167 (Cº)',
     },
     facts: [
       `The deepest crater is about 1,550 km in diameter, which would be enough to fit inbetween Portugal to Germany. `,
@@ -77,9 +77,9 @@ export const planetsData = [
       title: 'Sun distance',
       value: '108,2 (10⁶ km)',
     },
-    moons: {
-      title: 'Moons',
-      value: '0',
+    temperature: {
+      title: 'Temperature',
+      value: '464 (Cº)',
     },
     facts: [
       `Its unusual axis rotation is due to being upside down – it was knocked off its upright position earlier in its history!`,
@@ -114,9 +114,9 @@ export const planetsData = [
       title: 'Sun distance',
       value: '149,6 (10⁶ km)',
     },
-    moons: {
-      title: 'Moons',
-      value: '1',
+    temperature: {
+      title: 'Temperature',
+      value: '15 (Cº)',
     },
     facts: [
       `Average day length is increasing by about 1.7 milliseconds every century.`,
@@ -151,9 +151,9 @@ export const planetsData = [
       title: 'Sun distance',
       value: '228 (10⁶ km)',
     },
-    moons: {
-      title: 'Moons',
-      value: '2',
+    temperature: {
+      title: 'Temperature',
+      value: '-65 (Cº)',
     },
     facts: [
       `Mars is home to the highest mountain and volcano on the Solar System. Three times the height of the Mount Everest!`,
@@ -188,9 +188,9 @@ export const planetsData = [
       title: 'Sun distance',
       value: '778,5 (10⁶ km)',
     },
-    moons: {
-      title: 'Moons',
-      value: '92',
+    temperature: {
+      title: 'Temperature',
+      value: '-110 (Cº)',
     },
     facts: [
       `It’s spinning so rapidly, the planet has flattened out at the poles a little and is bulging at its equator. points on Jupiter’s equator are more than 4,600 km further from the center than the poles. `,
@@ -230,9 +230,9 @@ export const planetsData = [
       title: 'Sun distance',
       value: '1.432 (10⁶ km)',
     },
-    moons: {
-      title: 'Moons',
-      value: '83',
+    temperature: {
+      title: 'Temperature',
+      value: '-140 (Cº)',
     },
     facts: [
       `Saturn could float in water because it is mostly made of gas. `,
@@ -272,9 +272,9 @@ export const planetsData = [
       title: 'Sun distance',
       value: '2.867 (10⁶ km)',
     },
-    moons: {
-      title: 'Moons',
-      value: '27',
+    temperature: {
+      title: 'Temperature',
+      value: '-140 (Cº)',
     },
     facts: [
       `The axial tilt of Uranus is a staggering 99 degrees! In other words, the planet is rotating on its side.`,
@@ -309,9 +309,9 @@ export const planetsData = [
       title: 'Sun distance',
       value: '4.515 (10⁶ km)',
     },
-    moons: {
-      title: 'Moons',
-      value: '14',
+    temperature: {
+      title: 'Temperature',
+      value: '-200 (Cº)',
     },
     facts: [
       `First planet in our solar system not visible to the naked eye and the first predicted by mathematics before its discovery.`,
@@ -347,9 +347,9 @@ export const planetsData = [
       title: 'Sun distance',
       value: '5.906 (10⁶ km)',
     },
-    moons: {
-      title: 'Moons',
-      value: '5',
+    temperature: {
+      title: 'Temperature',
+      value: '-232 (Cº)',
     },
     facts: [
       `Because of its elliptical orbit it means that on occasion Pluto is actually closer to The Sun than Neptune.`,
@@ -366,7 +366,16 @@ export const sunData = {
   position: 0,
   rotation: 0.00000000008,
   translation: null,
+  diameter: {
+    title: 'Diameter',
+    value: '1.397 million (km)',
+  },
+  temperature: {
+    title: 'Temperature',
+    value: '5537.778 (Cº)',
+  },
   facts: [
+    `The Sun spent about 100,000 years as a collapsing protostar before temperature and pressures in the interior ignited fusion at its core. The Sun started as a T Tauri star – a wildly active star that blasted out an intense solar wind. And just a few million years later, it settled down into its current form.`,
     `At the age of 10.9 billion years, the Sun’s core will start getting depleted of hydrogen. Our star will swell and in a few hundred million years it will turn into a subgiant — an orange star, whose radius will be 2.3 times larger than today.`,
     `At the age of 12.2 billion years, a thermonuclear reaction will begin in the outer layers of the Sun, and it will start swelling even more. Our luminary will turn into a red giant and absorb the inner planets. These transformations will end with the outer layers of the red giant flying into space, and the inner ones shrinking down to the state of a white dwarf.`,
   ],

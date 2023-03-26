@@ -1,7 +1,10 @@
 import * as THREE from 'three'
 import GSAP from 'gsap'
 
-import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer'
+import {
+  CSS2DRenderer,
+  CSS2DObject,
+} from 'three/examples/jsm/renderers/CSS2DRenderer'
 import starsTexture from '/3D-assets/stars.jpg'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { useWindowSize } from '@vueuse/core'
@@ -30,7 +33,8 @@ export const toggleRenderer = (content, labelRenderer, isFirstToggle) => {
     if (isFirstToggle.value === null) {
       isFirstToggle.value = true
     }
-  } else if (content.isEnabled == true) document.body.removeChild(labelRenderer.domElement)
+  } else if (content.isEnabled == true)
+    document.body.removeChild(labelRenderer.domElement)
 }
 
 export const setRendererSize = (renderer) => {
@@ -99,18 +103,30 @@ export const onResize = (renderer, camera) => {
   renderer.setSize(window.innerWidth, window.innerHeight)
 }
 
-export const addEventListeners = (cursor, renderer, camera, planetMeshes, sunMesh, raycaster, selectedBody) => {
+export const addEventListeners = (
+  cursor,
+  renderer,
+  camera,
+  planetMeshes,
+  sunMesh,
+  raycaster,
+  selectedBody
+) => {
   window.addEventListener('scroll', () => onScroll(camera))
   window.addEventListener('resize', () => onResize(renderer, camera))
   window.addEventListener('mousemove', (e) => onCursorMove(e, cursor))
-  window.addEventListener('click', () => handleClick(planetMeshes, sunMesh, raycaster, selectedBody))
+  window.addEventListener('click', () =>
+    handleClick(planetMeshes, sunMesh, raycaster, selectedBody)
+  )
 }
 
 const createSun = (star, scene) => {
   const textureLoader = new THREE.TextureLoader()
 
   const starGeo = new THREE.SphereGeometry(sunData.size, 30, 30)
-  const sunMat = new THREE.MeshBasicMaterial({ map: textureLoader.load(sunData.texture) })
+  const sunMat = new THREE.MeshBasicMaterial({
+    map: textureLoader.load(sunData.texture),
+  })
   star = new THREE.Mesh(starGeo, sunMat)
   star.name = sunData.index
 
@@ -139,7 +155,9 @@ const createPlanet = (size, texture, position, scene, index, ring, offset) => {
   const textureLoader = new THREE.TextureLoader()
 
   const geo = new THREE.SphereGeometry(size, 30, 30)
-  const mat = new THREE.MeshStandardMaterial({ map: textureLoader.load(texture) })
+  const mat = new THREE.MeshStandardMaterial({
+    map: textureLoader.load(texture),
+  })
   const mesh = new THREE.Mesh(geo, mat)
   mesh.name = index
   mesh.position.x = position
@@ -179,13 +197,23 @@ export const setupCelestialBodies = (scene, camera) => {
 
   attachLabel('The Sun', sunMesh.name, sunMesh, camera)
 
-  planetsData.forEach(({ name, size, texture, position, index, ring, offset }) => {
-    const { mesh, obj } = createPlanet(size, texture, position, scene, index, ring, offset)
-    attachLabel(name, index, mesh, camera)
+  planetsData.forEach(
+    ({ name, size, texture, position, index, ring, offset }) => {
+      const { mesh, obj } = createPlanet(
+        size,
+        texture,
+        position,
+        scene,
+        index,
+        ring,
+        offset
+      )
+      attachLabel(name, index, mesh, camera)
 
-    planetMeshes.push(mesh)
-    planetObjects.push(obj)
-  })
+      planetMeshes.push(mesh)
+      planetObjects.push(obj)
+    }
+  )
 
   return [sunMesh, planetMeshes, planetObjects]
 }
@@ -197,11 +225,15 @@ export const setupBackground = (scene) => {
 }
 
 export const rotatePlanets = (planetMeshes) => {
-  planetMeshes.forEach((planet, index) => planet.rotateY(planetsData[index].rotation))
+  planetMeshes.forEach((planet, index) =>
+    planet.rotateY(planetsData[index].rotation)
+  )
 }
 
 export const translatePlanets = (planetObjects) =>
-  planetObjects.forEach((planet, index) => planet.rotateY(planetsData[index].translation))
+  planetObjects.forEach((planet, index) =>
+    planet.rotateY(planetsData[index].translation)
+  )
 
 export const setupExplosion = (isExplosionHappening, explosion, scene) => {
   const isExplosion = Math.random() >= 0.9991 ? true : false
@@ -219,7 +251,12 @@ const increaseExplosion = (isExplosionDiminishing, explosion) => {
   if (explosion.intensity >= 5) isExplosionDiminishing = true
 }
 
-const diminishExplosion = (isExplosionDiminishing, isExplosionHappening, explosion, scene) => {
+const diminishExplosion = (
+  isExplosionDiminishing,
+  isExplosionHappening,
+  explosion,
+  scene
+) => {
   explosion.intensity -= 0.05
 
   if (explosion.intensity <= 0.5) {
@@ -229,10 +266,23 @@ const diminishExplosion = (isExplosionDiminishing, isExplosionHappening, explosi
   }
 }
 
-export const handleSunExplosions = (isExplosionHappening, isExplosionDiminishing, explosion, scene) => {
-  if (!isExplosionHappening) setupExplosion(isExplosionHappening, explosion, scene)
-  else if (!isExplosionDiminishing) increaseExplosion(isExplosionDiminishing, explosion)
-  else diminishExplosion(isExplosionDiminishing, isExplosionHappening, explosion, scene)
+export const handleSunExplosions = (
+  isExplosionHappening,
+  isExplosionDiminishing,
+  explosion,
+  scene
+) => {
+  if (!isExplosionHappening)
+    setupExplosion(isExplosionHappening, explosion, scene)
+  else if (!isExplosionDiminishing)
+    increaseExplosion(isExplosionDiminishing, explosion)
+  else
+    diminishExplosion(
+      isExplosionDiminishing,
+      isExplosionHappening,
+      explosion,
+      scene
+    )
 }
 
 const normalizeColorOnMouseLeave = (planetMeshes, sunMesh, camera) => {
@@ -265,7 +315,14 @@ const handleClick = (planetMeshes, sunMesh, raycaster, selectedBody) => {
   else selectedBody.value = null
 }
 
-export const handleIntersection = (planetMeshes, sunMesh, content, raycaster, cursor, camera) => {
+export const handleIntersection = (
+  planetMeshes,
+  sunMesh,
+  content,
+  raycaster,
+  cursor,
+  camera
+) => {
   if (!content.isEnabled) {
     planetMeshes.concat(sunMesh)
 
@@ -276,7 +333,12 @@ export const handleIntersection = (planetMeshes, sunMesh, content, raycaster, cu
   }
 }
 
-export const translateCameraOnFirstToggle = (isFirstToggle, camera, sun, controls) => {
+export const translateCameraOnFirstToggle = (
+  isFirstToggle,
+  camera,
+  sun,
+  controls
+) => {
   if (isFirstToggle.value === false || isFirstToggle.value === null) return
 
   camera.lookAt(sun.position)
@@ -351,7 +413,12 @@ export const translateCameraOnFirstToggle = (isFirstToggle, camera, sun, control
   camera.position.y -= 0.15
 }
 
-export const translateToSelectedBody = (scene, camera, controls, selectedBody) => {
+export const translateToSelectedBody = (
+  scene,
+  camera,
+  controls,
+  selectedBody
+) => {
   if (selectedBody.value === null) {
     enableControls(controls)
     // scene.add( camera );
@@ -365,7 +432,14 @@ export const translateToSelectedBody = (scene, camera, controls, selectedBody) =
 
   disableControls(controls)
   setupInitialRotation(object, camera, cameraRotation)
-  targetPlanetAndTranslate(camera, center, size, controls, startOrientation, targetOrientation)
+  targetPlanetAndTranslate(
+    camera,
+    center,
+    size,
+    controls,
+    startOrientation,
+    targetOrientation
+  )
 }
 
 const enableControls = (controls) => {
@@ -396,7 +470,11 @@ const setupInitialRotation = (object, camera, cameraRotation) => {
 }
 
 const getInitialQuaternion = (camera) => {
-  const cameraRotation = { x: camera.rotation.x, y: camera.rotation.y, z: camera.rotation.z }
+  const cameraRotation = {
+    x: camera.rotation.x,
+    y: camera.rotation.y,
+    z: camera.rotation.z,
+  }
   const targetOrientation = camera.quaternion.clone().normalize()
 
   return { cameraRotation, targetOrientation }
@@ -420,12 +498,21 @@ const translateCamera = (camera, center, size, controls) => {
   })
 }
 
-const targetPlanetAndTranslate = (camera, center, size, controls, startOrientation, targetOrientation) => {
+const targetPlanetAndTranslate = (
+  camera,
+  center,
+  size,
+  controls,
+  startOrientation,
+  targetOrientation
+) => {
   GSAP.to(
     {},
     {
       onUpdate: function () {
-        camera.quaternion.copy(startOrientation).slerp(targetOrientation, this.progress())
+        camera.quaternion
+          .copy(startOrientation)
+          .slerp(targetOrientation, this.progress())
       },
       onComplete: function () {
         translateCamera(camera, center, size, controls)
@@ -435,17 +522,25 @@ const targetPlanetAndTranslate = (camera, center, size, controls, startOrientati
 }
 
 export const getSelectedBodyName = (selectedBody) => {
-  return planetsData[selectedBody - 1].name
+  return selectedBody !== 10 ? planetsData[selectedBody - 1].name : sunData.name
 }
 
 export const getSelectedBodyDetails = (selectedBody) => {
-  const { diameter, gravity, distanceSun, dayLength, yearLength, moons } = planetsData[selectedBody - 1]
+  const { diameter, gravity, distanceSun, dayLength, yearLength, temperature } =
+    planetsData[selectedBody - 1]
 
-  return [diameter, gravity, dayLength, yearLength, distanceSun, moons]
+  return [diameter, gravity, dayLength, yearLength, distanceSun, temperature]
+}
+
+export const getSunDetails = () => {
+  const { diameter, temperature } = sunData
+  return [diameter, temperature]
 }
 
 export const getSelectedBodyFacts = (selectedBody) => {
-  return planetsData[selectedBody - 1].facts
+  return selectedBody !== 10
+    ? planetsData[selectedBody - 1].facts
+    : sunData.facts
 }
 
 export const updateBodyData = (props, name, facts, details) => {
@@ -453,5 +548,7 @@ export const updateBodyData = (props, name, facts, details) => {
 
   name.value = getSelectedBodyName(selected)
   facts.value = getSelectedBodyFacts(selected)
-  details.value = getSelectedBodyDetails(selected)
+  console.warn(selected)
+  details.value =
+    selected !== 10 ? getSelectedBodyDetails(selected) : getSunDetails()
 }
