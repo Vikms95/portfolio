@@ -27,8 +27,9 @@ export const projectsData = [
     projectLink: 'https://codespot.vercel.app/',
   },
   {
-    name: "Where's Waldo",
-    description: "Classic Where's Waldo game. Ability to record your scores and upload them on a highscore's list.",
+    name: 'Waldo',
+    description:
+      "Classic Where's Waldo game. Ability to record your scores and upload them on a highscore's list.",
     images: '/project-images/wheres-waldo.png',
     technologies: ['React', 'Styled Components', 'Express', 'MongoDB'],
     githubLink: 'https://github.com/Vikms95/react-wheres-waldo',

@@ -44,10 +44,12 @@ onMounted(() => {
 
     <div class="shadowed-text max-w-full">
       <h2
-        class="typewriter-text my-6 mx-0 text-4xl tablet:text-center tablet:text-xl mobile:text-lg"
+        class="typewriter-text my-6 mx-0 text-4xl font-bold tablet:text-center tablet:text-xl mobile:text-lg"
       />
 
-      <h3 class="text-lg my-6 mx-0 tablet:text-base tablet:text-center">
+      <h3
+        class="text-lg font-semibold my-6 mx-0 tablet:text-base tablet:text-center"
+      >
         I build impactful websites that bring success to your business
       </h3>
     </div>

@@ -2,6 +2,9 @@
 .project-container {
   display: flex;
   margin: 0 0 200px;
+  @apply desktop:-ml-40;
+  @apply tablet:ml-0 tablet:mb-80;
+  @apply tablet:-scroll-mb-64;
 }
 
 .project-content {
@@ -19,6 +22,7 @@
   margin: 0 0 20px;
   z-index: 1;
   color: red;
+  @apply tablet:justify-center;
 }
 
 .project-name {
@@ -63,10 +67,12 @@
   color: #f57dff;
   font-size: 15px;
   font-weight: 900;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
 
 .project-image {
+  max-width: none;
   position: absolute;
   left: 300px;
   top: -30px;
@@ -74,6 +80,9 @@
   height: 20em;
   z-index: -1;
   border-radius: 5px;
+  @apply desktop:h-72 desktop:-ml-12;
+  @apply tablet:-ml-0 tablet:-left-[38px] tablet:top-64 tablet:h-48;
+  @apply mobile:top-56;
 }
 </style>
 
@@ -83,7 +92,8 @@ import linkIcon from '/social-icons/external-link-icon.png'
 
 const { project } = defineProps(['project'])
 
-const { name, description, images, technologies, githubLink, projectLink } = project
+const { name, description, images, technologies, githubLink, projectLink } =
+  project
 </script>
 <!-- https://brittanychiang.com/ -->
 
@@ -102,11 +112,11 @@ const { name, description, images, technologies, githubLink, projectLink } = pro
         </div>
       </div>
       <div class="project-description">{{ description }}</div>
-      <div class="project-technologies">
+      <!-- <div class="project-technologies">
         <span class="technology-name" v-for="techName in technologies">
           {{ techName }}
         </span>
-      </div>
+      </div> -->
       <img class="project-image" :src="images" :alt="name" />
     </div>
 

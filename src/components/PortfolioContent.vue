@@ -4,7 +4,7 @@
   left: 50%;
   top: 120em;
   transform: translate(-50%, -110em);
-  width: clamp(310px, 60vw, 1050px);
+  width: clamp(310px, 60vw, 1550px);
 
   display: grid;
   justify-content: center;
@@ -57,7 +57,7 @@ onMounted(() =>
     <main class="content-wrapper">
       <PortfolioBio />
 
-      <div
+      <section
         class="flex justify-center gap-x-10 mb-40 tablet:flex-col tablet:gap-y-6 tablet:mb-20 tablet:items-center"
       >
         <ExperienceButton
@@ -70,7 +70,7 @@ onMounted(() =>
           :toggle="toggleExperience"
           :text="experienceButtonText"
         />
-      </div>
+      </section>
 
       <ScrollAnimatedIcon v-if="width >= 786" />
       <HorizontalSocialBar v-else />
@@ -78,13 +78,9 @@ onMounted(() =>
       <section
         class="backdrop-blur-lg grid text-base text-white rounded-lg px-8 py-4 tablet:px-6 tablet:py-2"
       >
-        <article class="mb-8">
-          <ContentTechnologies />
-        </article>
+        <ContentTechnologies />
 
-        <article class="projects">
-          <ContentProjects />
-        </article>
+        <ContentProjects />
 
         <!-- 
         <article class="contributions">
