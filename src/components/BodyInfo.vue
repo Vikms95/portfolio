@@ -28,7 +28,12 @@
 import { updateBodyData } from '../utils-3D'
 import { ref, watch, onMounted } from 'vue'
 
-const props = defineProps(['selectedBody', 'selectedBodyRef', 'updateBodyName'])
+const props = defineProps([
+  'selectedBody',
+  'selectedBodyRef',
+  'updateBodyName',
+  'resetSelectedBody',
+])
 
 const name = ref(null)
 const facts = ref(null)
@@ -40,7 +45,15 @@ watch(props, () => updateBodyData(props, name, facts, details))
 
 <template>
   <aside class="info-container">
-    <h1 class="flex justify-center mb-6 text-3xl">{{ name }}</h1>
+    <h1 class="relative flex justify-center mb-6 text-3xl">
+      {{ name }}
+      <button
+        class="absolute -top-1 left-72 text-base cursor-pointer bg-transparent w-[0.1px]"
+        :onclick="props.resetSelectedBody"
+      >
+        X
+      </button>
+    </h1>
     <article class="grid grid-cols-2 items-center gap-x-8 gap-y-5 mb-16">
       <div class="flex flex-col" v-for="{ title, value } in details">
         <div

@@ -58,6 +58,10 @@ const updateBodyName = (props) => {
   return getSelectedBodyName(props.selectedBody)
 }
 
+const resetSelectedBody = () => {
+  selectedBody.value = null
+}
+
 function animate() {
   controls.update()
   requestAnimationFrame(animate)
@@ -111,6 +115,7 @@ onMounted(() => {
       v-if="selectedBody !== null"
       :selectedBody="selectedBody"
       :updateBodyName="updateBodyName"
+      :resetSelectedBody="resetSelectedBody"
     />
   </Teleport>
 </template>

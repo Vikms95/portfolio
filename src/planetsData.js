@@ -375,8 +375,8 @@ export const sunData = {
     value: '5537.778 (Cº)',
   },
   facts: [
-    `The Sun spent about 100,000 years as a collapsing protostar before temperature and pressures in the interior ignited fusion at its core. The Sun started as a T Tauri star – a wildly active star that blasted out an intense solar wind. And just a few million years later, it settled down into its current form.`,
+    `The Sun spent about 100,000 years as a collapsing protostar before temperature and pressures in the interior ignited fusion at its core.`,
     `At the age of 10.9 billion years, the Sun’s core will start getting depleted of hydrogen. Our star will swell and in a few hundred million years it will turn into a subgiant — an orange star, whose radius will be 2.3 times larger than today.`,
-    `At the age of 12.2 billion years, a thermonuclear reaction will begin in the outer layers of the Sun, and it will start swelling even more. Our luminary will turn into a red giant and absorb the inner planets. These transformations will end with the outer layers of the red giant flying into space, and the inner ones shrinking down to the state of a white dwarf.`,
+    `At the age of 12.2 billion years, a thermonuclear reaction will begin in the outer layers of the Sun, and it will start swelling even more. Our luminary will turn into a red giant and absorb the inner planets. These transformations will end with the outer layers of the red giant will shrink into  a white dwarf.`,
   ],
 }
