@@ -106,9 +106,11 @@ onMounted(() => {
 
 <template>
   <canvas ref="experience" class="fixed w-fit h-fit" />
-  <BodyInfo
-    v-if="selectedBody !== null"
-    :selectedBody="selectedBody"
-    :updateBodyName="updateBodyName"
-  />
+  <Teleport to="body">
+    <BodyInfo
+      v-if="selectedBody !== null"
+      :selectedBody="selectedBody"
+      :updateBodyName="updateBodyName"
+    />
+  </Teleport>
 </template>

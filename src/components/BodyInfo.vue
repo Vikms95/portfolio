@@ -1,12 +1,14 @@
 <style scoped>
 .info-container {
   @apply block 
-  tablet:hidden
+  tablet:left-0 
+  tablet:right-0 
+  tablet:top-48
+  tablet:my-0 
+  tablet:mx-auto
   absolute 
   top-20 
   left-[70vw] 
-  desktop:left-[65vw] 
-  tablet:left-[40vw] 
   p-6 
   desktop:p-4
   rounded-md 
@@ -41,11 +43,15 @@ watch(props, () => updateBodyData(props, name, facts, details))
     <h1 class="flex justify-center mb-6 text-3xl">{{ name }}</h1>
     <article class="grid grid-cols-2 items-center gap-x-8 gap-y-5 mb-16">
       <div class="flex flex-col" v-for="{ title, value } in details">
-        <div class="text-l underline font-black mb-2">
+        <div
+          class="flex justify-center text-center text-l underline font-black mb-2"
+        >
           {{ title }}
         </div>
 
-        <div class="text-l justify-self-start italic">
+        <div
+          class="flex justify-center text-center text-l justify-self-start italic"
+        >
           {{ value }}
         </div>
       </div>

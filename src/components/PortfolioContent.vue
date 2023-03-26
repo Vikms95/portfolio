@@ -14,26 +14,6 @@
   opacity: v-bind(opacity);
   transition: opacity 0.8s, visibility 0.5s linear;
 }
-
-.bio-button-container {
-  display: flex;
-  justify-content: center;
-  column-gap: 2.5em;
-  margin-bottom: 10em;
-}
-
-.content {
-  display: grid;
-  font-size: 15px;
-  backdrop-filter: blur(15px);
-  color: white;
-  border-radius: 20px;
-  padding: 1em 2em;
-}
-
-.technologies {
-  margin-bottom: 2em;
-}
 </style>
 
 <script setup>
@@ -98,13 +78,13 @@ onMounted(() =>
       <section
         class="backdrop-blur-lg grid text-base text-white rounded-lg px-8 py-4 tablet:px-6 tablet:py-2"
       >
-        <article class="technologies">
+        <article class="mb-8">
           <ContentTechnologies />
         </article>
 
-        <!-- <article class="projects">
+        <article class="projects">
           <ContentProjects />
-        </article> -->
+        </article>
 
         <!-- 
         <article class="contributions">
