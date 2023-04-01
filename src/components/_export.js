@@ -2,6 +2,7 @@ import git from '/tech-icons/git-original.svg'
 import html from '/tech-icons/html5-original.svg'
 import css from '/tech-icons/css3-original.svg'
 import bootstrap from '/tech-icons/bootstrap-original.svg'
+import tailwind from '/tech-icons/tailwind-original.svg'
 import mongo from '/tech-icons/mongodb-original.svg'
 import node from '/tech-icons/nodejs-original.svg'
 import python from '/tech-icons/python-original.svg'
@@ -24,6 +25,7 @@ export default {
   html,
   css,
   bootstrap,
+  tailwind,
   react,
   angular,
   vue,

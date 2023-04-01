@@ -45,7 +45,7 @@ watch(props, () => updateBodyData(props, name, facts, details))
 
 <template>
   <aside class="info-container">
-    <h1 class="relative flex justify-center mb-6 text-3xl">
+    <h1 class="flex relative justify-center mb-6 text-3xl">
       {{ name }}
       <button
         class="absolute -top-1 right-[5%] text-base cursor-pointer border-none z-20 bg-transparent w-[0.1px]"
