@@ -8,7 +8,7 @@
 <script setup>
 import TypeWriter from 'typewriter-effect/dist/core'
 import { onMounted } from 'vue'
-import profilePicture from '/social-icons/profile.jfif'
+import profilePicture from '/social-icons/profile.jpg'
 
 onMounted(() => {
   const node = document.querySelector('.typewriter-text')

@@ -57,14 +57,14 @@ export const techData = [
     ico: icons.python,
     doc: 'https://www.python.org/doc/',
   },
-  {
-    ico: icons.csharp,
-    doc: 'https://learn.microsoft.com/en-us/dotnet/csharp/',
-  },
-  {
-    ico: icons.dotnet,
-    doc: 'https://dotnet.microsoft.com/es-es/',
-  },
+  //   {
+  //     ico: icons.csharp,
+  //     doc: 'https://learn.microsoft.com/en-us/dotnet/csharp/',
+  //   },
+  //   {
+  //     ico: icons.dotnet,
+  //     doc: 'https://dotnet.microsoft.com/es-es/',
+  //   },
   {
     ico: icons.mysql,
     doc: 'https://www.mysql.com/',
@@ -77,12 +77,12 @@ export const techData = [
     ico: icons.postgre,
     doc: 'https://www.postgresql.org/',
   },
-  {
-    ico: icons.graphql,
-    doc: 'https://graphql.org/',
-  },
-  {
-    ico: icons.docker,
-    doc: 'https://www.docker.com/',
-  },
+  //   {
+  //     ico: icons.graphql,
+  //     doc: 'https://graphql.org/',
+  //   },
+  //   {
+  //     ico: icons.docker,
+  //     doc: 'https://www.docker.com/',
+  //   },
 ]
