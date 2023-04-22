@@ -73,14 +73,13 @@
   left: 300px;
   top: -30px;
   display: flex;
-  height: 15em;
+  height: 20em;
   z-index: -1;
   border-radius: 5px;
   @apply desktop:h-64 desktop:-ml-10;
   @apply tablet:-ml-0 tablet:-left-[38px] tablet:top-64 tablet:h-44;
   @apply mobile:top-72 mobile:h-36 tablet:ml-10;
 }
-
 </style>
 
 <script setup>
