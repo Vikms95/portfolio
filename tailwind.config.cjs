@@ -7,6 +7,7 @@ module.exports = {
       tablet: { max: '640px' },
       laptop: { max: '1024px' },
       desktop: { max: '1280px' },
+      'tablet-min': { min: '640px' },
     },
     extend: {},
   },

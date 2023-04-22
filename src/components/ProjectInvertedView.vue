@@ -18,6 +18,7 @@
 
 .project-header {
   display: flex;
+  flex-direction: column;
   justify-content: flex-end;
   align-items: center;
   margin: 0 0 20px;
@@ -61,16 +62,12 @@
 
 .project-technologies {
   display: flex;
-  justify-content: space-evenly;
-  column-gap: 13px;
+  justify-content: center;
+  column-gap: 15px;
   align-items: center;
   margin: 20px 0 0;
   z-index: 1;
-  color: #f57dff;
   font-size: 15px;
-  font-weight: 900;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
-    1px 1px 0 #000;
 }
 
 .project-image {
@@ -82,17 +79,23 @@
   z-index: -1;
   border-radius: 5px;
   max-width: none;
-  @apply desktop:h-72 desktop:-mr-12;
-  @apply tablet:-ml-0 tablet:-left-[38px] tablet:top-64 tablet:h-48;
-  @apply mobile:top-56;
+  @apply desktop:h-64 desktop:-mr-10;
+  @apply tablet:-ml-0 tablet:-left-[38px] tablet:top-64 tablet:h-44;
+  @apply mobile:top-72 mobile:h-36 tablet:ml-10;
 }
+
+/* @apply desktop:h-64 desktop:-ml-10;
+  @apply tablet:-ml-0 tablet:-left-[38px] tablet:top-64 tablet:h-44;
+  @apply mobile:top-72 mobile:h-36 tablet:ml-10; */
 </style>
 
 <script setup>
 import ghIcon from '/social-icons/github-project-icon.png'
 import linkIcon from '/social-icons/external-link-icon.png'
+import { useWindowSize } from '@vueuse/core'
 
 const { project } = defineProps(['project'])
+const { width } = useWindowSize()
 
 const { name, description, images, technologies, githubLink, projectLink } =
   project
@@ -103,23 +106,36 @@ const { name, description, images, technologies, githubLink, projectLink } =
   <section class="project-container">
     <div class="project-content">
       <div class="project-header">
-        <div class="project-link-icons">
-          <a target="_blank" :href="githubLink">
-            <img :src="ghIcon" alt="gh" />
-          </a>
-          <a target="_blank" :href="projectLink">
-            <img :src="linkIcon" alt="link" />
-          </a>
+        <div class="flex flex-row tablet-min:ml-16 tablet:pb-4">
+          <div class="project-link-icons">
+            <a target="_blank" :href="githubLink">
+              <img :src="ghIcon" alt="gh" />
+            </a>
+            <a target="_blank" :href="projectLink">
+              <img :src="linkIcon" alt="link" />
+            </a>
+          </div>
+          <div class="project-name">{{ name }}</div>
         </div>
-        <div class="project-name">{{ name }}</div>
+
+        <div v-if="width <= 640" class="flex gap-x-6">
+          <span class="technology-icon" v-for="techIcon in technologies">
+            <img class="h-8" :src="techIcon" alt="tech-icon" />
+          </span>
+        </div>
       </div>
 
-      <div class="project-description">{{ description }}</div>
-      <!-- <div class="project-technologies">
-        <span class="technology-name" v-for="techName in technologies">
-          {{ techName }}
+      <div class="project-description mobile:-mb-[150px]">
+        {{ description }}
+      </div>
+      <div class="project-technologies">
+        <span
+          class="technology-icon tablet:hidden"
+          v-for="techIcon in technologies"
+        >
+          <img class="h-8" :src="techIcon" alt="tech-icon" />
         </span>
-      </div> -->
+      </div>
       <img class="project-image" :src="images" :alt="name" />
     </div>
 

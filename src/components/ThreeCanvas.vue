@@ -112,7 +112,7 @@ onMounted(() => {
   <canvas ref="experience" class="fixed w-fit h-fit" />
   <Teleport to="body">
     <BodyInfo
-      v-if="selectedBody !== null"
+      v-if="selectedBody !== null && !content.isEnabled"
       :selectedBody="selectedBody"
       :updateBodyName="updateBodyName"
       :resetSelectedBody="resetSelectedBody"

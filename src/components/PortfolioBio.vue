@@ -44,7 +44,7 @@ onMounted(() => {
 
     <div class="shadowed-text max-w-full">
       <h2
-        class="typewriter-text my-6 mx-0 text-4xl font-bold tablet:text-center tablet:text-xl mobile:text-lg"
+        class="typewriter-text my-6 mx-0 text-4xl font-bold laptop:text-center tablet:text-xl mobile:text-lg"
       />
 
       <h3

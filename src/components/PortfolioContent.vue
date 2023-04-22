@@ -72,7 +72,7 @@ onMounted(() =>
         />
       </section>
 
-      <ScrollAnimatedIcon v-if="width >= 786" />
+      <ScrollAnimatedIcon v-if="width > 640" />
       <HorizontalSocialBar v-else />
 
       <section
