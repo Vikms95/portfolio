@@ -27,6 +27,7 @@
 <script setup>
 import { updateBodyData } from '../utils-3D'
 import { ref, watch, onMounted } from 'vue'
+import closeIco from '/close.png'
 
 const props = defineProps([
   'selectedBody',
@@ -47,12 +48,13 @@ watch(props, () => updateBodyData(props, name, facts, details))
   <aside class="info-container">
     <h1 class="flex relative justify-center mb-6 text-3xl">
       {{ name }}
-      <button
-        class="absolute -top-1 right-[5%] text-base cursor-pointer border-none z-20 bg-transparent w-[0.1px]"
+      <img
+        role="button"
         :onclick="props.resetSelectedBody"
-      >
-        X
-      </button>
+        class="h-3 hover:cursor-pointer absolute -top-1 right-[5%] text-base cursor-pointer border-none z-20 bg-transparent"
+        :src="closeIco"
+        alt="close"
+      />
     </h1>
     <article class="grid grid-cols-2 items-center gap-x-8 gap-y-5 mb-16">
       <div class="flex flex-col" v-for="{ title, value } in details">
