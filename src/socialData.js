@@ -23,7 +23,7 @@ export const links = [
     alt: 'emails',
   },
   {
-    link: 'mailto:vms1995@hotmail.com?subject=I want to hire you&body=I want to hire you',
+    link: 'mailto:vms1995@hotmail.com?subject=Interview proposal &body=We would be interested to have a conversation with you about your experience. For further contact, you can send us an e-mail to ____@__.com or ******.',
     iconSrc: cvIcon,
     text: 'Send me an e-mail',
     alt: 'cv',
